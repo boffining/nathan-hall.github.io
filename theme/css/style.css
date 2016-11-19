@@ -7,7 +7,7 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 100px;
   font-size: 16px;
   background-color: #fff;
   }
@@ -34,7 +34,7 @@ a:hover {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 60px 15px 0;
+  padding: 115px 15px 0;
   color: #424242;
   font-family: 'Montserrat', sans-serif;
 }
@@ -73,7 +73,7 @@ body > .container {
 
 @media (max-width: 767px) {
   .navbar-header  {
-      background: #ff3730;
+      background: ##07C9FF;
   }
 }
 
@@ -84,7 +84,6 @@ body > .container {
 .navbar, .navbar {
   color: #fff;
   background: #07C9FF;
-  margin-right: 20px;
   letter-spacing: 1px;
   font-weight: 700;
   text-transform: uppercase;
@@ -94,11 +93,12 @@ body > .container {
 .navbar-brand, .navbar-brand:hover {
   color: #fff;
   background: #07C9FF;
+  margin-top: : 5px;
   margin-right: 20px;
   letter-spacing: 1px;
   font-weight: 700;
   text-transform: uppercase;
-  font-size: 22px;
+  font-size: 35px;
 }
 
 .navbar .navbar-brand:hover {
@@ -321,7 +321,6 @@ h6,
     background-color: #FFE74C;
     border: 0px solid #ccc;
     border-radius: 0px;
-    top: 15px;
 }
 
 .form-control {
