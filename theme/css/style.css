@@ -35,7 +35,7 @@ a:hover {
 body > .container {
   padding: 60px 15px 0;
   color: #424242;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 .container {
@@ -66,13 +66,13 @@ body > .container {
 }
 
 .navbar {
-      background-color: #07C9FF;
-      border-bottom: 0px solid #07C9FF;
+      background-color: #ff3730;
+      border-bottom: 0px solid #ff3730;
 }
 
 @media (max-width: 767px) {
   .navbar-header  {
-      background: #07C9FF;
+      background: #ff3730;
   }
 }
 
@@ -82,7 +82,7 @@ body > .container {
 
 .navbar .navbar-brand, .navbar .navbar-brand:hover {
   color: #fff;
-  background: #07C9FF;
+  background: #ff3730;
   margin-right: 20px;
   letter-spacing: 1px;
   font-weight: 700;
@@ -91,7 +91,7 @@ body > .container {
 }
 
 .navbar .navbar-brand:hover {
-  background: #FFE74C;
+  background: #ef322b;
 }
 
 
@@ -121,16 +121,16 @@ body > .container {
 }
 
 .navbar-nav > li > a:hover, .navbar-nav > li > a:active {
-  background-color: #FFE74C;
+  background-color: #ef322b;
 }
 
 .navbar-nav > li > a:focus{
-  background-color: #FFE74C;
+  background-color: #ff3730;
 }
 
 
 .nav .dropdown.open > a, .nav .dropdown.open > a:hover, .nav .dropdown.open > a:focus {
-    background-color: #FFE74C;
+    background-color: #ef322b;
 }
 
 .dropdown-menu {
@@ -138,7 +138,7 @@ body > .container {
 }
 
 .navbar-toggle {
-  background: #FFB400;
+  background: #ff3730;
 }
 
 .footer {
@@ -307,7 +307,7 @@ h6,
     line-height: 1;
     color: #fff;
     text-align: center;
-    background-color: #01BAEF;
+    background-color: #ec352f;
     border: 0px solid #ccc;
     border-radius: 0px;
 }
