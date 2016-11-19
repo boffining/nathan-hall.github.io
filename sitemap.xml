@@ -5,29 +5,29 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-11-18T20:36:56-00:00</lastmod>
+<lastmod>2016-11-18T22:10:25-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://www.instantinate.com/archives.html</loc>
-<lastmod>2016-11-18T20:36:56-00:00</lastmod>
-<changefreq>daily</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/tags.html</loc>
-<lastmod>2016-11-18T20:36:56-00:00</lastmod>
+<lastmod>2016-11-18T22:10:25-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://www.instantinate.com/categories.html</loc>
-<lastmod>2016-11-18T20:36:56-00:00</lastmod>
+<lastmod>2016-11-18T22:10:25-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/python-data-wrangling/Test_Article_Publishing.html</loc>
+<lastmod>2016-05-01T12:00:00-04:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 

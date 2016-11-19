@@ -1,3 +1,4 @@
+/* Style inspired by Chris Albon
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -72,7 +73,7 @@ body > .container {
 
 @media (max-width: 767px) {
   .navbar-header  {
-      background: #07C9FF;
+      background: #ff3730;
   }
 }
 
@@ -138,7 +139,7 @@ body > .container {
 }
 
 .navbar-toggle {
-  background: #FFB400;
+  background: #FFE74C;
 }
 
 .footer {
@@ -307,7 +308,7 @@ h6,
     line-height: 1;
     color: #fff;
     text-align: center;
-    background-color: #01BAEF;
+    background-color: #ec352f;
     border: 0px solid #ccc;
     border-radius: 0px;
 }
