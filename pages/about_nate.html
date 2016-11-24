@@ -1,9 +1,8 @@
-<!--Style Inspired by Chris Albon-->
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+      <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
@@ -16,16 +15,16 @@
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-        window.jQuery || document.write('<script src="./theme/js/jquery.min.js"><\/script>')
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
     </script>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="./theme/css/bootstrap.css" />
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link rel="stylesheet" type="text/css" href="./theme/css/ie10-viewport-bug-workaround.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
     <!-- Custom styles for this template -->
-    <link rel="stylesheet" type="text/css" href="./theme/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="./theme/css/notebooks.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -34,6 +33,8 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
         
+
+
 </head>
 
 <body>
@@ -46,7 +47,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="." style="margin-top: 5px;">INSTANTI-NATE</a>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
             </div>
             <div class="navbar-collapse collapse" id="searchbar">
 
@@ -54,7 +55,7 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="./pages/about.html">About Nate</a></li>
+                            <li><a href="../pages/about.html">About Nate</a></li>
                             <li><a href="https://github.com/nathan-hall/nathan-hall.github.io">GitHub</a></li>
                             <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a">LinkedIn</a></li>
                         </ul>
@@ -62,21 +63,21 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href=".#Python">Python</a></li>
-                            <li><a href=".#R_Stats">Pandas</a></li>
-                            <!--<li><a href=".#Regex">Regex</a></li>-->
-                            <li><a href=".#Command_Line">Command Line</a></li>
-                            <li><a href=".#Project_Juypter">Juypter Notebook</a></li>
-                            <!--<li><a href=".#SQL">SQL</a></li>-->
-                            <!--<li><a href=".#Mathematics">Mathematics</a></li>
-                            <li><a href=".#Javascript">Javascript</a></li>
-                            <li><a href=".#Probability">Probability</a></li>-->
-                            <li><a href=".#Frequentist_Statistics">Frequentist Statistics</a></li>
-                            <!--<li><a href=".#Bayesian_Statistics">Bayesian Statistics</a></li>-->
-                            <li><a href=".#Machine_Learning">Machine Learning</a></li>
-                            <li><a href=".#GitHub">GitHub</a></li>
-                            <!--<li><a href=".#Articles">Articles</a></li>-->
-                            <li><a href=".#Projects">Projects</a></li>
+                            <li><a href="..#Python">Python</a></li>
+                            <li><a href="..#R_Stats">Pandas</a></li>
+                            <!--<li><a href="..#Regex">Regex</a></li>-->
+                            <li><a href="..#Command_Line">Command Line</a></li>
+                            <li><a href="..#Project_Juypter">Juypter Notebook</a></li>
+                            <!--<li><a href="..#SQL">SQL</a></li>-->
+                            <!--<li><a href="..#Mathematics">Mathematics</a></li>
+                            <li><a href="..#Javascript">Javascript</a></li>
+                            <li><a href="..#Probability">Probability</a></li>-->
+                            <li><a href="..#Frequentist_Statistics">Frequentist Statistics</a></li>
+                            <!--<li><a href="..#Bayesian_Statistics">Bayesian Statistics</a></li>-->
+                            <li><a href="..#Machine_Learning">Machine Learning</a></li>
+                            <li><a href="..#GitHub">GitHub</a></li>
+                            <!--<li><a href="..#Articles">Articles</a></li>-->
+                            <li><a href="..#Projects">Projects</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -87,7 +88,7 @@
                     </li>
                 </ul>
 
-                <form class="navbar-form" action="./search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
                     <div class="form-group" style="display:inline;">
                         <div class="input-group" style="display:table;">
                             <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
@@ -105,67 +106,22 @@
 
     <!-- end of header section -->
     <div class="container">
-<div class="page-header">
-  <h1 class="index-page-title">Personal Data Science Blog of Nate Hall</h1>
+<section id="content" class="body">
+  <header>
+    <h1>
+      About Nate
+    </h1>
+  </header>
+  <div class='article_content'>
+<h1>What kind of guy names a blog "Instanti-nate" anyway?</h1>
+<h4>Well you wanted to know so here goes.</h4>
+<p>Born.
+Eats.
+Sleeps.
+Works.</p>
+<p>Ta-da!</p>
 </div>
-<div class="homepage-blurb row">
-    <div class="col-sm-12">
-        <p>Site under contruction</p>
-    </div>
-</div>
-
-<div class="row" id="Python">
-  <div class="col-sm-12">
-    <h2 class="homepage_category_title">Python</h2>
-  </div>
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Basics</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-            <li>Coming soon.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Data Wrangling</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-            <li>Coming soon.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Data Visualization</h3>
-      </div>
-      <div class="panel-body">
-        <ul>
-            <li>Coming soon.</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-<div class="row" id="Command_Line">
-  <div class="col-sm-12">
-    <h2 class="homepage_category_title">Command Line</h2>
-  </div>
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-      <div class="panel-body">
-          <li>Coming soon.</li>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
     </div>
     <!-- start of footer section -->
     <!--<footer class="footer">
@@ -207,9 +163,9 @@
     <!-- Bootstrap core JavaScript
       ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./theme/js/bootstrap.min.js"></script>
+    <script src="../theme/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./theme/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 
 </html>
