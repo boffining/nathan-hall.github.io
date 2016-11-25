@@ -5,13 +5,20 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-11-23T21:57:42-00:00</lastmod>
+<lastmod>2016-11-25T11:40:37-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>http://www.instantinate.com/pages/about_nate.html</loc>
+<lastmod>2016-11-23T12:00:00-05:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/article/billboard_analysis.html</loc>
 <lastmod>2016-11-23T12:00:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
@@ -25,14 +32,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://www.instantinate.com/articles/billboard_hot_100_analysis.html</loc>
-<lastmod>2016-05-01T12:00:00-04:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/command-line/covert_all_ipynb_to_html.html</loc>
+<loc>http://www.instantinate.com/python/covert_all_ipynb_to_html.html</loc>
 <lastmod>2016-05-01T12:00:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
