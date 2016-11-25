@@ -5,7 +5,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-11-25T12:15:52-00:00</lastmod>
+<lastmod>2016-11-25T12:58:17-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -25,7 +25,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://www.instantinate.com/python/covert_all_ipynb_to_html.html</loc>
+<loc>http://www.instantinate.com/articles/aisle_seat_probabilities.html</loc>
 <lastmod>2016-05-01T12:00:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>

@@ -1145,25 +1145,76 @@ corrr_pairs function (on df7) =384ms&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;h2&gt;Showing the most correlated songs in the rankings&lt;/h2&gt;
-&lt;p&gt;How would you do this part?&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Nate Hall</dc:creator><pubDate>Wed, 23 Nov 2016 12:00:00 -0500</pubDate><guid isPermaLink="false">tag:www.instantinate.com,2016-11-23:articles/billboard_analysis.html</guid><category>Article</category></item><item><title>Convert All Jupyter Notebooks In A Folder To Basic HTML Using Bash</title><link>http://www.instantinate.com/python/covert_all_ipynb_to_html.html</link><description>&lt;p&gt;&lt;em&gt;Note: This code has been commented out. To run the code, remove the comments.&lt;/em&gt;&lt;/p&gt;
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# %%bash&lt;/span&gt;
-&lt;span class="c1"&gt;# #!/bin/bash&lt;/span&gt;
-
-&lt;span class="c1"&gt;# sets the working directory to the current directory&lt;/span&gt;
-&lt;span class="c1"&gt;# acd &amp;quot;$(dirname &amp;quot;$0&amp;quot;)&amp;quot;&lt;/span&gt;
-
-&lt;span class="c1"&gt;# converts all Jupyter Notebook files to basic html&lt;/span&gt;
-&lt;span class="c1"&gt;# for f in *.ipynb; do jupyter nbconvert --to html --template basic $f; done&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-
-&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;[NbConvertApp] Converting notebook covert_all_ipynb_to_html.ipynb to html
+&lt;p&gt;How would you do this part?&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Nate Hall</dc:creator><pubDate>Wed, 23 Nov 2016 12:00:00 -0500</pubDate><guid isPermaLink="false">tag:www.instantinate.com,2016-11-23:articles/billboard_analysis.html</guid><category>Article</category></item><item><title>The Probability An Economy Seat Is An Aisle?</title><link>http://www.instantinate.com/articles/aisle_seat_probabilities.html</link><description>&lt;p&gt;Note: This code has been commented out. To run the code, remove the comments.&lt;/p&gt;
+&lt;h1&gt;%%bash&lt;/h1&gt;
+&lt;h1&gt;#!/bin/bash&lt;/h1&gt;
+&lt;h1&gt;sets the working directory to the current directory&lt;/h1&gt;
+&lt;h1&gt;acd "&lt;span class="math"&gt;\((dirname "\)&lt;/span&gt;0")"&lt;/h1&gt;
+&lt;h1&gt;converts all Jupyter Notebook files to basic html&lt;/h1&gt;
+&lt;h1&gt;for f in *.ipynb; do jupyter nbconvert --to html --template basic $f; done&lt;/h1&gt;
+&lt;p&gt;[NbConvertApp] Converting notebook covert_all_ipynb_to_html.ipynb to html
 [NbConvertApp] Writing 2632 bytes to covert_all_ipynb_to_html.html
 [NbConvertApp] Converting notebook list_all_files_and_folders_in_a_directory.ipynb to html
 [NbConvertApp] Writing 2153 bytes to list_all_files_and_folders_in_a_directory.html
 [NbConvertApp] Converting notebook open_ipython_nb_in_nondefault_browser.ipynb to html
-[NbConvertApp] Writing 1552 bytes to open_ipython_nb_in_nondefault_browser.html
-&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Chris Albon</dc:creator><pubDate>Sun, 01 May 2016 12:00:00 -0400</pubDate><guid isPermaLink="false">tag:www.instantinate.com,2016-05-01:python/covert_all_ipynb_to_html.html</guid><category>Basics</category></item><item><title>List All Files And Folders In A Directory</title><link>http://www.instantinate.com/command-line/list_all_files_and_folders_in_a_directory.html</link><description>&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;
+[NbConvertApp] Writing 1552 bytes to open_ipython_nb_in_nondefault_browser.html&lt;/p&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var align = "center",
+        indent = "0em",
+        linebreak = "false";
+
+    if (false) {
+        align = (screen.width &lt; 768) ? "left" : align;
+        indent = (screen.width &lt; 768) ? "0em" : indent;
+        linebreak = (screen.width &lt; 768) ? 'true' : linebreak;
+    }
+
+    var mathjaxscript = document.createElement('script');
+    var location_protocol = (false) ? 'https' : document.location.protocol;
+    if (location_protocol !== 'http' &amp;&amp; location_protocol !== 'https') location_protocol = 'https:';
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = location_protocol + '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: '"+ align +"'," +
+        "    displayIndent: '"+ indent +"'," +
+        "    showMathMenu: true," +
+        "    messageStyle: 'normal'," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['\\\\(','\\\\)'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'inherit ! important'} }," +
+        "        linebreaks: { automatic: "+ linebreak +", width: '90% container' }," +
+        "    }, " +
+        "}); " +
+        "if ('default' !== 'default') {" +
+            "MathJax.Hub.Register.StartupHook('HTML-CSS Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax['HTML-CSS'].FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+            "MathJax.Hub.Register.StartupHook('SVG Jax Ready',function () {" +
+                "var VARIANT = MathJax.OutputJax.SVG.FONTDATA.VARIANT;" +
+                "VARIANT['normal'].fonts.unshift('MathJax_default');" +
+                "VARIANT['bold'].fonts.unshift('MathJax_default-bold');" +
+                "VARIANT['italic'].fonts.unshift('MathJax_default-italic');" +
+                "VARIANT['-tex-mathit'].fonts.unshift('MathJax_default-italic');" +
+            "});" +
+        "}";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Nate Hall</dc:creator><pubDate>Sun, 01 May 2016 12:00:00 -0400</pubDate><guid isPermaLink="false">tag:www.instantinate.com,2016-05-01:articles/aisle_seat_probabilities.html</guid></item><item><title>List All Files And Folders In A Directory</title><link>http://www.instantinate.com/command-line/list_all_files_and_folders_in_a_directory.html</link><description>&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;%%&lt;/span&gt;&lt;span class="n"&gt;bash&lt;/span&gt; &lt;span class="o"&gt;--&lt;/span&gt;&lt;span class="n"&gt;out&lt;/span&gt; &lt;span class="n"&gt;output&lt;/span&gt;
 &lt;span class="c1"&gt;# Line above: Run bash, with the output being a python variable called &amp;#39;output&amp;#39;&lt;/span&gt;
 
 &lt;span class="c1"&gt;# Change the working directory to the current directory&lt;/span&gt;
