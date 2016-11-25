@@ -204,15 +204,6 @@
 </pre></div>
 
 
-<h5>CODE GUIDE: Step by step</h5>
-<p>-</p>
-<p>with open('../data/sales_data.csv', 'rU') as f:
-    #initialize list.
-    data = []
-    reader = csv.reader(f)
-    for row in reader:
-        data.append(row)
-    print data</p>
 <p>NOTE: At first I had noted that an f.close() statement was needed at the end of this function. But it was rightly pointed out to me that this is a built in functionality for the with statement code block and is therefore not needed.</p>
 </div>
     <aside>
