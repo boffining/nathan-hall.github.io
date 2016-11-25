@@ -5,7 +5,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-11-25T13:33:12-00:00</lastmod>
+<lastmod>2016-11-25T15:27:05-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -20,27 +20,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://www.instantinate.com/articles/billboard_analysis.html</loc>
 <lastmod>2016-11-23T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/articles/aisle_seat_probabilities.html</loc>
-<lastmod>2016-05-01T12:00:00-04:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/command-line/list_all_files_and_folders_in_a_directory.html</loc>
-<lastmod>2016-05-01T12:00:00-04:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/command-line/open_ipython_nb_in_nondefault_browser.html</loc>
-<lastmod>2016-05-01T12:00:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
