@@ -10,7 +10,7 @@
     <meta name="author" content="Nate Hall">
     <link rel="icon" href="../favicon.ico">
 
-    <title>Load Dataset with CSV.reader - Python</title>
+    <title>Load Dataset with CSV.reader - python</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -118,21 +118,79 @@
     </h1>
 <ol class="breadcrumb">
     <li>
-        <time class="published" datetime="2016-11-25T12:00:00-05:00">
-            25 November 2016
+        <time class="published" datetime="2016-11-23T12:00:00-05:00">
+            23 November 2016
         </time>
     </li>
-    <li>Python</li>
+    <li>python</li>
 </ol>
 </header>
 <div class='article_content'>
-<h3>Sure pandas is easier put some of use are purists.</h3>
+<h3>Quick reference for using built in python functionality to import a csv dataset.</h3>
+<table style="width: 100%">
+  <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>import csv</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Brings in the csv library that is core to python.</i>
+  </td>
+  </tr>
+    <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>with open('../data/sales/data.csv', 'rU') as f:</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Declare open to be used. Specify the file location. Select a dialect to use. Assign the results to the variable f.</i>
+  </td>
+  </tr>
+    <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>data = [ ]</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Create an empty list to receive the data from the f variable.</i>
+  </td>
+  </tr>
+    <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>reader = csv.reader(f)</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Create a reader variable for the csv reader to be applied to the f variable.</i>
+  </td>
+  </tr>
+   <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>for row in reader:</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Create a for loop to iterate over each row of the f variable(csv) using the reader variable.</i>
+  </td>
+  </tr>
+   <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>data.append(row)</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Append rows to the data list as they are read with the reader variable</i>
+  </td>
+  </tr>
+   <tr>
+  <td style="width: 30%; text-align: center;">
+  <b>print data</b>
+  </td>
+  <td style="width: 70%; vertical-align: top">
+  <i>Print your data set as a list of lists with the first list being the header row of the csv file.</i>
+  </td>
+  </tr>
+</table>
+
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
 </pre></div>
 
 
 <div class="codehilite"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../data/sales_data.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;rU&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="c1">#initialize list.</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
@@ -146,6 +204,15 @@
 </pre></div>
 
 
+<h5>CODE GUIDE: Step by step</h5>
+<p>-</p>
+<p>with open('../data/sales_data.csv', 'rU') as f:
+    #initialize list.
+    data = []
+    reader = csv.reader(f)
+    for row in reader:
+        data.append(row)
+    print data</p>
 <p>NOTE: At first I had noted that an f.close() statement was needed at the end of this function. But it was rightly pointed out to me that this is a built in functionality for the with statement code block and is therefore not needed.</p>
 </div>
     <aside>
