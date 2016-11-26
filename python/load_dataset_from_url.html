@@ -85,8 +85,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visualizations<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="./visuals.html">Top Visuals</a></li>
-                            <li><a href="./visuals.html">Plotting Cheat Sheet</a></li>
+                            <li><a href="http://instantinate.com/visuals.html">Top Visuals</a></li>
+                            <li><a href="http://instantinate.com/visuals.html">Plotting Cheat Sheet</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -134,30 +134,30 @@
 </pre></div>
 
 
-<h3>Create a variable called "data_url" and paste in the URL as a string</h3>
+<h3>1. Create a variable called "data_url" and paste in the URL as a string</h3>
 <div class="codehilite"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;http://instantinate.com/data/sales_data.html&quot;</span>
 </pre></div>
 
 
-<h3>Call the urllib function with the urlretrieve method</h3>
+<h3>2. Call the urllib function with the urlretrieve method</h3>
 <p>The first argument we pass is the variable with the link to the dataset. And the second argument is the name of the dataset.</p>
 <div class="codehilite"><pre><span></span><span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span> <span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="s2">&quot;sales.data&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Create the "data" variable and use the pandas.read_csv method</h3>
+<h3>3. Create the "data" variable and use the pandas.read_csv method</h3>
 <p>Pass the 'sales.data' argument to the read_csv method. Specify the delimiter for the dataset which in this case is spaces.</p>
 <div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sales.data&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Create a dataframe using the the .dataframe method</h3>
+<h3>4. Create a dataframe using the the .dataframe method</h3>
 <p>Pass the data variable which read all the information from the url.</p>
 <div class="codehilite"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Print out the .head( ) to confirm the dataset was loaded correctly.</h3>
+<h3>5. Print out the .head( ) to confirm the dataset was loaded correctly.</h3>
 <div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
