@@ -146,12 +146,12 @@ df.head(1)
     <tr style="text-align: right;">
       <th></th>
       <th>year</th>
-      <th>artist</th>
+      <th>arti.inverted</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
       <th>1</th>
       <th>2</th>
       <th>3</th>
@@ -252,8 +252,8 @@ df.rename(columns={'arti.inverted':'artist'})[:1]
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
       <th>1</th>
       <th>2</th>
       <th>3</th>
@@ -318,12 +318,12 @@ df.head(1)
     <tr style="text-align: right;">
       <th></th>
       <th>year</th>
-      <th>artist</th>
+      <th>arti.inverted</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
       <th>1</th>
       <th>2</th>
       <th>3</th>
@@ -393,8 +393,8 @@ df.rename(columns={'arti.inverted':'artist'})[:1]
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
       <th>1</th>
       <th>2</th>
       <th>3</th>
@@ -480,8 +480,8 @@ df.head(1)
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
       <th>1</th>
       <th>2</th>
       <th>3</th>
@@ -612,3 +612,5 @@ df.head(1)
 
 
 ## Success!! Way to go!
+
+To see the next step <a href="./unpivoting_columns.html" target="_blank">click here to go to unpivoting columns.</a>
