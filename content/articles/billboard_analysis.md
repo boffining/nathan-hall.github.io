@@ -1,4 +1,4 @@
-Title: Billboard Analysis
+Title: Billboard Hot 100 Analysis
 Date: 2016-11-23 12:00
 Category: Articles
 Tags: Article

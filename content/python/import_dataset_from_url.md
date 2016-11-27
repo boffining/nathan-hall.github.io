@@ -1,12 +1,11 @@
-Title: Load Dataset from URL
+Title: Load Dataset from URL 
 Slug: load_dataset_from_url
 Summary: Use URLlib to load data that is located somewhere on the web.
-Date: 2016-11-26 12:00 
+Date: 2016-11-26 12:00
 Category: python
 Tags:
 Authors: Nate Hall
 
-## Use pandas and urllib to load in a dataset.
 We'll bring in data with urllib and then load it into our dataset as a csv.
 
 
@@ -15,33 +14,35 @@ import urllib
 import pandas as pd
 ```
 
-### Create a variable called "data_url" and paste in the URL as a string
+### 1. Create a variable called "data_url" and paste in the URL as a string
 ```python
 data_url = "http://instantinate.com/data/sales_data.html"
 ```
 
-### Call the urllib function with the urlretrieve method
+### 2. Call the urllib function with the urlretrieve method
 The first argument we pass is the variable with the link to the dataset. And the second argument is the name of the dataset.
 ```python
 urllib.urlretrieve (data_url, "sales.data")
 ```
 
-### Create the "data" variable and use the pandas.read_csv method
+### 3. Create the "data" variable and use the pandas.read_csv method
 Pass the 'sales.data' argument to the read_csv method. Specify the delimiter for the dataset which in this case is spaces.
 ```python
 data = pd.read_csv('sales.data', delimiter='\s+')
 ```
 
-### Create a dataframe using the the .dataframe method
+### 4. Create a dataframe using the the .dataframe method
 Pass the data variable which read all the information from the url.
 ```python
 df = pd.DataFrame(data)
 ```
 
-### Print out the .head( ) to confirm the dataset was loaded correctly.
+### 5. Print out the .head( ) to confirm the dataset was loaded correctly.
 ```python
 df.head()
 ```
+
+### Here is the full code.
 
 
 ```python
