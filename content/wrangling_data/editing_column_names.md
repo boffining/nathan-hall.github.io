@@ -6,6 +6,9 @@ Category: wrangling_data
 Tags:
 Authors: Nate Hall
 
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/editing_column_names.ipynb'>Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/editing_column_names_code.ipynb'>Link to the code only jupyter notebook.</a>
+
 In this example we'll be working with the billboard hot 100 dataset. The overall structure of this dataset could be setup better for what we need to do with some interesting correlations so we'll be using it for a lot of dataset manipulation examples.
 
 One method for organizing a data table is for each row to represent the "lowest level" of data available. Here we have each row representing a song, but if you notice the column names there is one for each week. And if you look at the shape of our data we have 83 columns total. Can you guess what the lowest level of data really is for this dataset then?
