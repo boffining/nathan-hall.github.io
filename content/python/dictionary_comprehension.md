@@ -1,10 +1,13 @@
-Title: Dictionary Comprehension for List of Lists
+Title: Dictionary Comprehension for List of Lists 
 Slug: dictionary_comprehension_for_list_of_lists
-Summary: Turn a list of lists into keys and values for conversion into a dictionary.
+Summary: Quickly turn a list of lists into keys and values for conversion into a dictionary.
 Date: 2016-11-26 12:00
 Category: python
 Tags:
 Authors: Nate Hall
+
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension.ipynb'>Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension_code.ipynb'>Link to the code only jupyter notebook.</a>
 
 ### Turn a list of lists into a dictionary with one line of code... the magical comprehension.
 
