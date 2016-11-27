@@ -6,6 +6,9 @@ Category: python
 Tags:
 Authors: Nate Hall
 
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/import_dataset_from_url.ipynb' target='_blank'>Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/import_dataset_from_url_code.ipynb' target='_blank'>Link to the code only jupyter notebook.</a>
+
 We'll bring in data with urllib and then load it into our dataset as a csv.
 
 

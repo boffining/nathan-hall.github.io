@@ -6,8 +6,8 @@ Category: python
 Tags:
 Authors: Nate Hall
 
-<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/A%20Basic%20Python%20Function.ipynb'>Link to the full jupyter notebook.</a><br/>
-<a href='https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/A%20Basic%20Python%20Function%20Code.ipynb'>Link to the code only jupyter notebook.</a>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/A%20Basic%20Python%20Function.ipynb' target='_blank'>Link to the full jupyter notebook.</a><br/>
+<a href='https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/A%20Basic%20Python%20Function%20Code.ipynb' target='_blank'>Link to the code only jupyter notebook.</a>
 
 ## What do dictionaries and baking cakes have in common? Read below to find out.
 

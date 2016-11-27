@@ -6,8 +6,8 @@ Category: python
 Tags:
 Authors: Nate Hall
 
-<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension.ipynb'>Link to the full jupyter notebook.</a><br/>
-<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension_code.ipynb'>Link to the code only jupyter notebook.</a>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension.ipynb' target='_blank'>Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/dictionary_comprehension_code.ipynb' target='_blank'>Link to the code only jupyter notebook.</a>
 
 ### Turn a list of lists into a dictionary with one line of code... the magical comprehension.
 
