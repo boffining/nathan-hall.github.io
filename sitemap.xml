@@ -5,8 +5,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-11-26T15:16:03-00:00</lastmod>
+<lastmod>2016-11-27T13:10:01-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/wrangling_data/editing_column_names.html</loc>
+<lastmod>2016-11-27T12:00:00-05:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
