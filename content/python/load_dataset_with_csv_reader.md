@@ -1,4 +1,4 @@
-Title: Load Dataset with CSV.reader 
+Title: Load Dataset with CSV.reader
 Slug: load_dataset_with_csv_reader
 Summary: Use built in python functionality for loading a dataset.
 Date: 2016-11-23 12:00
@@ -6,7 +6,7 @@ Category: python
 Tags:
 Authors: Nate Hall
 
-<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/Load%Dataset%with%CSV.reader.ipynb'>Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/load_dataset_with_csv_reader.ipynb'>Link to the full jupyter notebook.</a><br/>
 <a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/Load%Dataset%with%CSV.reader_code.ipynb'>Link to the code only jupyter notebook.</a>
 
 ### Quick reference for using built in python functionality to import a csv dataset.
