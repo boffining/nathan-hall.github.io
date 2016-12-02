@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Personal Data Science Blog of Nate Hall">
+    <meta name="author" content="Nate Hall">
+    <link rel="icon" href="../favicon.ico">
+
+    <title>SAT Scores Visual Analysis - visual_analysis</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+                <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../pages/about_nate.html">About Nate</a></li>
+                            <li><a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">GitHub</a></li>
+                            <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a", target="_blank">LinkedIn</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science Cheat Sheet<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="..#Articles">Articles</a></li>
+                            <li><a href="..#Python">Python</a></li>
+                            <!--<li><a href="..#Regex">Regex</a></li>-->
+                            <li><a href="..#Data_Wrangling">Data Wrangling</a></li>
+                            <li><a href="..#EDA">Exploratory Analysis</a></li>
+                            <li><a href="..#Statistics">Statistics</a></li>
+                            <!--<li><a href="..#SQL">SQL</a></li>-->
+                            <!--<li><a href="..#Mathematics">Mathematics</a></li>
+                            <li><a href="..#Javascript">Javascript</a></li>
+                            <li><a href="..#Probability">Probability</a></li>
+                            <li><a href="..#Frequentist_Statistics">Frequentist Statistics</a></li>
+                            <li><a href="..#Bayesian_Statistics">Bayesian Statistics</a></li>
+                            <li><a href="..#Machine_Learning">Machine Learning</a></li>
+                            <li><a href="..#GitHub">GitHub</a></li>
+                            <li><a href="..#Articles">Articles</a></li>
+                            <li><a href="..#Projects">Projects</a></li>-->
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visualizations<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="http://instantinate.com/visuals.html">Top Visuals</a></li>
+                            <li><a href="http://instantinate.com/visuals.html">Class Projects</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      SAT Scores Visual Analysis
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2016-12-02T12:00:00-05:00">
+            02 December 2016
+        </time>
+    </li>
+    <li>visual_analysis</li>
+</ol>
+</header>
+<div class='article_content'>
+<h2>Conduct visual analysis and complete the prompts below.</h2>
+<p>This project was completed for the General Assembly Data Science Immersive course. The purpose was to build and refine our foundation of python and visually show interesting findings from the data set.</p>
+<h4>Side Notes:</h4>
+<ul>
+<li>The data was sparse, it only showed data for the 50 states, distric of columbia.</li>
+</ul>
+<h4>Methodology:</h4>
+<ul>
+<li>Accomplish the python prompts with as few lines of code as possible.</li>
+<li>Check the data for any cleanliness issues.</li>
+<li>Visualize the different distributions.</li>
+<li>Visualize any relationships in the data and identify outliers.</li>
+<li>Plot the state data as a USA heatmap.</li>
+</ul>
+<h4>PROMPT 1: Open the <code>sat_scores.csv</code> file. Investigate the data, and answer the questions below.</h4>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Data was imported using the pandas library for quick analysis.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>State</th>
+      <th>Rate</th>
+      <th>Verbal</th>
+      <th>Math</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>CT</td>
+      <td>82</td>
+      <td>509</td>
+      <td>510</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NJ</td>
+      <td>81</td>
+      <td>499</td>
+      <td>513</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>MA</td>
+      <td>79</td>
+      <td>511</td>
+      <td>515</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NY</td>
+      <td>77</td>
+      <td>495</td>
+      <td>505</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NH</td>
+      <td>72</td>
+      <td>520</td>
+      <td>516</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><span class="c1">#After seeing state data there should be 50 rows. Check the shape to see if there is 50 rows.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>(52, 4)
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Ok.... there is 52... cool. We&#39;ll come back to that.</span>
+</pre></div>
+
+
+<h4>PROMPT 2. What does the data describe?</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#The average SAT section score for each state. And the participation rate of that state in the SAT progam.</span>
+</pre></div>
+
+
+<h4>PROMPT 3. Does the data look complete? Are there any obvious issues with the observations?</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#I printed the value counts and sorted them multiple times to check for data cleanliness.</span>
+<span class="c1">#NOTE: I am only showing the top 5 of each here because I completed the analysis.</span>
+<span class="k">print</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;STATE VALUE COUNTS&quot;</span>
+<span class="k">print</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;RATE VALUE COUNTS&quot;</span>
+<span class="k">print</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;VERBAL VALUE COUNTS&quot;</span>
+<span class="k">print</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;--------------&quot;</span>
+<span class="k">print</span> <span class="s2">&quot;MATH VALUE COUNTS&quot;</span>
+<span class="k">print</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()[:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>--------------
+STATE VALUE COUNTS
+SD    1
+OR    1
+CA    1
+VA    1
+NV    1
+Name: State, dtype: int64
+--------------
+RATE VALUE COUNTS
+9     3
+4     3
+8     3
+5     2
+65    2
+Name: Rate, dtype: int64
+--------------
+VERBAL VALUE COUNTS
+577    3
+562    3
+511    2
+501    2
+527    2
+Name: Verbal, dtype: int64
+--------------
+MATH VALUE COUNTS
+499    6
+510    3
+515    3
+542    3
+550    2
+Name: Math, dtype: int64
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1"># Data issues to note from earier. There since 50 rows were expected and 52 were found we looked to see what they were.</span>
+<span class="c1"># 1: Is the district of columbia and should be included.</span>
+<span class="c1"># 2: Is called &quot;All&quot; which needs further investigation below.</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Check what the values of the All row is.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>State     All
+Rate       45
+Verbal    506
+Math      514
+Name: 51, dtype: object
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#This might be the sum total average for all the other rows in the dataframe. The below code attempts to confirm that theory.</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Look at the average score of the other states not including &quot;All&quot; and comparing it to the score above.</span>
+<span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;All&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Rate</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>37.0
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#CONCLUSION: The above number is nowhere near the mean of the rate column.</span>
+<span class="c1">#So this data does not represent the average of the column.</span>
+<span class="c1">#However we will leave it in for now and if it proves to be an outlier we&#39;ll consider removing it.</span>
+</pre></div>
+
+
+<h4>PROMPT 4. Create a data dictionary for the dataset.</h4>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>State</td>
+<td><i>The state the data was taken from</i></td>
+</tr>
+<tr>
+<td>Rate</td>
+<td><i>Participation rate in taking the SAT</i></td>
+</tr>
+<tr>
+<td>Verbal</td>
+<td><i>Average verbal score for that state</i></td>
+</tr>
+<tr>
+<td>Math</td>
+<td><i>Average math score for that state</i></td>
+</tr>
+</tbody>
+</table>
+<h4>PROMPT 5. Load the data into a list of lists</h4>
+<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#This is easier to accomplish with csv reader rather than Pandas so we&#39;ll reimport the data here.</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;rU&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reader</span><span class="p">:</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</pre></div>
+
+
+<h4>PROMPT 6. Print the data</h4>
+<div class="codehilite"><pre><span></span><span class="k">print</span> <span class="n">data</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>[[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;], [&#39;CT&#39;, &#39;82&#39;, &#39;509&#39;, &#39;510&#39;], [&#39;NJ&#39;, &#39;81&#39;, &#39;499&#39;, &#39;513&#39;], [&#39;MA&#39;, &#39;79&#39;, &#39;511&#39;, &#39;515&#39;], [&#39;NY&#39;, &#39;77&#39;, &#39;495&#39;, &#39;505&#39;], [&#39;NH&#39;, &#39;72&#39;, &#39;520&#39;, &#39;516&#39;], [&#39;RI&#39;, &#39;71&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;PA&#39;, &#39;71&#39;, &#39;500&#39;, &#39;499&#39;], [&#39;VT&#39;, &#39;69&#39;, &#39;511&#39;, &#39;506&#39;], [&#39;ME&#39;, &#39;69&#39;, &#39;506&#39;, &#39;500&#39;], [&#39;VA&#39;, &#39;68&#39;, &#39;510&#39;, &#39;501&#39;], [&#39;DE&#39;, &#39;67&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;MD&#39;, &#39;65&#39;, &#39;508&#39;, &#39;510&#39;], [&#39;NC&#39;, &#39;65&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;GA&#39;, &#39;63&#39;, &#39;491&#39;, &#39;489&#39;], [&#39;IN&#39;, &#39;60&#39;, &#39;499&#39;, &#39;501&#39;], [&#39;SC&#39;, &#39;57&#39;, &#39;486&#39;, &#39;488&#39;], [&#39;DC&#39;, &#39;56&#39;, &#39;482&#39;, &#39;474&#39;], [&#39;OR&#39;, &#39;55&#39;, &#39;526&#39;, &#39;526&#39;], [&#39;FL&#39;, &#39;54&#39;, &#39;498&#39;, &#39;499&#39;], [&#39;WA&#39;, &#39;53&#39;, &#39;527&#39;, &#39;527&#39;], [&#39;TX&#39;, &#39;53&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;HI&#39;, &#39;52&#39;, &#39;485&#39;, &#39;515&#39;], [&#39;AK&#39;, &#39;51&#39;, &#39;514&#39;, &#39;510&#39;], [&#39;CA&#39;, &#39;51&#39;, &#39;498&#39;, &#39;517&#39;], [&#39;AZ&#39;, &#39;34&#39;, &#39;523&#39;, &#39;525&#39;], [&#39;NV&#39;, &#39;33&#39;, &#39;509&#39;, &#39;515&#39;], [&#39;CO&#39;, &#39;31&#39;, &#39;539&#39;, &#39;542&#39;], [&#39;OH&#39;, &#39;26&#39;, &#39;534&#39;, &#39;439&#39;], [&#39;MT&#39;, &#39;23&#39;, &#39;539&#39;, &#39;539&#39;], [&#39;WV&#39;, &#39;18&#39;, &#39;527&#39;, &#39;512&#39;], [&#39;ID&#39;, &#39;17&#39;, &#39;543&#39;, &#39;542&#39;], [&#39;TN&#39;, &#39;13&#39;, &#39;562&#39;, &#39;553&#39;], [&#39;NM&#39;, &#39;13&#39;, &#39;551&#39;, &#39;542&#39;], [&#39;IL&#39;, &#39;12&#39;, &#39;576&#39;, &#39;589&#39;], [&#39;KY&#39;, &#39;12&#39;, &#39;550&#39;, &#39;550&#39;], [&#39;WY&#39;, &#39;11&#39;, &#39;547&#39;, &#39;545&#39;], [&#39;MI&#39;, &#39;11&#39;, &#39;561&#39;, &#39;572&#39;], [&#39;MN&#39;, &#39;9&#39;, &#39;580&#39;, &#39;589&#39;], [&#39;KS&#39;, &#39;9&#39;, &#39;577&#39;, &#39;580&#39;], [&#39;AL&#39;, &#39;9&#39;, &#39;559&#39;, &#39;554&#39;], [&#39;NE&#39;, &#39;8&#39;, &#39;562&#39;, &#39;568&#39;], [&#39;OK&#39;, &#39;8&#39;, &#39;567&#39;, &#39;561&#39;], [&#39;MO&#39;, &#39;8&#39;, &#39;577&#39;, &#39;577&#39;], [&#39;LA&#39;, &#39;7&#39;, &#39;564&#39;, &#39;562&#39;], [&#39;WI&#39;, &#39;6&#39;, &#39;584&#39;, &#39;596&#39;], [&#39;AR&#39;, &#39;6&#39;, &#39;562&#39;, &#39;550&#39;], [&#39;UT&#39;, &#39;5&#39;, &#39;575&#39;, &#39;570&#39;], [&#39;IA&#39;, &#39;5&#39;, &#39;593&#39;, &#39;603&#39;], [&#39;SD&#39;, &#39;4&#39;, &#39;577&#39;, &#39;582&#39;], [&#39;ND&#39;, &#39;4&#39;, &#39;592&#39;, &#39;599&#39;], [&#39;MS&#39;, &#39;4&#39;, &#39;566&#39;, &#39;551&#39;], [&#39;All&#39;, &#39;45&#39;, &#39;506&#39;, &#39;514&#39;]]
+</pre></div>
+
+
+<h4>PROMPT 7. Extract a list of the labels from the data, and remove them from the data.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Setting the first row as a columns variable.</span>
+<span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][:]</span>
+<span class="c1">#Removing the first row(a.k.a the first list object) from the original data list.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
+</pre></div>
+
+
+<h4>PROMPT 8. Create a list of State names extracted from the data. (Hint: use the list of labels to index on the State column)</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Use list comprehension for extracting the first element of each list into a new list.</span>
+<span class="n">states_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+<span class="k">print</span> <span class="n">states_list</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>[&#39;CT&#39;, &#39;NJ&#39;, &#39;MA&#39;, &#39;NY&#39;, &#39;NH&#39;, &#39;RI&#39;, &#39;PA&#39;, &#39;VT&#39;, &#39;ME&#39;, &#39;VA&#39;, &#39;DE&#39;, &#39;MD&#39;, &#39;NC&#39;, &#39;GA&#39;, &#39;IN&#39;, &#39;SC&#39;, &#39;DC&#39;, &#39;OR&#39;, &#39;FL&#39;, &#39;WA&#39;, &#39;TX&#39;, &#39;HI&#39;, &#39;AK&#39;, &#39;CA&#39;, &#39;AZ&#39;, &#39;NV&#39;, &#39;CO&#39;, &#39;OH&#39;, &#39;MT&#39;, &#39;WV&#39;, &#39;ID&#39;, &#39;TN&#39;, &#39;NM&#39;, &#39;IL&#39;, &#39;KY&#39;, &#39;WY&#39;, &#39;MI&#39;, &#39;MN&#39;, &#39;KS&#39;, &#39;AL&#39;, &#39;NE&#39;, &#39;OK&#39;, &#39;MO&#39;, &#39;LA&#39;, &#39;WI&#39;, &#39;AR&#39;, &#39;UT&#39;, &#39;IA&#39;, &#39;SD&#39;, &#39;ND&#39;, &#39;MS&#39;, &#39;All&#39;]
+</pre></div>
+
+
+<h4>PROMPT 9. Print the types of each column</h4>
+<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>State     object
+Rate       int64
+Verbal     int64
+Math       int64
+dtype: object
+</pre></div>
+
+
+<h4>PROMPT 10. Do any types need to be reassigned? If so, go ahead and do it.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#None that I can see. I should be able to work wiht floats just fine for what I need.</span>
+</pre></div>
+
+
+<h4>PROMPT 11. Create a dictionary for each column mapping the State to its respective value for that column.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Using data coprehension to set the first element of each list item as a</span>
+<span class="c1">#key and then use the rest of the list as the value.</span>
+<span class="n">sat_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
+<span class="k">print</span> <span class="n">sat_dict</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>{&#39;WA&#39;: [&#39;53&#39;, &#39;527&#39;, &#39;527&#39;], &#39;DE&#39;: [&#39;67&#39;, &#39;501&#39;, &#39;499&#39;], &#39;DC&#39;: [&#39;56&#39;, &#39;482&#39;, &#39;474&#39;], &#39;WI&#39;: [&#39;6&#39;, &#39;584&#39;, &#39;596&#39;], &#39;WV&#39;: [&#39;18&#39;, &#39;527&#39;, &#39;512&#39;], &#39;HI&#39;: [&#39;52&#39;, &#39;485&#39;, &#39;515&#39;], &#39;FL&#39;: [&#39;54&#39;, &#39;498&#39;, &#39;499&#39;], &#39;WY&#39;: [&#39;11&#39;, &#39;547&#39;, &#39;545&#39;], &#39;NH&#39;: [&#39;72&#39;, &#39;520&#39;, &#39;516&#39;], &#39;NJ&#39;: [&#39;81&#39;, &#39;499&#39;, &#39;513&#39;], &#39;NM&#39;: [&#39;13&#39;, &#39;551&#39;, &#39;542&#39;], &#39;TX&#39;: [&#39;53&#39;, &#39;493&#39;, &#39;499&#39;], &#39;LA&#39;: [&#39;7&#39;, &#39;564&#39;, &#39;562&#39;], &#39;NC&#39;: [&#39;65&#39;, &#39;493&#39;, &#39;499&#39;], &#39;ND&#39;: [&#39;4&#39;, &#39;592&#39;, &#39;599&#39;], &#39;NE&#39;: [&#39;8&#39;, &#39;562&#39;, &#39;568&#39;], &#39;TN&#39;: [&#39;13&#39;, &#39;562&#39;, &#39;553&#39;], &#39;NY&#39;: [&#39;77&#39;, &#39;495&#39;, &#39;505&#39;], &#39;PA&#39;: [&#39;71&#39;, &#39;500&#39;, &#39;499&#39;], &#39;RI&#39;: [&#39;71&#39;, &#39;501&#39;, &#39;499&#39;], &#39;NV&#39;: [&#39;33&#39;, &#39;509&#39;, &#39;515&#39;], &#39;VA&#39;: [&#39;68&#39;, &#39;510&#39;, &#39;501&#39;], &#39;CO&#39;: [&#39;31&#39;, &#39;539&#39;, &#39;542&#39;], &#39;AK&#39;: [&#39;51&#39;, &#39;514&#39;, &#39;510&#39;], &#39;AL&#39;: [&#39;9&#39;, &#39;559&#39;, &#39;554&#39;], &#39;AR&#39;: [&#39;6&#39;, &#39;562&#39;, &#39;550&#39;], &#39;VT&#39;: [&#39;69&#39;, &#39;511&#39;, &#39;506&#39;], &#39;IL&#39;: [&#39;12&#39;, &#39;576&#39;, &#39;589&#39;], &#39;GA&#39;: [&#39;63&#39;, &#39;491&#39;, &#39;489&#39;], &#39;IN&#39;: [&#39;60&#39;, &#39;499&#39;, &#39;501&#39;], &#39;IA&#39;: [&#39;5&#39;, &#39;593&#39;, &#39;603&#39;], &#39;OK&#39;: [&#39;8&#39;, &#39;567&#39;, &#39;561&#39;], &#39;AZ&#39;: [&#39;34&#39;, &#39;523&#39;, &#39;525&#39;], &#39;CA&#39;: [&#39;51&#39;, &#39;498&#39;, &#39;517&#39;], &#39;ID&#39;: [&#39;17&#39;, &#39;543&#39;, &#39;542&#39;], &#39;CT&#39;: [&#39;82&#39;, &#39;509&#39;, &#39;510&#39;], &#39;ME&#39;: [&#39;69&#39;, &#39;506&#39;, &#39;500&#39;], &#39;MD&#39;: [&#39;65&#39;, &#39;508&#39;, &#39;510&#39;], &#39;All&#39;: [&#39;45&#39;, &#39;506&#39;, &#39;514&#39;], &#39;MA&#39;: [&#39;79&#39;, &#39;511&#39;, &#39;515&#39;], &#39;OH&#39;: [&#39;26&#39;, &#39;534&#39;, &#39;439&#39;], &#39;UT&#39;: [&#39;5&#39;, &#39;575&#39;, &#39;570&#39;], &#39;MO&#39;: [&#39;8&#39;, &#39;577&#39;, &#39;577&#39;], &#39;MN&#39;: [&#39;9&#39;, &#39;580&#39;, &#39;589&#39;], &#39;MI&#39;: [&#39;11&#39;, &#39;561&#39;, &#39;572&#39;], &#39;KS&#39;: [&#39;9&#39;, &#39;577&#39;, &#39;580&#39;], &#39;MT&#39;: [&#39;23&#39;, &#39;539&#39;, &#39;539&#39;], &#39;MS&#39;: [&#39;4&#39;, &#39;566&#39;, &#39;551&#39;], &#39;SC&#39;: [&#39;57&#39;, &#39;486&#39;, &#39;488&#39;], &#39;KY&#39;: [&#39;12&#39;, &#39;550&#39;, &#39;550&#39;], &#39;OR&#39;: [&#39;55&#39;, &#39;526&#39;, &#39;526&#39;], &#39;SD&#39;: [&#39;4&#39;, &#39;577&#39;, &#39;582&#39;]}
+</pre></div>
+
+
+<h4>PROMPT 12. Create a dictionary with the values for each of the numeric columns</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#To accomplish this prompt we need a new list of columns that does not have the state column.</span>
+<span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">:][</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">numeric_columns</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>[&#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Dictionary comprehension with enumerate and an embedded list comprehension.</span>
+<span class="c1">#NOTE: The start argument for the enumerate function is ignoring the state data in each list</span>
+<span class="c1">#and returning only the numeric values to be mapped to our new numeric columns variable.</span>
+<span class="n">numeric_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">column_name</span><span class="p">:</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numeric_columns</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+<span class="k">print</span> <span class="n">numeric_data</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>{&#39;Rate&#39;: [&#39;82&#39;, &#39;81&#39;, &#39;79&#39;, &#39;77&#39;, &#39;72&#39;, &#39;71&#39;, &#39;71&#39;, &#39;69&#39;, &#39;69&#39;, &#39;68&#39;, &#39;67&#39;, &#39;65&#39;, &#39;65&#39;, &#39;63&#39;, &#39;60&#39;, &#39;57&#39;, &#39;56&#39;, &#39;55&#39;, &#39;54&#39;, &#39;53&#39;, &#39;53&#39;, &#39;52&#39;, &#39;51&#39;, &#39;51&#39;, &#39;34&#39;, &#39;33&#39;, &#39;31&#39;, &#39;26&#39;, &#39;23&#39;, &#39;18&#39;, &#39;17&#39;, &#39;13&#39;, &#39;13&#39;, &#39;12&#39;, &#39;12&#39;, &#39;11&#39;, &#39;11&#39;, &#39;9&#39;, &#39;9&#39;, &#39;9&#39;, &#39;8&#39;, &#39;8&#39;, &#39;8&#39;, &#39;7&#39;, &#39;6&#39;, &#39;6&#39;, &#39;5&#39;, &#39;5&#39;, &#39;4&#39;, &#39;4&#39;, &#39;4&#39;, &#39;45&#39;], &#39;Math&#39;: [&#39;510&#39;, &#39;513&#39;, &#39;515&#39;, &#39;505&#39;, &#39;516&#39;, &#39;499&#39;, &#39;499&#39;, &#39;506&#39;, &#39;500&#39;, &#39;501&#39;, &#39;499&#39;, &#39;510&#39;, &#39;499&#39;, &#39;489&#39;, &#39;501&#39;, &#39;488&#39;, &#39;474&#39;, &#39;526&#39;, &#39;499&#39;, &#39;527&#39;, &#39;499&#39;, &#39;515&#39;, &#39;510&#39;, &#39;517&#39;, &#39;525&#39;, &#39;515&#39;, &#39;542&#39;, &#39;439&#39;, &#39;539&#39;, &#39;512&#39;, &#39;542&#39;, &#39;553&#39;, &#39;542&#39;, &#39;589&#39;, &#39;550&#39;, &#39;545&#39;, &#39;572&#39;, &#39;589&#39;, &#39;580&#39;, &#39;554&#39;, &#39;568&#39;, &#39;561&#39;, &#39;577&#39;, &#39;562&#39;, &#39;596&#39;, &#39;550&#39;, &#39;570&#39;, &#39;603&#39;, &#39;582&#39;, &#39;599&#39;, &#39;551&#39;, &#39;514&#39;], &#39;Verbal&#39;: [&#39;509&#39;, &#39;499&#39;, &#39;511&#39;, &#39;495&#39;, &#39;520&#39;, &#39;501&#39;, &#39;500&#39;, &#39;511&#39;, &#39;506&#39;, &#39;510&#39;, &#39;501&#39;, &#39;508&#39;, &#39;493&#39;, &#39;491&#39;, &#39;499&#39;, &#39;486&#39;, &#39;482&#39;, &#39;526&#39;, &#39;498&#39;, &#39;527&#39;, &#39;493&#39;, &#39;485&#39;, &#39;514&#39;, &#39;498&#39;, &#39;523&#39;, &#39;509&#39;, &#39;539&#39;, &#39;534&#39;, &#39;539&#39;, &#39;527&#39;, &#39;543&#39;, &#39;562&#39;, &#39;551&#39;, &#39;576&#39;, &#39;550&#39;, &#39;547&#39;, &#39;561&#39;, &#39;580&#39;, &#39;577&#39;, &#39;559&#39;, &#39;562&#39;, &#39;567&#39;, &#39;577&#39;, &#39;564&#39;, &#39;584&#39;, &#39;562&#39;, &#39;575&#39;, &#39;593&#39;, &#39;577&#39;, &#39;592&#39;, &#39;566&#39;, &#39;506&#39;]}
+</pre></div>
+
+
+<h4>PROMPT 13. Print the min and max of each column</h4>
+<div class="codehilite"><pre><span></span><span class="k">print</span> <span class="s2">&quot;RATE MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;RATE MAXIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;VERBAL MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;VERBAL MAXIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;MATH MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;MATH MAXIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>RATE MINIMUM VALUE =  4
+RATE MAXIMUM VALUE =  82
+VERBAL MINIMUM VALUE =  482
+VERBAL MAXIMUM VALUE =  593
+MATH MINIMUM VALUE =  439
+MATH MAXIMUM VALUE =  603
+</pre></div>
+
+
+<h4>PROMPT 14. Write a function using only list comprehensions, no loops, to compute Standard Deviation. Print the Standard Deviation of each numeric column.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#This is a simple formula to accomplish the prompt. There is a better way to do it in numpy so please do not</span>
+<span class="c1">#use the example below as the best way.</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="n">col</span><span class="p">):</span>
+   <span class="n">std</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">((</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+   <span class="k">return</span> <span class="n">std</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Standard Deviation for Rate: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">std</span><span class="p">(</span><span class="s1">&#39;Rate&#39;</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Standard Deviation for Verbal: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">std</span><span class="p">(</span><span class="s1">&#39;Verbal&#39;</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;Standard Deviation for Math: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">std</span><span class="p">(</span><span class="s1">&#39;Math&#39;</span><span class="p">)))</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>Standard Deviation for Rate: 27.3017880729
+Standard Deviation for Verbal: 33.2362254438
+Standard Deviation for Math: 36.0149750989
+</pre></div>
+
+
+<h4>PROMPT 15. Using MatPlotLib and PyPlot, plot the distribution of the Rate using histograms.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Using seaborn, matplot lib, and plotly to accomplish the below tasks.</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Rugplots are in general more informative than histograms so I default to using them.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Rate</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Rate</span><span class="p">);</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_41_0.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1">#average rate by state:</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>37.15384615384615
+</pre></div>
+
+
+<h4>PROMPT 16. Plot the Math distribution</h4>
+<div class="codehilite"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Math</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Math</span><span class="p">);</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_44_0.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1">#Average math score by state.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>531.5
+</pre></div>
+
+
+<h4>PROMPT 17. Plot the Verbal distribution</h4>
+<div class="codehilite"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Verbal</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Verbal</span><span class="p">);</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_47_0.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1">#Average Verbal score by state.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>532.0192307692307
+</pre></div>
+
+
+<h4>PROMPT 18. What is the typical assumption for data distribution?</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#One typical assumption is that the data follows some kind of normal distribution.</span>
+<span class="c1">#NORMAL CURVE: In this case the data does not seem to follow a true normal distribution.</span>
+<span class="c1">#LOW SPREAD: Not a large spread with outliers of data.</span>
+<span class="c1">#CENTERED: Data does not seem to have a good set of large points around the mean except in the case of the math column.</span>
+</pre></div>
+
+
+<h4>PROMPT 19. Does that distribution hold true for our data?</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Perhaps for the math data but not the other two.</span>
+<span class="c1">#However we can still plot some interesting relationships below.</span>
+</pre></div>
+
+
+<h4>PROMPT 20. Plot some scatterplots. <strong>BONUS</strong>: Use a PyPlot <code>figure</code> to present multiple plots at once.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#VERBAL vs. MATH data points. This is not colored by state because there would be too many colors to track</span>
+<span class="c1">#and draw any meaningful conclusions.</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d763350&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_54_1.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1">#All in all, the above plot is showing a pretty good relationship between math and verbal scores however</span>
+<span class="c1">#There is one outlier to note that we will investigate further.</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#Same scatter plot but with a hue for Rate. The reason being you can kind of see relationships between</span>
+<span class="c1">#where the colors cluster but at the same time it also demonstrates why you don&#39;t color by large lists of points.</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Rate&#39;</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d13a150&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_56_1.png" /></p>
+<h4>PROMPT 21. Are there any interesting relationships to note?</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Calling a correlation plotting function that allows me to see relationships with more information than the standard</span>
+<span class="c1">#pairplot.</span>
+<span class="k">def</span> <span class="nf">corr_pairs</span><span class="p">(</span><span class="n">df_input</span><span class="p">,</span><span class="n">coef_percentile</span><span class="p">):</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">df_input</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">unstack</span><span class="p">()</span>
+    <span class="n">so</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;quicksort&quot;</span><span class="p">)</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">so</span><span class="o">.</span><span class="n">abs</span><span class="p">(),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;coef&#39;</span><span class="p">])</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">df_output</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">df_output</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;coef&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_output</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">df_output</span> <span class="o">=</span> <span class="n">df_output</span><span class="p">[(</span><span class="n">df_output</span><span class="p">[</span><span class="s1">&#39;coef&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">df_output</span><span class="o">.</span><span class="n">coef</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">df_output</span><span class="p">[</span><span class="s1">&#39;coef&#39;</span><span class="p">],</span><span class="n">coef_percentile</span><span class="p">))]</span> <span class="c1">#&amp; (df_output.mse &lt; np.percentile(df_output[&#39;mse&#39;],mse_percentile))]</span>
+    <span class="c1">#Plot the best pairs.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_output</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">])):</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">]</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_output</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">df_output</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="n">df_input</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">df_output</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">df_output</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">df_output</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="c1">#First looking at numbers to see if anything is interesting here.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Rate</th>
+      <th>Verbal</th>
+      <th>Math</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Rate</th>
+      <td>1.000000</td>
+      <td>-0.886432</td>
+      <td>-0.773746</td>
+    </tr>
+    <tr>
+      <th>Verbal</th>
+      <td>-0.886432</td>
+      <td>1.000000</td>
+      <td>0.899871</td>
+    </tr>
+    <tr>
+      <th>Math</th>
+      <td>-0.773746</td>
+      <td>0.899871</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_60_0.png" /></p>
+<p><img alt="png" src="../images/sat_scores/output_60_1.png" /></p>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>level_0</th>
+      <th>level_1</th>
+      <th>coef</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Rate</td>
+      <td>Verbal</td>
+      <td>0.886432</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Verbal</td>
+      <td>Math</td>
+      <td>0.899871</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="codehilite"><pre><span></span><span class="c1">### Conclusion:</span>
+<span class="c1">#There is a strong correlation between doing well on Verbal and well on Math unsuprisingly.</span>
+<span class="c1">#But another interesting takeaway is having a good participation rate is MUCH more strongly correlated</span>
+<span class="c1">#to a good verbal score rather than a good Math score. Which suggests that the more people participated</span>
+<span class="c1">#in a states SAT test the higher the Verbal score but the not as high of a math score.</span>
+<span class="c1">#Another interesting note is that Ohio is the outlier in the Math to Verbal correlation where</span>
+<span class="c1">#a Math score of only 439 was achieved but a Verbal score of 534 was achieved.</span>
+</pre></div>
+
+
+<h4>PROMPT 22. Create box plots for each variable.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#Done using seaborn</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span><span class="s1">&#39;Math&#39;</span><span class="p">]])</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11c76fcd0&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_63_1.png" /></p>
+<div class="codehilite"><pre><span></span><span class="c1">#Rate is on a different scale so needed to be plotted separately.</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11cf570d0&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/sat_scores/output_64_1.png" /></p>
+<h4>BONUS: Using Tableau, create a heat map for each variable using a map of the US.</h4>
+<div class="codehilite"><pre><span></span><span class="c1">#So I didn&#39;t use tableau as I wanted to try my hand at using plotly for the first time. I don&#39;t know much</span>
+<span class="c1">#about what is being done below but by using some of their out of the box features you get the benefit</span>
+<span class="c1">#of having some interactive charts inside your jupyter notebook.</span>
+<span class="c1">#Click on the jupyter notebook.</span>
+<span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="kn">as</span> <span class="nn">py</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">plotly.tools</span> <span class="kn">as</span> <span class="nn">tls</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+            <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;choropleth&#39;</span><span class="p">,</span>
+    <span class="n">colorscale</span> <span class="o">=</span> <span class="n">scl</span><span class="p">,</span>
+    <span class="n">autocolorscale</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">],</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">locationmode</span> <span class="o">=</span> <span class="s1">&#39;USA-states&#39;</span><span class="p">,</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span>
+    <span class="n">hoverinfo</span> <span class="o">=</span> <span class="s1">&#39;location+z&#39;</span><span class="p">,</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="nb">dict</span> <span class="p">(</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;rgb(255,255,255)&#39;</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">colorbar</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Rates&quot;</span>
+    <span class="p">)</span>
+<span class="p">)]</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;SAT Participation Rates&lt;br&gt;(Hover for breakdown)&#39;</span><span class="p">,</span>
+    <span class="n">geo</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;usa&#39;</span><span class="p">,</span>
+        <span class="n">projection</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;albers usa&#39;</span> <span class="p">),</span>
+        <span class="n">showlakes</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">lakecolor</span> <span class="o">=</span> <span class="s1">&#39;rgb(255, 255, 255)&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;d3-electoral-map&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+</pre></div>
+
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~natejhall89/0.embed" height="525px" width="100%"></iframe>
+
+<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+            <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;choropleth&#39;</span><span class="p">,</span>
+    <span class="n">colorscale</span> <span class="o">=</span> <span class="n">scl</span><span class="p">,</span>
+    <span class="n">autocolorscale</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">],</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">locationmode</span> <span class="o">=</span> <span class="s1">&#39;USA-states&#39;</span><span class="p">,</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span>
+    <span class="n">hoverinfo</span> <span class="o">=</span> <span class="s1">&#39;location+z&#39;</span><span class="p">,</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="nb">dict</span> <span class="p">(</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;rgb(255,255,255)&#39;</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">colorbar</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Rates&quot;</span>
+    <span class="p">)</span>
+<span class="p">)]</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;SAT Participation Rates&lt;br&gt;(Hover for breakdown)&#39;</span><span class="p">,</span>
+    <span class="n">geo</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;usa&#39;</span><span class="p">,</span>
+        <span class="n">projection</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;albers usa&#39;</span> <span class="p">),</span>
+        <span class="n">showlakes</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">lakecolor</span> <span class="o">=</span> <span class="s1">&#39;rgb(255, 255, 255)&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;d3-electoral-map&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+</pre></div>
+
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~natejhall89/0.embed" height="525px" width="100%"></iframe>
+
+<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+            <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;choropleth&#39;</span><span class="p">,</span>
+    <span class="n">colorscale</span> <span class="o">=</span> <span class="n">scl</span><span class="p">,</span>
+    <span class="n">autocolorscale</span> <span class="o">=</span> <span class="bp">False</span><span class="p">,</span>
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">],</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">),</span>
+    <span class="n">locationmode</span> <span class="o">=</span> <span class="s1">&#39;USA-states&#39;</span><span class="p">,</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">],</span>
+    <span class="n">hoverinfo</span> <span class="o">=</span> <span class="s1">&#39;location+z&#39;</span><span class="p">,</span>
+    <span class="n">marker</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="nb">dict</span> <span class="p">(</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;rgb(255,255,255)&#39;</span><span class="p">,</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="p">)</span>
+    <span class="p">),</span>
+    <span class="n">colorbar</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Rates&quot;</span>
+    <span class="p">)</span>
+<span class="p">)]</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;SAT Participation Rates&lt;br&gt;(Hover for breakdown)&#39;</span><span class="p">,</span>
+    <span class="n">geo</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">scope</span><span class="o">=</span><span class="s1">&#39;usa&#39;</span><span class="p">,</span>
+        <span class="n">projection</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;albers usa&#39;</span> <span class="p">),</span>
+        <span class="n">showlakes</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span>
+        <span class="n">lakecolor</span> <span class="o">=</span> <span class="s1">&#39;rgb(255, 255, 255)&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">validate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;d3-electoral-map&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+</pre></div>
+
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~natejhall89/0.embed" height="525px" width="100%"></iframe>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find an error or bug? Have a suggestion?</h3>
+        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <!--<footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center>This project contains 10 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.
+                <br/>
+                Copyright &copy; Nate Hall
+                    <time datetime="2016">2016</time>.
+                </center>
+            </p>
+        </div>
+    </footer>-->
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
