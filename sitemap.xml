@@ -5,7 +5,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2016-12-03T14:09:49-00:00</lastmod>
+<lastmod>2016-12-03T14:12:15-00:00</lastmod>
 <changefreq>daily</changefreq>
 <priority>0.5</priority>
 </url>
@@ -81,13 +81,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://www.instantinate.com/how_to/dictionary_comprehensions.html</loc>
-<lastmod>2016-11-26T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>http://www.instantinate.com/how_to/load_a_dataset_from_a_url.html</loc>
 <lastmod>2016-11-26T12:00:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
@@ -96,6 +89,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/python/load_dataset_from_url.html</loc>
+<lastmod>2016-11-26T12:00:00-05:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/how_to/write_dictionary_comprehensions.html</loc>
 <lastmod>2016-11-26T12:00:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
