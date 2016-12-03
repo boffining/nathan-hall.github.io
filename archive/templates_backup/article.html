@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} - {{ article.category }}{% endblock %}
+
+{% block head %}
+  {{ super() }}
+  {% if article.description %}
+    <meta name="description" content="{{article.description}}" />
+  {% endif %}
+
+  {% for tag in article.tags %}
+    <meta name="tags" content="{{tag}}" />
+  {% endfor %}
+
+{% endblock %}
+
+{% block content %}
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      {{ article.title }}
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="{{ article.date.isoformat() }}">
+            {{ article.date.strftime("%d %B %Y") }}
+        </time>
+    </li>
+    <li>{{ article.category }}</li>
+    {% for tag in article.tags %}
+    <li>{{tag}}</li>
+    {% endfor %}
+</ol>
+</header>
+<div class='article_content'>
+{{ article.content }}
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find an error or bug? Have a suggestion?</h3>
+        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+{% endblock %}

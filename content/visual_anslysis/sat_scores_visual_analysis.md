@@ -6,6 +6,9 @@ Category: visual_analysis
 Tags:
 Authors: Nate Hall
 
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/visual_anslysis/sat_scores_visual_analysis.ipynb', target="_blank">Link to the full jupyter notebook.</a><br/>
+<a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/visual_anslysis/sat_scores_visual_analysis_code.ipynb', target="_blank">Link to the code only jupyter notebook.</a>
+
 ## Conduct visual analysis and complete the prompts below.
 This project was completed for the General Assembly Data Science Immersive course. The purpose was to build and refine our foundation of python and visually show interesting findings from the data set.
 
