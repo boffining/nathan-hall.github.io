@@ -10,7 +10,7 @@
     <meta name="author" content="Nate Hall">
     <link rel="icon" href="../favicon.ico">
 
-    <title>Removing Columns - wrangling_data</title>
+    <title>How To: Unpivot Columns - how_to</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -110,7 +110,7 @@
 <section id="content" class="body">
     <header>
     <h1>
-      Removing Columns
+      How To: Unpivot Columns
     </h1>
 <ol class="breadcrumb">
     <li>
@@ -118,13 +118,19 @@
             27 November 2016
         </time>
     </li>
-    <li>wrangling_data</li>
+    <li>how_to</li>
 </ol>
 </header>
 <div class='article_content'>
-<p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
-<a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
-<p>This is a quick introduction to some basic methods for removing columns from a dataset. We will use the billboard hot 100 dataset as an example.</p>
+<p><a href="http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/unpivoting_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
+<a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/unpivoting_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
+<ul>
+<li>We'll be using the billboard hot 100 dataset as the example.</li>
+<li>We wanted to get the dataset to have rows representing the lowest level of data possible.</li>
+<li><a href="./editing_column_names.html", target="_blank">We cleaned up the column names in this article.</a></li>
+<li>Now to finish the the final step to accomplish the goal below.</li>
+</ul>
+<h2>Goal: To get each row to represent the week performance of a song.</h2>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
@@ -193,12 +199,53 @@
 <p>1 rows × 83 columns</p>
 </div>
 
-<h2>Drop a column</h2>
-<p>The simplest way to remove a column is with the "df.drop" method from pandas. <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html" target="_blank">See more info at the documentation here.</a></p>
-<p>We specify what dataframe to apply the .drop method. Then we tell it if we're dropping a column or row with the "axis" argument. And finally we use the "inplace" argument to either create the results in an alternate universe or apply it back to our current dataframe.</p>
-<div class="codehilite"><pre><span></span><span class="c1">#Can you guess why I am dropping this column? Its not just for an example. See if you can figure it out.</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="c1">#Check the shape of the dataset we&#39;re starting with.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="codehilite"><pre><span></span>(317, 83)
+</pre></div>
+
+
+<p>We know that we have 317 rows and 83 columns. If we are "unpivoting" this to be fewer columns we can expect the rows to increase substantially. Remember this for when we check the shape again later.</p>
+<h2>Melt its face off!</h2>
+<p>We will use the ".melt" function to accomplish what we need for this dataset. More information on it can be found in the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.melt.html", target="_blank"> documentation here.</a></p>
+<h3>Notes on pd.melt</h3>
+<p>First off we see that it is not applied to a dataframe, so we don't do "df.melt" it actually gets passed the entire dataframe object as an argument and is called by starting with "pd."</p>
+<div class="codehilite"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Create a new dataframe</h2>
+<p>Simply for the ease of still being able to track back to our original csv in case something doesn't work. We will then declare a new dataframe that will take on the results of the pd.melt( ) function.</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>id_vars=[ ]</h2>
+<p>We already passed the dataframe. The id_vars argument will be the columns that will be retained in the dataframe so we'll declare that by listing the columns we want to keep. Note that this argument is taking on a list so we can pass the columns to it with all the columns list methods that we know. For this example i'll just list out the columns since there are so few.</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<h2>value_vars=[ ]</h2>
+<p>This argument says it is for stating all the columns to "unpivot". Phew, we have a lot of weeks... do we have to list them all? That's the beauty of this function. If we simply leave this blank it will default to unpivot all of the columns that are not listed in the "id_vars=[ ]" argument. SWEET!!!</p>
+<h2>var_name=[ ]</h2>
+<p>So we have this tricky thing to do with unpivoting... we'll have all the week columns get turned into row cells and they will need a column header. To do this we declare the "var_name=[ ]" argument with the column header we want.</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>value_name[ ]</h2>
+<p>Now what about all the values that are listed in each week column right now? Where are those supposed to go? Glad you asked that. These are the values that we are "unpivoting" but they to will need a column header since we just took the week columns away. We know that those values represent the weekly ranking of a song during that week so we'll "unpivot" those values to a new column called "rank"</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span>
+              <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Check your work.</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -207,129 +254,94 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
+      <th>year</th>
       <th>artist</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
       <th>entered</th>
       <th>peaked</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
+      <th>week</th>
+      <th>rank</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>2000</td>
       <td>Destiny's Child</td>
       <td>Independent Women Part I</td>
       <td>3:38</td>
       <td>Rock</td>
       <td>2000-09-23</td>
       <td>2000-11-18</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>33.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>1</td>
+      <td>78.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2000</td>
+      <td>Santana</td>
+      <td>Maria, Maria</td>
+      <td>4:18</td>
+      <td>Rock</td>
+      <td>2000-02-12</td>
+      <td>2000-04-08</td>
+      <td>1</td>
+      <td>15.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2000</td>
+      <td>Savage Garden</td>
+      <td>I Knew I Loved You</td>
+      <td>4:07</td>
+      <td>Rock</td>
+      <td>1999-10-23</td>
+      <td>2000-01-29</td>
+      <td>1</td>
+      <td>71.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2000</td>
+      <td>Madonna</td>
+      <td>Music</td>
+      <td>3:45</td>
+      <td>Rock</td>
+      <td>2000-08-12</td>
+      <td>2000-09-16</td>
+      <td>1</td>
+      <td>41.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2000</td>
+      <td>Aguilera, Christina</td>
+      <td>Come On Over Baby (All I Want Is You)</td>
+      <td>3:38</td>
+      <td>Rock</td>
+      <td>2000-08-05</td>
+      <td>2000-10-14</td>
+      <td>1</td>
+      <td>57.0</td>
     </tr>
   </tbody>
 </table>
-<p>1 rows × 82 columns</p>
 </div>
 
-<h2>Drop multiple columns</h2>
-<p>Notice that for the "labels" argument in the documentation it says that the elements to drop can be "list-like". Which means that if we want to drop multiple columns we can give it a list of column names since that is how all the column headers are stored in pandas anyways. So the function would be...</p>
-<div class="codehilite"><pre><span></span><span class="c1">#This time we are doing it for example purposes only so note that inplace is set to False to make this abundantly clear.</span>
-<span class="c1">#It defaults to False automatically but this makes it clear we are not applying it to the original dataframe.</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">False</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1">#note we aren&#39;t using df.head to see how it works. Because df.head shows the original dataframe values.</span>
-<span class="c1">#since we are not applying this to the original dataframe we can slice the results to show the first row</span>
-<span class="c1">#only and that acts the same as using df.head(1)</span>
+<h2>Cool! It worked!</h2>
+<p>We now have the rows representing the lowest level of data in our dataset. What did this do to the shape of our table? Remember what it was at the beginning? Lets check it again to see what happened.</p>
+<div class="codehilite"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>artist</th>
-      <th>track</th>
-      <th>time</th>
-      <th>genre</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Destiny's Child</td>
-      <td>Independent Women Part I</td>
-      <td>3:38</td>
-      <td>Rock</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>33.0</td>
-      <td>23.0</td>
-      <td>15.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>1 rows × 80 columns</p>
-</div>
+<div class="codehilite"><pre><span></span>(24092, 9)
+</pre></div>
+
+
+<h2>Woah. That is MUCH longer.</h2>
+<p>Nothing to worry about though. You'll find that pandas can handle this length of a data table easily. Most importantly we have our dataset setup in a way where we can work with it much better.</p>
 </div>
     <aside>
     <div class="bug-reporting__panel">

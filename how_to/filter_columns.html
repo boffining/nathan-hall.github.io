@@ -10,7 +10,7 @@
     <meta name="author" content="Nate Hall">
     <link rel="icon" href="../favicon.ico">
 
-    <title>Removing Columns - wrangling_data</title>
+    <title>How To: Filter Columns - how_to</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -110,7 +110,7 @@
 <section id="content" class="body">
     <header>
     <h1>
-      Removing Columns
+      How To: Filter Columns
     </h1>
 <ol class="breadcrumb">
     <li>
@@ -118,18 +118,18 @@
             27 November 2016
         </time>
     </li>
-    <li>wrangling_data</li>
+    <li>how_to</li>
 </ol>
 </header>
 <div class='article_content'>
-<p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
-<a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
-<p>This is a quick introduction to some basic methods for removing columns from a dataset. We will use the billboard hot 100 dataset as an example.</p>
+<p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/filter_out_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
+<a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/filter_out_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
+<p>This is a slightly more complicated application of filtering out columns than the standard df.drop method you may have seen. But if you stick with each element I promise it will begin to make sense.</p>
 <div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -141,26 +141,26 @@
     <tr style="text-align: right;">
       <th></th>
       <th>year</th>
-      <th>artist</th>
+      <th>artist.inverted</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
+      <th>x1st.week</th>
+      <th>x2nd.week</th>
+      <th>x3rd.week</th>
       <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
+      <th>x67th.week</th>
+      <th>x68th.week</th>
+      <th>x69th.week</th>
+      <th>x70th.week</th>
+      <th>x71st.week</th>
+      <th>x72nd.week</th>
+      <th>x73rd.week</th>
+      <th>x74th.week</th>
+      <th>x75th.week</th>
+      <th>x76th.week</th>
     </tr>
   </thead>
   <tbody>
@@ -193,11 +193,34 @@
 <p>1 rows × 83 columns</p>
 </div>
 
-<h2>Drop a column</h2>
-<p>The simplest way to remove a column is with the "df.drop" method from pandas. <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html" target="_blank">See more info at the documentation here.</a></p>
-<p>We specify what dataframe to apply the .drop method. Then we tell it if we're dropping a column or row with the "axis" argument. And finally we use the "inplace" argument to either create the results in an alternate universe or apply it back to our current dataframe.</p>
-<div class="codehilite"><pre><span></span><span class="c1">#Can you guess why I am dropping this column? Its not just for an example. See if you can figure it out.</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<h2>Filter out columns that contain a keyword</h2>
+<p>Remember what method we use to drop columns or rows in a dataset? We will be using the same one again here. So we begin our function by saying...</p>
+<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span> <span class="p">)</span>
+</pre></div>
+
+
+<p>Now remember in the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html" target="_blank">documentation</a> what we can pass this method to drop? It says it can take on a "list-like" set of items to be dropped.</p>
+<h2>Conceptualize what to filter</h2>
+<p>Conceptually lets lay out what we're trying to accomplish. We want the .drop method to get automatically populated with a list of columns that match some type of filter criteria. To get a list of columns that match a criteria we would use a for loop. However, that is too cumbersome to try to embed in the .drop method which is why <a href="https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions" target="_blank">list comprehensions</a> are very useful to be placed in arguments.</p>
+<h2>Use list comprehension to return the columns to be dropped</h2>
+<p>Remember that list comprehensions you start by declaring what variable you will be getting and then go on to declare the function setup. For our example we're going to say give me all the columns that are in our dataframe if they have the number "6" in them. (No real reason behind 6 this is purely for example purposes). We put our comprehension in brackets since its returning a list and declare the first variable we're getting back "col".</p>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Next we need to give it the for loop (what we want it to look through). In this case we want it to give all the "col" values that match our filter so we say "for col in df.columns" since we're looking through all the columns.</p>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Lastly, we get to delcare our filtering criteria, which we said was columns that have the number "6" in them. Note, that all the columns are strings so we need to put the 6 in quotations when declaring what to filter. At any rate, we are looking at all the "col" so we want all the ones if "6" is in them.</p>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+</pre></div>
+
+
+<p>And that's it we have our filter setup with a easy logic filtering test to apply to all the columns. We can place this straight into the df.drop method and add the other arguments for the column axis and inplace being set to true so we apply this to our dataframe.</p>
+<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1">#Check your work</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
@@ -207,32 +230,33 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>artist</th>
+      <th>year</th>
+      <th>artist.inverted</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
+      <th>x1st.week</th>
+      <th>x2nd.week</th>
+      <th>x3rd.week</th>
       <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
+      <th>x55th.week</th>
+      <th>x57th.week</th>
+      <th>x58th.week</th>
+      <th>x59th.week</th>
+      <th>x70th.week</th>
+      <th>x71st.week</th>
+      <th>x72nd.week</th>
+      <th>x73rd.week</th>
+      <th>x74th.week</th>
+      <th>x75th.week</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>2000</td>
       <td>Destiny's Child</td>
       <td>Independent Women Part I</td>
       <td>3:38</td>
@@ -242,7 +266,6 @@
       <td>78</td>
       <td>63.0</td>
       <td>49.0</td>
-      <td>33.0</td>
       <td>...</td>
       <td>NaN</td>
       <td>NaN</td>
@@ -257,19 +280,16 @@
     </tr>
   </tbody>
 </table>
-<p>1 rows × 82 columns</p>
+<p>1 rows × 66 columns</p>
 </div>
 
-<h2>Drop multiple columns</h2>
-<p>Notice that for the "labels" argument in the documentation it says that the elements to drop can be "list-like". Which means that if we want to drop multiple columns we can give it a list of column names since that is how all the column headers are stored in pandas anyways. So the function would be...</p>
-<div class="codehilite"><pre><span></span><span class="c1">#This time we are doing it for example purposes only so note that inplace is set to False to make this abundantly clear.</span>
-<span class="c1">#It defaults to False automatically but this makes it clear we are not applying it to the original dataframe.</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">False</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1">#note we aren&#39;t using df.head to see how it works. Because df.head shows the original dataframe values.</span>
-<span class="c1">#since we are not applying this to the original dataframe we can slice the results to show the first row</span>
-<span class="c1">#only and that acts the same as using df.head(1)</span>
+<h2>Cool!</h2>
+<p>We see when we scroll over that all the columns from the sixties are removed and the ones like 56. Everything with a 6 is gone you powerful data scientist you.</p>
+<h2>Filter out columns that start with "__"</h2>
+<p>Because we did a logical argument with the list comprehension the sky is the limit for what we want it to return. In the below example I am asking it to take it one step further and look at the first letter of all the columns, if the letter is an "x" then it should drop that column.</p>
+<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="c1">#Check your work</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -278,58 +298,32 @@
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>artist</th>
+      <th>year</th>
+      <th>artist.inverted</th>
       <th>track</th>
       <th>time</th>
       <th>genre</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
+      <th>date.entered</th>
+      <th>date.peaked</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th>0</th>
+      <td>2000</td>
       <td>Destiny's Child</td>
       <td>Independent Women Part I</td>
       <td>3:38</td>
       <td>Rock</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>33.0</td>
-      <td>23.0</td>
-      <td>15.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>2000-09-23</td>
+      <td>2000-11-18</td>
     </tr>
   </tbody>
 </table>
-<p>1 rows × 80 columns</p>
 </div>
+
+<h2>Bam!</h2>
+<p>You can now conquer any mangy dataset columns you come across.</p>
 </div>
     <aside>
     <div class="bug-reporting__panel">
