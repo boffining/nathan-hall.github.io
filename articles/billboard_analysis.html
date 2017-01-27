@@ -125,7 +125,7 @@
 </header>
 <div class='article_content'>
 <h2>Here is some open ended analysis using pandas to show the power of this library for handling literally anything that can be thrown at it.</h2>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
@@ -133,7 +133,7 @@
 
 
 <h3>Pandas to read in data</h3>
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -294,7 +294,7 @@
 </div>
 
 <h3>Renaming column names</h3>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;st&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;nd&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
@@ -305,7 +305,7 @@
 
 
 <h3>Describe your data: check the value counts + descrisptive stats</h3>
-<div class="codehilite"><pre><span></span><span class="c1">#We will first drop &#39;year&#39; since all the songs are from 2000</span>
+<div class="highlight"><pre><span></span><span class="c1">#We will first drop &#39;year&#39; since all the songs are from 2000</span>
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1">#basic describe</span>
 <span class="n">df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -538,25 +538,25 @@
 <p>8 rows × 76 columns</p>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;date.entered&#39;</span><span class="p">,</span><span class="s1">&#39;date.peaked&#39;</span><span class="p">],</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;date.entered&#39;</span><span class="p">,</span><span class="s1">&#39;date.peaked&#39;</span><span class="p">],</span>
                   <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#checking function that was run</span>
+<div class="highlight"><pre><span></span><span class="c1">#checking function that was run</span>
 <span class="k">print</span> <span class="n">df2</span><span class="o">.</span><span class="n">shape</span>
 <span class="k">print</span> <span class="n">df2</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(24092, 8)
+<div class="highlight"><pre><span></span>(24092, 8)
 Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&#39;, u&#39;date.entered&#39;,
        u&#39;date.peaked&#39;, u&#39;week&#39;, u&#39;rank&#39;],
       dtype=&#39;object&#39;)
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#We now the data formated to plot ranking over time for each track.</span>
+<div class="highlight"><pre><span></span><span class="c1">#We now the data formated to plot ranking over time for each track.</span>
 <span class="c1">#We will use other methods to determine which tracks to plot.</span>
 <span class="n">df3</span> <span class="o">=</span> <span class="n">df2</span><span class="p">[</span><span class="n">df2</span><span class="p">[</span><span class="s1">&#39;track&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;I Wanna Know&#39;</span><span class="p">]</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df3</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">])</span>
@@ -566,7 +566,7 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </pre></div>
 
 
-<p><img alt="png" src="../images/billboard_100/output_11_0.png" /></p>
+<p><img alt="png" src="../images/billboard_100/output_11_0.png"></p>
 <h4>Future Exploratory options... the world is yours with pandas.</h4>
 <ul>
 <li>Look at time it takes to get to the top. (time entered, to time peak)</li>
@@ -575,13 +575,13 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </ul>
 <h3>That was interesting... now lets wrangle this dataset for some cool correlations.</h3>
 <h1>Data wrangling for the most correlated genres</h1>
-<div class="codehilite"><pre><span></span><span class="c1">#create a new dataframe for manipulation.</span>
+<div class="highlight"><pre><span></span><span class="c1">#create a new dataframe for manipulation.</span>
 <span class="n">df7</span> <span class="o">=</span> <span class="n">df2</span>
 </pre></div>
 
 
 <h3>Group the data</h3>
-<div class="codehilite"><pre><span></span><span class="n">df7</span> <span class="o">=</span> <span class="n">df7</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;week&#39;</span> <span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df7</span> <span class="o">=</span> <span class="n">df7</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;week&#39;</span> <span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="c1">#check that the group by function worked.</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
@@ -633,12 +633,12 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </div>
 
 <h3>Create a pivot table</h3>
-<div class="codehilite"><pre><span></span><span class="c1">#Use the pivot table function to get to something that can be correlated.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Use the pivot table function to get to something that can be correlated.</span>
 <span class="n">df7</span> <span class="o">=</span> <span class="n">df7</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Moving the week column from the index back into a column position on the data table.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Moving the week column from the index back into a column position on the data table.</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
@@ -737,14 +737,14 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">#Sorting the data inside week after it is converted to a string.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Sorting the data inside week after it is converted to a string.</span>
 <span class="n">df7</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df7</span><span class="o">.</span><span class="n">week</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<div class="highlight"><pre><span></span>/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
   app.launch_new_instance()
 </pre></div>
 
@@ -842,18 +842,18 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">#Remove the pesky column and index names that will mess up the correlation formula later.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Remove the pesky column and index names that will mess up the correlation formula later.</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Remove the week column since we sorted by it already.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Remove the week column since we sorted by it already.</span>
 <span class="n">df7</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">df7</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df7</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -945,56 +945,56 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </div>
 
 <h1>Data wrangling for the most correlated artist rankings</h1>
-<div class="codehilite"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df2</span>
+<div class="highlight"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df2</span>
 </pre></div>
 
 
 <h3>Group the data</h3>
-<div class="codehilite"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;week&#39;</span> <span class="p">,</span> <span class="s1">&#39;arti.inverted&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;week&#39;</span> <span class="p">,</span> <span class="s1">&#39;arti.inverted&#39;</span><span class="p">],</span> <span class="n">as_index</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(17328, 3)
+<div class="highlight"><pre><span></span>(17328, 3)
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">df8</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">])]</span>
+<div class="highlight"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">df8</span><span class="p">[</span><span class="s1">&#39;rank&#39;</span><span class="p">])]</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(3989, 3)
+<div class="highlight"><pre><span></span>(3989, 3)
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">df8</span><span class="p">[</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">counts</span> <span class="o">=</span> <span class="n">df8</span><span class="p">[</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">##Removing any artists that have less than 15 datapoints on the rankings.</span>
+<div class="highlight"><pre><span></span><span class="c1">##Removing any artists that have less than 15 datapoints on the rankings.</span>
 <span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="p">[</span><span class="n">df8</span><span class="p">[</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">counts</span><span class="p">[</span><span class="n">counts</span> <span class="o">&gt;</span> <span class="mi">30</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">)]</span>
 </pre></div>
 
 
 <h3>Create a pivot table</h3>
-<div class="codehilite"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df8</span> <span class="o">=</span> <span class="n">df8</span><span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Moving the week column from the index back into a column position on the data table.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Moving the week column from the index back into a column position on the data table.</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Sorting the data inside week after it is converted to a string.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Sorting the data inside week after it is converted to a string.</span>
 <span class="n">df8</span><span class="p">[</span><span class="s1">&#39;week&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df8</span><span class="o">.</span><span class="n">week</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
+<div class="highlight"><pre><span></span>/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: FutureWarning: sort(columns=....) is deprecated, use sort_values(by=.....)
   app.launch_new_instance()
 </pre></div>
 
@@ -1128,20 +1128,20 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">#Remove the pesky column and index names that will mess up the correlation formula later.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Remove the pesky column and index names that will mess up the correlation formula later.</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">None</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Remove the week column since we sorted by it already.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Remove the week column since we sorted by it already.</span>
 <span class="n">df8</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
 <h1>Data wrangling for the most correlated song rankings</h1>
 <p>How would you do this part?</p>
-<div class="codehilite"><pre><span></span><span class="c1">#df9 = df2</span>
+<div class="highlight"><pre><span></span><span class="c1">#df9 = df2</span>
 </pre></div>
 
 
@@ -1149,7 +1149,7 @@ Index([u&#39;arti.inverted&#39;, u&#39;track&#39;, u&#39;time&#39;, u&#39;genre&
 <p>This is a simple formula that I have been working to improve to work on any data set. It is designed to be a useful alternative to the spray and pray sns.pairplot or scatter matrix methods.
 sns.pairplot (on df7) = 14s
 corrr_pairs function (on df7) =384ms</p>
-<div class="codehilite"><pre><span></span><span class="k">def</span> <span class="nf">corr_pairs</span><span class="p">(</span><span class="n">df_input</span><span class="p">,</span><span class="n">coef_percentile</span><span class="p">):</span> <span class="c1">#,mse_percentile</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">corr_pairs</span><span class="p">(</span><span class="n">df_input</span><span class="p">,</span><span class="n">coef_percentile</span><span class="p">):</span> <span class="c1">#,mse_percentile</span>
     <span class="c1">#from sklearn.metrics import mean_squared_error</span>
     <span class="c1">#Get top correlated pairs using Pearson coefficient</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">df_input</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
@@ -1181,12 +1181,12 @@ corrr_pairs function (on df7) =384ms</p>
 
 
 <h2>Showing the most correlated genres in the rankings</h2>
-<div class="codehilite"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df7</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df7</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/billboard_100/output_44_0.png" /></p>
-<p><img alt="png" src="../images/billboard_100/output_44_1.png" /></p>
+<p><img alt="png" src="../images/billboard_100/output_44_0.png"></p>
+<p><img alt="png" src="../images/billboard_100/output_44_1.png"></p>
 <div>
 <table border="1" class="dataframe">
   <thead>
@@ -1215,15 +1215,15 @@ corrr_pairs function (on df7) =384ms</p>
 </div>
 
 <h2>Showing the most correlated artists in the rankings</h2>
-<div class="codehilite"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df8</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df8</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/billboard_100/output_46_0.png" /></p>
-<p><img alt="png" src="../images/billboard_100/output_46_1.png" /></p>
-<p><img alt="png" src="../images/billboard_100/output_46_2.png" /></p>
-<p><img alt="png" src="../images/billboard_100/output_46_3.png" /></p>
-<p><img alt="png" src="../images/billboard_100/output_46_4.png" /></p>
+<p><img alt="png" src="../images/billboard_100/output_46_0.png"></p>
+<p><img alt="png" src="../images/billboard_100/output_46_1.png"></p>
+<p><img alt="png" src="../images/billboard_100/output_46_2.png"></p>
+<p><img alt="png" src="../images/billboard_100/output_46_3.png"></p>
+<p><img alt="png" src="../images/billboard_100/output_46_4.png"></p>
 <div>
 <table border="1" class="dataframe">
   <thead>
@@ -1274,8 +1274,9 @@ corrr_pairs function (on df7) =384ms</p>
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

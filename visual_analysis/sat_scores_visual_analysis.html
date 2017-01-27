@@ -139,11 +139,11 @@
 <li>Plot the state data as a USA heatmap.</li>
 </ul>
 <h4>PROMPT 1: Open the <code>sat_scores.csv</code> file. Investigate the data, and answer the questions below.</h4>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Data was imported using the pandas library for quick analysis.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Data was imported using the pandas library for quick analysis.</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -201,26 +201,26 @@
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">#After seeing state data there should be 50 rows. Check the shape to see if there is 50 rows.</span>
+<div class="highlight"><pre><span></span><span class="c1">#After seeing state data there should be 50 rows. Check the shape to see if there is 50 rows.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(52, 4)
+<div class="highlight"><pre><span></span>(52, 4)
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Ok.... there is 52... cool. We&#39;ll come back to that.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Ok.... there is 52... cool. We&#39;ll come back to that.</span>
 </pre></div>
 
 
 <h4>PROMPT 2. What does the data describe?</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#The average SAT section score for each state. And the participation rate of that state in the SAT progam.</span>
+<div class="highlight"><pre><span></span><span class="c1">#The average SAT section score for each state. And the participation rate of that state in the SAT progam.</span>
 </pre></div>
 
 
 <h4>PROMPT 3. Does the data look complete? Are there any obvious issues with the observations?</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#I printed the value counts and sorted them multiple times to check for data cleanliness.</span>
+<div class="highlight"><pre><span></span><span class="c1">#I printed the value counts and sorted them multiple times to check for data cleanliness.</span>
 <span class="c1">#NOTE: I am only showing the top 5 of each here because I completed the analysis.</span>
 <span class="k">print</span> <span class="s2">&quot;--------------&quot;</span>
 <span class="k">print</span> <span class="s2">&quot;STATE VALUE COUNTS&quot;</span>
@@ -237,7 +237,7 @@
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>--------------
+<div class="highlight"><pre><span></span>--------------
 STATE VALUE COUNTS
 SD    1
 OR    1
@@ -272,18 +272,18 @@ Name: Math, dtype: int64
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1"># Data issues to note from earier. There since 50 rows were expected and 52 were found we looked to see what they were.</span>
+<div class="highlight"><pre><span></span><span class="c1"># Data issues to note from earier. There since 50 rows were expected and 52 were found we looked to see what they were.</span>
 <span class="c1"># 1: Is the district of columbia and should be included.</span>
 <span class="c1"># 2: Is called &quot;All&quot; which needs further investigation below.</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Check what the values of the All row is.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Check what the values of the All row is.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">51</span><span class="p">]</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>State     All
+<div class="highlight"><pre><span></span>State     All
 Rate       45
 Verbal    506
 Math      514
@@ -291,20 +291,20 @@ Name: 51, dtype: object
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#This might be the sum total average for all the other rows in the dataframe. The below code attempts to confirm that theory.</span>
+<div class="highlight"><pre><span></span><span class="c1">#This might be the sum total average for all the other rows in the dataframe. The below code attempts to confirm that theory.</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Look at the average score of the other states not including &quot;All&quot; and comparing it to the score above.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Look at the average score of the other states not including &quot;All&quot; and comparing it to the score above.</span>
 <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;All&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Rate</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>37.0
+<div class="highlight"><pre><span></span>37.0
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#CONCLUSION: The above number is nowhere near the mean of the rate column.</span>
+<div class="highlight"><pre><span></span><span class="c1">#CONCLUSION: The above number is nowhere near the mean of the rate column.</span>
 <span class="c1">#So this data does not represent the average of the column.</span>
 <span class="c1">#However we will leave it in for now and if it proves to be an outlier we&#39;ll consider removing it.</span>
 </pre></div>
@@ -338,11 +338,11 @@ Name: 51, dtype: object
 </tbody>
 </table>
 <h4>PROMPT 5. Load the data into a list of lists</h4>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">csv</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#This is easier to accomplish with csv reader rather than Pandas so we&#39;ll reimport the data here.</span>
+<div class="highlight"><pre><span></span><span class="c1">#This is easier to accomplish with csv reader rather than Pandas so we&#39;ll reimport the data here.</span>
 <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores.csv&#39;</span><span class="p">,</span> <span class="s1">&#39;rU&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
     <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">reader</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">reader</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
@@ -352,43 +352,43 @@ Name: 51, dtype: object
 
 
 <h4>PROMPT 6. Print the data</h4>
-<div class="codehilite"><pre><span></span><span class="k">print</span> <span class="n">data</span>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">data</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>[[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;], [&#39;CT&#39;, &#39;82&#39;, &#39;509&#39;, &#39;510&#39;], [&#39;NJ&#39;, &#39;81&#39;, &#39;499&#39;, &#39;513&#39;], [&#39;MA&#39;, &#39;79&#39;, &#39;511&#39;, &#39;515&#39;], [&#39;NY&#39;, &#39;77&#39;, &#39;495&#39;, &#39;505&#39;], [&#39;NH&#39;, &#39;72&#39;, &#39;520&#39;, &#39;516&#39;], [&#39;RI&#39;, &#39;71&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;PA&#39;, &#39;71&#39;, &#39;500&#39;, &#39;499&#39;], [&#39;VT&#39;, &#39;69&#39;, &#39;511&#39;, &#39;506&#39;], [&#39;ME&#39;, &#39;69&#39;, &#39;506&#39;, &#39;500&#39;], [&#39;VA&#39;, &#39;68&#39;, &#39;510&#39;, &#39;501&#39;], [&#39;DE&#39;, &#39;67&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;MD&#39;, &#39;65&#39;, &#39;508&#39;, &#39;510&#39;], [&#39;NC&#39;, &#39;65&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;GA&#39;, &#39;63&#39;, &#39;491&#39;, &#39;489&#39;], [&#39;IN&#39;, &#39;60&#39;, &#39;499&#39;, &#39;501&#39;], [&#39;SC&#39;, &#39;57&#39;, &#39;486&#39;, &#39;488&#39;], [&#39;DC&#39;, &#39;56&#39;, &#39;482&#39;, &#39;474&#39;], [&#39;OR&#39;, &#39;55&#39;, &#39;526&#39;, &#39;526&#39;], [&#39;FL&#39;, &#39;54&#39;, &#39;498&#39;, &#39;499&#39;], [&#39;WA&#39;, &#39;53&#39;, &#39;527&#39;, &#39;527&#39;], [&#39;TX&#39;, &#39;53&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;HI&#39;, &#39;52&#39;, &#39;485&#39;, &#39;515&#39;], [&#39;AK&#39;, &#39;51&#39;, &#39;514&#39;, &#39;510&#39;], [&#39;CA&#39;, &#39;51&#39;, &#39;498&#39;, &#39;517&#39;], [&#39;AZ&#39;, &#39;34&#39;, &#39;523&#39;, &#39;525&#39;], [&#39;NV&#39;, &#39;33&#39;, &#39;509&#39;, &#39;515&#39;], [&#39;CO&#39;, &#39;31&#39;, &#39;539&#39;, &#39;542&#39;], [&#39;OH&#39;, &#39;26&#39;, &#39;534&#39;, &#39;439&#39;], [&#39;MT&#39;, &#39;23&#39;, &#39;539&#39;, &#39;539&#39;], [&#39;WV&#39;, &#39;18&#39;, &#39;527&#39;, &#39;512&#39;], [&#39;ID&#39;, &#39;17&#39;, &#39;543&#39;, &#39;542&#39;], [&#39;TN&#39;, &#39;13&#39;, &#39;562&#39;, &#39;553&#39;], [&#39;NM&#39;, &#39;13&#39;, &#39;551&#39;, &#39;542&#39;], [&#39;IL&#39;, &#39;12&#39;, &#39;576&#39;, &#39;589&#39;], [&#39;KY&#39;, &#39;12&#39;, &#39;550&#39;, &#39;550&#39;], [&#39;WY&#39;, &#39;11&#39;, &#39;547&#39;, &#39;545&#39;], [&#39;MI&#39;, &#39;11&#39;, &#39;561&#39;, &#39;572&#39;], [&#39;MN&#39;, &#39;9&#39;, &#39;580&#39;, &#39;589&#39;], [&#39;KS&#39;, &#39;9&#39;, &#39;577&#39;, &#39;580&#39;], [&#39;AL&#39;, &#39;9&#39;, &#39;559&#39;, &#39;554&#39;], [&#39;NE&#39;, &#39;8&#39;, &#39;562&#39;, &#39;568&#39;], [&#39;OK&#39;, &#39;8&#39;, &#39;567&#39;, &#39;561&#39;], [&#39;MO&#39;, &#39;8&#39;, &#39;577&#39;, &#39;577&#39;], [&#39;LA&#39;, &#39;7&#39;, &#39;564&#39;, &#39;562&#39;], [&#39;WI&#39;, &#39;6&#39;, &#39;584&#39;, &#39;596&#39;], [&#39;AR&#39;, &#39;6&#39;, &#39;562&#39;, &#39;550&#39;], [&#39;UT&#39;, &#39;5&#39;, &#39;575&#39;, &#39;570&#39;], [&#39;IA&#39;, &#39;5&#39;, &#39;593&#39;, &#39;603&#39;], [&#39;SD&#39;, &#39;4&#39;, &#39;577&#39;, &#39;582&#39;], [&#39;ND&#39;, &#39;4&#39;, &#39;592&#39;, &#39;599&#39;], [&#39;MS&#39;, &#39;4&#39;, &#39;566&#39;, &#39;551&#39;], [&#39;All&#39;, &#39;45&#39;, &#39;506&#39;, &#39;514&#39;]]
+<div class="highlight"><pre><span></span>[[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;], [&#39;CT&#39;, &#39;82&#39;, &#39;509&#39;, &#39;510&#39;], [&#39;NJ&#39;, &#39;81&#39;, &#39;499&#39;, &#39;513&#39;], [&#39;MA&#39;, &#39;79&#39;, &#39;511&#39;, &#39;515&#39;], [&#39;NY&#39;, &#39;77&#39;, &#39;495&#39;, &#39;505&#39;], [&#39;NH&#39;, &#39;72&#39;, &#39;520&#39;, &#39;516&#39;], [&#39;RI&#39;, &#39;71&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;PA&#39;, &#39;71&#39;, &#39;500&#39;, &#39;499&#39;], [&#39;VT&#39;, &#39;69&#39;, &#39;511&#39;, &#39;506&#39;], [&#39;ME&#39;, &#39;69&#39;, &#39;506&#39;, &#39;500&#39;], [&#39;VA&#39;, &#39;68&#39;, &#39;510&#39;, &#39;501&#39;], [&#39;DE&#39;, &#39;67&#39;, &#39;501&#39;, &#39;499&#39;], [&#39;MD&#39;, &#39;65&#39;, &#39;508&#39;, &#39;510&#39;], [&#39;NC&#39;, &#39;65&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;GA&#39;, &#39;63&#39;, &#39;491&#39;, &#39;489&#39;], [&#39;IN&#39;, &#39;60&#39;, &#39;499&#39;, &#39;501&#39;], [&#39;SC&#39;, &#39;57&#39;, &#39;486&#39;, &#39;488&#39;], [&#39;DC&#39;, &#39;56&#39;, &#39;482&#39;, &#39;474&#39;], [&#39;OR&#39;, &#39;55&#39;, &#39;526&#39;, &#39;526&#39;], [&#39;FL&#39;, &#39;54&#39;, &#39;498&#39;, &#39;499&#39;], [&#39;WA&#39;, &#39;53&#39;, &#39;527&#39;, &#39;527&#39;], [&#39;TX&#39;, &#39;53&#39;, &#39;493&#39;, &#39;499&#39;], [&#39;HI&#39;, &#39;52&#39;, &#39;485&#39;, &#39;515&#39;], [&#39;AK&#39;, &#39;51&#39;, &#39;514&#39;, &#39;510&#39;], [&#39;CA&#39;, &#39;51&#39;, &#39;498&#39;, &#39;517&#39;], [&#39;AZ&#39;, &#39;34&#39;, &#39;523&#39;, &#39;525&#39;], [&#39;NV&#39;, &#39;33&#39;, &#39;509&#39;, &#39;515&#39;], [&#39;CO&#39;, &#39;31&#39;, &#39;539&#39;, &#39;542&#39;], [&#39;OH&#39;, &#39;26&#39;, &#39;534&#39;, &#39;439&#39;], [&#39;MT&#39;, &#39;23&#39;, &#39;539&#39;, &#39;539&#39;], [&#39;WV&#39;, &#39;18&#39;, &#39;527&#39;, &#39;512&#39;], [&#39;ID&#39;, &#39;17&#39;, &#39;543&#39;, &#39;542&#39;], [&#39;TN&#39;, &#39;13&#39;, &#39;562&#39;, &#39;553&#39;], [&#39;NM&#39;, &#39;13&#39;, &#39;551&#39;, &#39;542&#39;], [&#39;IL&#39;, &#39;12&#39;, &#39;576&#39;, &#39;589&#39;], [&#39;KY&#39;, &#39;12&#39;, &#39;550&#39;, &#39;550&#39;], [&#39;WY&#39;, &#39;11&#39;, &#39;547&#39;, &#39;545&#39;], [&#39;MI&#39;, &#39;11&#39;, &#39;561&#39;, &#39;572&#39;], [&#39;MN&#39;, &#39;9&#39;, &#39;580&#39;, &#39;589&#39;], [&#39;KS&#39;, &#39;9&#39;, &#39;577&#39;, &#39;580&#39;], [&#39;AL&#39;, &#39;9&#39;, &#39;559&#39;, &#39;554&#39;], [&#39;NE&#39;, &#39;8&#39;, &#39;562&#39;, &#39;568&#39;], [&#39;OK&#39;, &#39;8&#39;, &#39;567&#39;, &#39;561&#39;], [&#39;MO&#39;, &#39;8&#39;, &#39;577&#39;, &#39;577&#39;], [&#39;LA&#39;, &#39;7&#39;, &#39;564&#39;, &#39;562&#39;], [&#39;WI&#39;, &#39;6&#39;, &#39;584&#39;, &#39;596&#39;], [&#39;AR&#39;, &#39;6&#39;, &#39;562&#39;, &#39;550&#39;], [&#39;UT&#39;, &#39;5&#39;, &#39;575&#39;, &#39;570&#39;], [&#39;IA&#39;, &#39;5&#39;, &#39;593&#39;, &#39;603&#39;], [&#39;SD&#39;, &#39;4&#39;, &#39;577&#39;, &#39;582&#39;], [&#39;ND&#39;, &#39;4&#39;, &#39;592&#39;, &#39;599&#39;], [&#39;MS&#39;, &#39;4&#39;, &#39;566&#39;, &#39;551&#39;], [&#39;All&#39;, &#39;45&#39;, &#39;506&#39;, &#39;514&#39;]]
 </pre></div>
 
 
 <h4>PROMPT 7. Extract a list of the labels from the data, and remove them from the data.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Setting the first row as a columns variable.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Setting the first row as a columns variable.</span>
 <span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][:]</span>
 <span class="c1">#Removing the first row(a.k.a the first list object) from the original data list.</span>
 <span class="n">data</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
+<div class="highlight"><pre><span></span>[&#39;State&#39;, &#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
 </pre></div>
 
 
 <h4>PROMPT 8. Create a list of State names extracted from the data. (Hint: use the list of labels to index on the State column)</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Use list comprehension for extracting the first element of each list into a new list.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Use list comprehension for extracting the first element of each list into a new list.</span>
 <span class="n">states_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
 <span class="k">print</span> <span class="n">states_list</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>[&#39;CT&#39;, &#39;NJ&#39;, &#39;MA&#39;, &#39;NY&#39;, &#39;NH&#39;, &#39;RI&#39;, &#39;PA&#39;, &#39;VT&#39;, &#39;ME&#39;, &#39;VA&#39;, &#39;DE&#39;, &#39;MD&#39;, &#39;NC&#39;, &#39;GA&#39;, &#39;IN&#39;, &#39;SC&#39;, &#39;DC&#39;, &#39;OR&#39;, &#39;FL&#39;, &#39;WA&#39;, &#39;TX&#39;, &#39;HI&#39;, &#39;AK&#39;, &#39;CA&#39;, &#39;AZ&#39;, &#39;NV&#39;, &#39;CO&#39;, &#39;OH&#39;, &#39;MT&#39;, &#39;WV&#39;, &#39;ID&#39;, &#39;TN&#39;, &#39;NM&#39;, &#39;IL&#39;, &#39;KY&#39;, &#39;WY&#39;, &#39;MI&#39;, &#39;MN&#39;, &#39;KS&#39;, &#39;AL&#39;, &#39;NE&#39;, &#39;OK&#39;, &#39;MO&#39;, &#39;LA&#39;, &#39;WI&#39;, &#39;AR&#39;, &#39;UT&#39;, &#39;IA&#39;, &#39;SD&#39;, &#39;ND&#39;, &#39;MS&#39;, &#39;All&#39;]
+<div class="highlight"><pre><span></span>[&#39;CT&#39;, &#39;NJ&#39;, &#39;MA&#39;, &#39;NY&#39;, &#39;NH&#39;, &#39;RI&#39;, &#39;PA&#39;, &#39;VT&#39;, &#39;ME&#39;, &#39;VA&#39;, &#39;DE&#39;, &#39;MD&#39;, &#39;NC&#39;, &#39;GA&#39;, &#39;IN&#39;, &#39;SC&#39;, &#39;DC&#39;, &#39;OR&#39;, &#39;FL&#39;, &#39;WA&#39;, &#39;TX&#39;, &#39;HI&#39;, &#39;AK&#39;, &#39;CA&#39;, &#39;AZ&#39;, &#39;NV&#39;, &#39;CO&#39;, &#39;OH&#39;, &#39;MT&#39;, &#39;WV&#39;, &#39;ID&#39;, &#39;TN&#39;, &#39;NM&#39;, &#39;IL&#39;, &#39;KY&#39;, &#39;WY&#39;, &#39;MI&#39;, &#39;MN&#39;, &#39;KS&#39;, &#39;AL&#39;, &#39;NE&#39;, &#39;OK&#39;, &#39;MO&#39;, &#39;LA&#39;, &#39;WI&#39;, &#39;AR&#39;, &#39;UT&#39;, &#39;IA&#39;, &#39;SD&#39;, &#39;ND&#39;, &#39;MS&#39;, &#39;All&#39;]
 </pre></div>
 
 
 <h4>PROMPT 9. Print the types of each column</h4>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>State     object
+<div class="highlight"><pre><span></span>State     object
 Rate       int64
 Verbal     int64
 Math       int64
@@ -397,34 +397,34 @@ dtype: object
 
 
 <h4>PROMPT 10. Do any types need to be reassigned? If so, go ahead and do it.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#None that I can see. I should be able to work wiht floats just fine for what I need.</span>
+<div class="highlight"><pre><span></span><span class="c1">#None that I can see. I should be able to work wiht floats just fine for what I need.</span>
 </pre></div>
 
 
 <h4>PROMPT 11. Create a dictionary for each column mapping the State to its respective value for that column.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Using data coprehension to set the first element of each list item as a</span>
+<div class="highlight"><pre><span></span><span class="c1">#Using data coprehension to set the first element of each list item as a</span>
 <span class="c1">#key and then use the rest of the list as the value.</span>
 <span class="n">sat_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">}</span>
 <span class="k">print</span> <span class="n">sat_dict</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>{&#39;WA&#39;: [&#39;53&#39;, &#39;527&#39;, &#39;527&#39;], &#39;DE&#39;: [&#39;67&#39;, &#39;501&#39;, &#39;499&#39;], &#39;DC&#39;: [&#39;56&#39;, &#39;482&#39;, &#39;474&#39;], &#39;WI&#39;: [&#39;6&#39;, &#39;584&#39;, &#39;596&#39;], &#39;WV&#39;: [&#39;18&#39;, &#39;527&#39;, &#39;512&#39;], &#39;HI&#39;: [&#39;52&#39;, &#39;485&#39;, &#39;515&#39;], &#39;FL&#39;: [&#39;54&#39;, &#39;498&#39;, &#39;499&#39;], &#39;WY&#39;: [&#39;11&#39;, &#39;547&#39;, &#39;545&#39;], &#39;NH&#39;: [&#39;72&#39;, &#39;520&#39;, &#39;516&#39;], &#39;NJ&#39;: [&#39;81&#39;, &#39;499&#39;, &#39;513&#39;], &#39;NM&#39;: [&#39;13&#39;, &#39;551&#39;, &#39;542&#39;], &#39;TX&#39;: [&#39;53&#39;, &#39;493&#39;, &#39;499&#39;], &#39;LA&#39;: [&#39;7&#39;, &#39;564&#39;, &#39;562&#39;], &#39;NC&#39;: [&#39;65&#39;, &#39;493&#39;, &#39;499&#39;], &#39;ND&#39;: [&#39;4&#39;, &#39;592&#39;, &#39;599&#39;], &#39;NE&#39;: [&#39;8&#39;, &#39;562&#39;, &#39;568&#39;], &#39;TN&#39;: [&#39;13&#39;, &#39;562&#39;, &#39;553&#39;], &#39;NY&#39;: [&#39;77&#39;, &#39;495&#39;, &#39;505&#39;], &#39;PA&#39;: [&#39;71&#39;, &#39;500&#39;, &#39;499&#39;], &#39;RI&#39;: [&#39;71&#39;, &#39;501&#39;, &#39;499&#39;], &#39;NV&#39;: [&#39;33&#39;, &#39;509&#39;, &#39;515&#39;], &#39;VA&#39;: [&#39;68&#39;, &#39;510&#39;, &#39;501&#39;], &#39;CO&#39;: [&#39;31&#39;, &#39;539&#39;, &#39;542&#39;], &#39;AK&#39;: [&#39;51&#39;, &#39;514&#39;, &#39;510&#39;], &#39;AL&#39;: [&#39;9&#39;, &#39;559&#39;, &#39;554&#39;], &#39;AR&#39;: [&#39;6&#39;, &#39;562&#39;, &#39;550&#39;], &#39;VT&#39;: [&#39;69&#39;, &#39;511&#39;, &#39;506&#39;], &#39;IL&#39;: [&#39;12&#39;, &#39;576&#39;, &#39;589&#39;], &#39;GA&#39;: [&#39;63&#39;, &#39;491&#39;, &#39;489&#39;], &#39;IN&#39;: [&#39;60&#39;, &#39;499&#39;, &#39;501&#39;], &#39;IA&#39;: [&#39;5&#39;, &#39;593&#39;, &#39;603&#39;], &#39;OK&#39;: [&#39;8&#39;, &#39;567&#39;, &#39;561&#39;], &#39;AZ&#39;: [&#39;34&#39;, &#39;523&#39;, &#39;525&#39;], &#39;CA&#39;: [&#39;51&#39;, &#39;498&#39;, &#39;517&#39;], &#39;ID&#39;: [&#39;17&#39;, &#39;543&#39;, &#39;542&#39;], &#39;CT&#39;: [&#39;82&#39;, &#39;509&#39;, &#39;510&#39;], &#39;ME&#39;: [&#39;69&#39;, &#39;506&#39;, &#39;500&#39;], &#39;MD&#39;: [&#39;65&#39;, &#39;508&#39;, &#39;510&#39;], &#39;All&#39;: [&#39;45&#39;, &#39;506&#39;, &#39;514&#39;], &#39;MA&#39;: [&#39;79&#39;, &#39;511&#39;, &#39;515&#39;], &#39;OH&#39;: [&#39;26&#39;, &#39;534&#39;, &#39;439&#39;], &#39;UT&#39;: [&#39;5&#39;, &#39;575&#39;, &#39;570&#39;], &#39;MO&#39;: [&#39;8&#39;, &#39;577&#39;, &#39;577&#39;], &#39;MN&#39;: [&#39;9&#39;, &#39;580&#39;, &#39;589&#39;], &#39;MI&#39;: [&#39;11&#39;, &#39;561&#39;, &#39;572&#39;], &#39;KS&#39;: [&#39;9&#39;, &#39;577&#39;, &#39;580&#39;], &#39;MT&#39;: [&#39;23&#39;, &#39;539&#39;, &#39;539&#39;], &#39;MS&#39;: [&#39;4&#39;, &#39;566&#39;, &#39;551&#39;], &#39;SC&#39;: [&#39;57&#39;, &#39;486&#39;, &#39;488&#39;], &#39;KY&#39;: [&#39;12&#39;, &#39;550&#39;, &#39;550&#39;], &#39;OR&#39;: [&#39;55&#39;, &#39;526&#39;, &#39;526&#39;], &#39;SD&#39;: [&#39;4&#39;, &#39;577&#39;, &#39;582&#39;]}
+<div class="highlight"><pre><span></span>{&#39;WA&#39;: [&#39;53&#39;, &#39;527&#39;, &#39;527&#39;], &#39;DE&#39;: [&#39;67&#39;, &#39;501&#39;, &#39;499&#39;], &#39;DC&#39;: [&#39;56&#39;, &#39;482&#39;, &#39;474&#39;], &#39;WI&#39;: [&#39;6&#39;, &#39;584&#39;, &#39;596&#39;], &#39;WV&#39;: [&#39;18&#39;, &#39;527&#39;, &#39;512&#39;], &#39;HI&#39;: [&#39;52&#39;, &#39;485&#39;, &#39;515&#39;], &#39;FL&#39;: [&#39;54&#39;, &#39;498&#39;, &#39;499&#39;], &#39;WY&#39;: [&#39;11&#39;, &#39;547&#39;, &#39;545&#39;], &#39;NH&#39;: [&#39;72&#39;, &#39;520&#39;, &#39;516&#39;], &#39;NJ&#39;: [&#39;81&#39;, &#39;499&#39;, &#39;513&#39;], &#39;NM&#39;: [&#39;13&#39;, &#39;551&#39;, &#39;542&#39;], &#39;TX&#39;: [&#39;53&#39;, &#39;493&#39;, &#39;499&#39;], &#39;LA&#39;: [&#39;7&#39;, &#39;564&#39;, &#39;562&#39;], &#39;NC&#39;: [&#39;65&#39;, &#39;493&#39;, &#39;499&#39;], &#39;ND&#39;: [&#39;4&#39;, &#39;592&#39;, &#39;599&#39;], &#39;NE&#39;: [&#39;8&#39;, &#39;562&#39;, &#39;568&#39;], &#39;TN&#39;: [&#39;13&#39;, &#39;562&#39;, &#39;553&#39;], &#39;NY&#39;: [&#39;77&#39;, &#39;495&#39;, &#39;505&#39;], &#39;PA&#39;: [&#39;71&#39;, &#39;500&#39;, &#39;499&#39;], &#39;RI&#39;: [&#39;71&#39;, &#39;501&#39;, &#39;499&#39;], &#39;NV&#39;: [&#39;33&#39;, &#39;509&#39;, &#39;515&#39;], &#39;VA&#39;: [&#39;68&#39;, &#39;510&#39;, &#39;501&#39;], &#39;CO&#39;: [&#39;31&#39;, &#39;539&#39;, &#39;542&#39;], &#39;AK&#39;: [&#39;51&#39;, &#39;514&#39;, &#39;510&#39;], &#39;AL&#39;: [&#39;9&#39;, &#39;559&#39;, &#39;554&#39;], &#39;AR&#39;: [&#39;6&#39;, &#39;562&#39;, &#39;550&#39;], &#39;VT&#39;: [&#39;69&#39;, &#39;511&#39;, &#39;506&#39;], &#39;IL&#39;: [&#39;12&#39;, &#39;576&#39;, &#39;589&#39;], &#39;GA&#39;: [&#39;63&#39;, &#39;491&#39;, &#39;489&#39;], &#39;IN&#39;: [&#39;60&#39;, &#39;499&#39;, &#39;501&#39;], &#39;IA&#39;: [&#39;5&#39;, &#39;593&#39;, &#39;603&#39;], &#39;OK&#39;: [&#39;8&#39;, &#39;567&#39;, &#39;561&#39;], &#39;AZ&#39;: [&#39;34&#39;, &#39;523&#39;, &#39;525&#39;], &#39;CA&#39;: [&#39;51&#39;, &#39;498&#39;, &#39;517&#39;], &#39;ID&#39;: [&#39;17&#39;, &#39;543&#39;, &#39;542&#39;], &#39;CT&#39;: [&#39;82&#39;, &#39;509&#39;, &#39;510&#39;], &#39;ME&#39;: [&#39;69&#39;, &#39;506&#39;, &#39;500&#39;], &#39;MD&#39;: [&#39;65&#39;, &#39;508&#39;, &#39;510&#39;], &#39;All&#39;: [&#39;45&#39;, &#39;506&#39;, &#39;514&#39;], &#39;MA&#39;: [&#39;79&#39;, &#39;511&#39;, &#39;515&#39;], &#39;OH&#39;: [&#39;26&#39;, &#39;534&#39;, &#39;439&#39;], &#39;UT&#39;: [&#39;5&#39;, &#39;575&#39;, &#39;570&#39;], &#39;MO&#39;: [&#39;8&#39;, &#39;577&#39;, &#39;577&#39;], &#39;MN&#39;: [&#39;9&#39;, &#39;580&#39;, &#39;589&#39;], &#39;MI&#39;: [&#39;11&#39;, &#39;561&#39;, &#39;572&#39;], &#39;KS&#39;: [&#39;9&#39;, &#39;577&#39;, &#39;580&#39;], &#39;MT&#39;: [&#39;23&#39;, &#39;539&#39;, &#39;539&#39;], &#39;MS&#39;: [&#39;4&#39;, &#39;566&#39;, &#39;551&#39;], &#39;SC&#39;: [&#39;57&#39;, &#39;486&#39;, &#39;488&#39;], &#39;KY&#39;: [&#39;12&#39;, &#39;550&#39;, &#39;550&#39;], &#39;OR&#39;: [&#39;55&#39;, &#39;526&#39;, &#39;526&#39;], &#39;SD&#39;: [&#39;4&#39;, &#39;577&#39;, &#39;582&#39;]}
 </pre></div>
 
 
 <h4>PROMPT 12. Create a dictionary with the values for each of the numeric columns</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#To accomplish this prompt we need a new list of columns that does not have the state column.</span>
+<div class="highlight"><pre><span></span><span class="c1">#To accomplish this prompt we need a new list of columns that does not have the state column.</span>
 <span class="n">numeric_columns</span> <span class="o">=</span> <span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">:][</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
 <span class="n">numeric_columns</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>[&#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
+<div class="highlight"><pre><span></span>[&#39;Rate&#39;, &#39;Verbal&#39;, &#39;Math&#39;]
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Dictionary comprehension with enumerate and an embedded list comprehension.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Dictionary comprehension with enumerate and an embedded list comprehension.</span>
 <span class="c1">#NOTE: The start argument for the enumerate function is ignoring the state data in each list</span>
 <span class="c1">#and returning only the numeric values to be mapped to our new numeric columns variable.</span>
 <span class="n">numeric_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">column_name</span><span class="p">:</span> <span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">column_name</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">numeric_columns</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
@@ -432,12 +432,12 @@ dtype: object
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>{&#39;Rate&#39;: [&#39;82&#39;, &#39;81&#39;, &#39;79&#39;, &#39;77&#39;, &#39;72&#39;, &#39;71&#39;, &#39;71&#39;, &#39;69&#39;, &#39;69&#39;, &#39;68&#39;, &#39;67&#39;, &#39;65&#39;, &#39;65&#39;, &#39;63&#39;, &#39;60&#39;, &#39;57&#39;, &#39;56&#39;, &#39;55&#39;, &#39;54&#39;, &#39;53&#39;, &#39;53&#39;, &#39;52&#39;, &#39;51&#39;, &#39;51&#39;, &#39;34&#39;, &#39;33&#39;, &#39;31&#39;, &#39;26&#39;, &#39;23&#39;, &#39;18&#39;, &#39;17&#39;, &#39;13&#39;, &#39;13&#39;, &#39;12&#39;, &#39;12&#39;, &#39;11&#39;, &#39;11&#39;, &#39;9&#39;, &#39;9&#39;, &#39;9&#39;, &#39;8&#39;, &#39;8&#39;, &#39;8&#39;, &#39;7&#39;, &#39;6&#39;, &#39;6&#39;, &#39;5&#39;, &#39;5&#39;, &#39;4&#39;, &#39;4&#39;, &#39;4&#39;, &#39;45&#39;], &#39;Math&#39;: [&#39;510&#39;, &#39;513&#39;, &#39;515&#39;, &#39;505&#39;, &#39;516&#39;, &#39;499&#39;, &#39;499&#39;, &#39;506&#39;, &#39;500&#39;, &#39;501&#39;, &#39;499&#39;, &#39;510&#39;, &#39;499&#39;, &#39;489&#39;, &#39;501&#39;, &#39;488&#39;, &#39;474&#39;, &#39;526&#39;, &#39;499&#39;, &#39;527&#39;, &#39;499&#39;, &#39;515&#39;, &#39;510&#39;, &#39;517&#39;, &#39;525&#39;, &#39;515&#39;, &#39;542&#39;, &#39;439&#39;, &#39;539&#39;, &#39;512&#39;, &#39;542&#39;, &#39;553&#39;, &#39;542&#39;, &#39;589&#39;, &#39;550&#39;, &#39;545&#39;, &#39;572&#39;, &#39;589&#39;, &#39;580&#39;, &#39;554&#39;, &#39;568&#39;, &#39;561&#39;, &#39;577&#39;, &#39;562&#39;, &#39;596&#39;, &#39;550&#39;, &#39;570&#39;, &#39;603&#39;, &#39;582&#39;, &#39;599&#39;, &#39;551&#39;, &#39;514&#39;], &#39;Verbal&#39;: [&#39;509&#39;, &#39;499&#39;, &#39;511&#39;, &#39;495&#39;, &#39;520&#39;, &#39;501&#39;, &#39;500&#39;, &#39;511&#39;, &#39;506&#39;, &#39;510&#39;, &#39;501&#39;, &#39;508&#39;, &#39;493&#39;, &#39;491&#39;, &#39;499&#39;, &#39;486&#39;, &#39;482&#39;, &#39;526&#39;, &#39;498&#39;, &#39;527&#39;, &#39;493&#39;, &#39;485&#39;, &#39;514&#39;, &#39;498&#39;, &#39;523&#39;, &#39;509&#39;, &#39;539&#39;, &#39;534&#39;, &#39;539&#39;, &#39;527&#39;, &#39;543&#39;, &#39;562&#39;, &#39;551&#39;, &#39;576&#39;, &#39;550&#39;, &#39;547&#39;, &#39;561&#39;, &#39;580&#39;, &#39;577&#39;, &#39;559&#39;, &#39;562&#39;, &#39;567&#39;, &#39;577&#39;, &#39;564&#39;, &#39;584&#39;, &#39;562&#39;, &#39;575&#39;, &#39;593&#39;, &#39;577&#39;, &#39;592&#39;, &#39;566&#39;, &#39;506&#39;]}
+<div class="highlight"><pre><span></span>{&#39;Rate&#39;: [&#39;82&#39;, &#39;81&#39;, &#39;79&#39;, &#39;77&#39;, &#39;72&#39;, &#39;71&#39;, &#39;71&#39;, &#39;69&#39;, &#39;69&#39;, &#39;68&#39;, &#39;67&#39;, &#39;65&#39;, &#39;65&#39;, &#39;63&#39;, &#39;60&#39;, &#39;57&#39;, &#39;56&#39;, &#39;55&#39;, &#39;54&#39;, &#39;53&#39;, &#39;53&#39;, &#39;52&#39;, &#39;51&#39;, &#39;51&#39;, &#39;34&#39;, &#39;33&#39;, &#39;31&#39;, &#39;26&#39;, &#39;23&#39;, &#39;18&#39;, &#39;17&#39;, &#39;13&#39;, &#39;13&#39;, &#39;12&#39;, &#39;12&#39;, &#39;11&#39;, &#39;11&#39;, &#39;9&#39;, &#39;9&#39;, &#39;9&#39;, &#39;8&#39;, &#39;8&#39;, &#39;8&#39;, &#39;7&#39;, &#39;6&#39;, &#39;6&#39;, &#39;5&#39;, &#39;5&#39;, &#39;4&#39;, &#39;4&#39;, &#39;4&#39;, &#39;45&#39;], &#39;Math&#39;: [&#39;510&#39;, &#39;513&#39;, &#39;515&#39;, &#39;505&#39;, &#39;516&#39;, &#39;499&#39;, &#39;499&#39;, &#39;506&#39;, &#39;500&#39;, &#39;501&#39;, &#39;499&#39;, &#39;510&#39;, &#39;499&#39;, &#39;489&#39;, &#39;501&#39;, &#39;488&#39;, &#39;474&#39;, &#39;526&#39;, &#39;499&#39;, &#39;527&#39;, &#39;499&#39;, &#39;515&#39;, &#39;510&#39;, &#39;517&#39;, &#39;525&#39;, &#39;515&#39;, &#39;542&#39;, &#39;439&#39;, &#39;539&#39;, &#39;512&#39;, &#39;542&#39;, &#39;553&#39;, &#39;542&#39;, &#39;589&#39;, &#39;550&#39;, &#39;545&#39;, &#39;572&#39;, &#39;589&#39;, &#39;580&#39;, &#39;554&#39;, &#39;568&#39;, &#39;561&#39;, &#39;577&#39;, &#39;562&#39;, &#39;596&#39;, &#39;550&#39;, &#39;570&#39;, &#39;603&#39;, &#39;582&#39;, &#39;599&#39;, &#39;551&#39;, &#39;514&#39;], &#39;Verbal&#39;: [&#39;509&#39;, &#39;499&#39;, &#39;511&#39;, &#39;495&#39;, &#39;520&#39;, &#39;501&#39;, &#39;500&#39;, &#39;511&#39;, &#39;506&#39;, &#39;510&#39;, &#39;501&#39;, &#39;508&#39;, &#39;493&#39;, &#39;491&#39;, &#39;499&#39;, &#39;486&#39;, &#39;482&#39;, &#39;526&#39;, &#39;498&#39;, &#39;527&#39;, &#39;493&#39;, &#39;485&#39;, &#39;514&#39;, &#39;498&#39;, &#39;523&#39;, &#39;509&#39;, &#39;539&#39;, &#39;534&#39;, &#39;539&#39;, &#39;527&#39;, &#39;543&#39;, &#39;562&#39;, &#39;551&#39;, &#39;576&#39;, &#39;550&#39;, &#39;547&#39;, &#39;561&#39;, &#39;580&#39;, &#39;577&#39;, &#39;559&#39;, &#39;562&#39;, &#39;567&#39;, &#39;577&#39;, &#39;564&#39;, &#39;584&#39;, &#39;562&#39;, &#39;575&#39;, &#39;593&#39;, &#39;577&#39;, &#39;592&#39;, &#39;566&#39;, &#39;506&#39;]}
 </pre></div>
 
 
 <h4>PROMPT 13. Print the min and max of each column</h4>
-<div class="codehilite"><pre><span></span><span class="k">print</span> <span class="s2">&quot;RATE MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;RATE MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 <span class="k">print</span> <span class="s2">&quot;RATE MAXIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
 <span class="k">print</span> <span class="s2">&quot;VERBAL MINIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
 <span class="k">print</span> <span class="s2">&quot;VERBAL MAXIMUM VALUE = &quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
@@ -446,7 +446,7 @@ dtype: object
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>RATE MINIMUM VALUE =  4
+<div class="highlight"><pre><span></span>RATE MINIMUM VALUE =  4
 RATE MAXIMUM VALUE =  82
 VERBAL MINIMUM VALUE =  482
 VERBAL MAXIMUM VALUE =  593
@@ -456,7 +456,7 @@ MATH MAXIMUM VALUE =  603
 
 
 <h4>PROMPT 14. Write a function using only list comprehensions, no loops, to compute Standard Deviation. Print the Standard Deviation of each numeric column.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#This is a simple formula to accomplish the prompt. There is a better way to do it in numpy so please do not</span>
+<div class="highlight"><pre><span></span><span class="c1">#This is a simple formula to accomplish the prompt. There is a better way to do it in numpy so please do not</span>
 <span class="c1">#use the example below as the best way.</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
@@ -471,70 +471,70 @@ MATH MAXIMUM VALUE =  603
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>Standard Deviation for Rate: 27.3017880729
+<div class="highlight"><pre><span></span>Standard Deviation for Rate: 27.3017880729
 Standard Deviation for Verbal: 33.2362254438
 Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
 <h4>PROMPT 15. Using MatPlotLib and PyPlot, plot the distribution of the Rate using histograms.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Using seaborn, matplot lib, and plotly to accomplish the below tasks.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Using seaborn, matplot lib, and plotly to accomplish the below tasks.</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
 <span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Rugplots are in general more informative than histograms so I default to using them.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Rugplots are in general more informative than histograms so I default to using them.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Rate</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Rate</span><span class="p">);</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_41_0.png" /></p>
-<div class="codehilite"><pre><span></span><span class="c1">#average rate by state:</span>
+<p><img alt="png" src="../images/sat_scores/output_41_0.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#average rate by state:</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>37.15384615384615
+<div class="highlight"><pre><span></span>37.15384615384615
 </pre></div>
 
 
 <h4>PROMPT 16. Plot the Math distribution</h4>
-<div class="codehilite"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Math</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Math</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Math</span><span class="p">);</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_44_0.png" /></p>
-<div class="codehilite"><pre><span></span><span class="c1">#Average math score by state.</span>
+<p><img alt="png" src="../images/sat_scores/output_44_0.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Average math score by state.</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Math&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>531.5
+<div class="highlight"><pre><span></span>531.5
 </pre></div>
 
 
 <h4>PROMPT 17. Plot the Verbal distribution</h4>
-<div class="codehilite"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Verbal</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Verbal</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=.</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">rugplot</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Verbal</span><span class="p">);</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_47_0.png" /></p>
-<div class="codehilite"><pre><span></span><span class="c1">#Average Verbal score by state.</span>
+<p><img alt="png" src="../images/sat_scores/output_47_0.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Average Verbal score by state.</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>532.0192307692307
+<div class="highlight"><pre><span></span>532.0192307692307
 </pre></div>
 
 
 <h4>PROMPT 18. What is the typical assumption for data distribution?</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#One typical assumption is that the data follows some kind of normal distribution.</span>
+<div class="highlight"><pre><span></span><span class="c1">#One typical assumption is that the data follows some kind of normal distribution.</span>
 <span class="c1">#NORMAL CURVE: In this case the data does not seem to follow a true normal distribution.</span>
 <span class="c1">#LOW SPREAD: Not a large spread with outliers of data.</span>
 <span class="c1">#CENTERED: Data does not seem to have a good set of large points around the mean except in the case of the math column.</span>
@@ -542,41 +542,41 @@ Standard Deviation for Math: 36.0149750989
 
 
 <h4>PROMPT 19. Does that distribution hold true for our data?</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Perhaps for the math data but not the other two.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Perhaps for the math data but not the other two.</span>
 <span class="c1">#However we can still plot some interesting relationships below.</span>
 </pre></div>
 
 
 <h4>PROMPT 20. Plot some scatterplots. <strong>BONUS</strong>: Use a PyPlot <code>figure</code> to present multiple plots at once.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#VERBAL vs. MATH data points. This is not colored by state because there would be too many colors to track</span>
+<div class="highlight"><pre><span></span><span class="c1">#VERBAL vs. MATH data points. This is not colored by state because there would be too many colors to track</span>
 <span class="c1">#and draw any meaningful conclusions.</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d763350&gt;
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d763350&gt;
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_54_1.png" /></p>
-<div class="codehilite"><pre><span></span><span class="c1">#All in all, the above plot is showing a pretty good relationship between math and verbal scores however</span>
+<p><img alt="png" src="../images/sat_scores/output_54_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#All in all, the above plot is showing a pretty good relationship between math and verbal scores however</span>
 <span class="c1">#There is one outlier to note that we will investigate further.</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#Same scatter plot but with a hue for Rate. The reason being you can kind of see relationships between</span>
+<div class="highlight"><pre><span></span><span class="c1">#Same scatter plot but with a hue for Rate. The reason being you can kind of see relationships between</span>
 <span class="c1">#where the colors cluster but at the same time it also demonstrates why you don&#39;t color by large lists of points.</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span> <span class="s1">&#39;Math&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Rate&#39;</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>  <span class="n">aspect</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d13a150&gt;
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11d13a150&gt;
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_56_1.png" /></p>
+<p><img alt="png" src="../images/sat_scores/output_56_1.png"></p>
 <h4>PROMPT 21. Are there any interesting relationships to note?</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Calling a correlation plotting function that allows me to see relationships with more information than the standard</span>
+<div class="highlight"><pre><span></span><span class="c1">#Calling a correlation plotting function that allows me to see relationships with more information than the standard</span>
 <span class="c1">#pairplot.</span>
 <span class="k">def</span> <span class="nf">corr_pairs</span><span class="p">(</span><span class="n">df_input</span><span class="p">,</span><span class="n">coef_percentile</span><span class="p">):</span>
     <span class="n">c</span> <span class="o">=</span> <span class="n">df_input</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
@@ -599,7 +599,7 @@ Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="c1">#First looking at numbers to see if anything is interesting here.</span>
+<div class="highlight"><pre><span></span><span class="c1">#First looking at numbers to see if anything is interesting here.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 </pre></div>
 
@@ -637,12 +637,12 @@ Standard Deviation for Math: 36.0149750989
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">corr_pairs</span><span class="p">(</span><span class="n">df</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_60_0.png" /></p>
-<p><img alt="png" src="../images/sat_scores/output_60_1.png" /></p>
+<p><img alt="png" src="../images/sat_scores/output_60_0.png"></p>
+<p><img alt="png" src="../images/sat_scores/output_60_1.png"></p>
 <div>
 <table border="1" class="dataframe">
   <thead>
@@ -670,7 +670,7 @@ Standard Deviation for Math: 36.0149750989
 </table>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">### Conclusion:</span>
+<div class="highlight"><pre><span></span><span class="c1">### Conclusion:</span>
 <span class="c1">#There is a strong correlation between doing well on Verbal and well on Math unsuprisingly.</span>
 <span class="c1">#But another interesting takeaway is having a good participation rate is MUCH more strongly correlated</span>
 <span class="c1">#to a good verbal score rather than a good Math score. Which suggests that the more people participated</span>
@@ -681,30 +681,30 @@ Standard Deviation for Math: 36.0149750989
 
 
 <h4>PROMPT 22. Create box plots for each variable.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#Done using seaborn</span>
+<div class="highlight"><pre><span></span><span class="c1">#Done using seaborn</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Verbal&#39;</span><span class="p">,</span><span class="s1">&#39;Math&#39;</span><span class="p">]])</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11c76fcd0&gt;
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11c76fcd0&gt;
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_63_1.png" /></p>
-<div class="codehilite"><pre><span></span><span class="c1">#Rate is on a different scale so needed to be plotted separately.</span>
+<p><img alt="png" src="../images/sat_scores/output_63_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Rate is on a different scale so needed to be plotted separately.</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
 <span class="n">sns</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Rate&#39;</span><span class="p">])</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11cf570d0&gt;
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11cf570d0&gt;
 </pre></div>
 
 
-<p><img alt="png" src="../images/sat_scores/output_64_1.png" /></p>
+<p><img alt="png" src="../images/sat_scores/output_64_1.png"></p>
 <h4>BONUS: Using Tableau, create a heat map for each variable using a map of the US.</h4>
-<div class="codehilite"><pre><span></span><span class="c1">#So I didn&#39;t use tableau as I wanted to try my hand at using plotly for the first time. I don&#39;t know much</span>
+<div class="highlight"><pre><span></span><span class="c1">#So I didn&#39;t use tableau as I wanted to try my hand at using plotly for the first time. I don&#39;t know much</span>
 <span class="c1">#about what is being done below but by using some of their out of the box features you get the benefit</span>
 <span class="c1">#of having some interactive charts inside your jupyter notebook.</span>
 <span class="c1">#Click on the jupyter notebook.</span>
@@ -714,7 +714,7 @@ Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+<div class="highlight"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
             <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
@@ -755,13 +755,13 @@ Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+<div class="highlight"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
 </pre></div>
 
 
 <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~natejhall89/0.embed" height="525px" width="100%"></iframe>
 
-<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+<div class="highlight"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
             <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
@@ -802,13 +802,13 @@ Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+<div class="highlight"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
 </pre></div>
 
 
 <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plot.ly/~natejhall89/0.embed" height="525px" width="100%"></iframe>
 
-<div class="codehilite"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
+<div class="highlight"><pre><span></span><span class="n">scl</span> <span class="o">=</span> <span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="s1">&#39;rgb(242,240,247)&#39;</span><span class="p">],[</span><span class="mf">0.2</span><span class="p">,</span> <span class="s1">&#39;rgb(218,218,235)&#39;</span><span class="p">],[</span><span class="mf">0.4</span><span class="p">,</span> <span class="s1">&#39;rgb(188,189,220)&#39;</span><span class="p">],</span>\
             <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="s1">&#39;rgb(158,154,200)&#39;</span><span class="p">],[</span><span class="mf">0.8</span><span class="p">,</span> <span class="s1">&#39;rgb(117,107,177)&#39;</span><span class="p">],[</span><span class="mf">1.0</span><span class="p">,</span> <span class="s1">&#39;rgb(84,39,143)&#39;</span><span class="p">]]</span>
 
 <span class="n">df</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State&#39;</span><span class="p">]</span>
@@ -849,7 +849,7 @@ Standard Deviation for Math: 36.0149750989
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
+<div class="highlight"><pre><span></span>High five! You successfuly sent some data to your account on plotly. View your plot in your browser at https://plot.ly/~natejhall89/0 or inside your plot.ly account where it is named &#39;d3-electoral-map&#39;
 </pre></div>
 
 
@@ -857,8 +857,9 @@ Standard Deviation for Math: 36.0149750989
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

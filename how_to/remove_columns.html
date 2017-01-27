@@ -125,11 +125,11 @@
 <p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
 <a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
 <p>This is a quick introduction to some basic methods for removing columns from a dataset. We will use the billboard hot 100 dataset as an example.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -196,7 +196,7 @@
 <h2>Drop a column</h2>
 <p>The simplest way to remove a column is with the "df.drop" method from pandas. <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html" target="_blank">See more info at the documentation here.</a></p>
 <p>We specify what dataframe to apply the .drop method. Then we tell it if we're dropping a column or row with the "axis" argument. And finally we use the "inplace" argument to either create the results in an alternate universe or apply it back to our current dataframe.</p>
-<div class="codehilite"><pre><span></span><span class="c1">#Can you guess why I am dropping this column? Its not just for an example. See if you can figure it out.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Can you guess why I am dropping this column? Its not just for an example. See if you can figure it out.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -262,7 +262,7 @@
 
 <h2>Drop multiple columns</h2>
 <p>Notice that for the "labels" argument in the documentation it says that the elements to drop can be "list-like". Which means that if we want to drop multiple columns we can give it a list of column names since that is how all the column headers are stored in pandas anyways. So the function would be...</p>
-<div class="codehilite"><pre><span></span><span class="c1">#This time we are doing it for example purposes only so note that inplace is set to False to make this abundantly clear.</span>
+<div class="highlight"><pre><span></span><span class="c1">#This time we are doing it for example purposes only so note that inplace is set to False to make this abundantly clear.</span>
 <span class="c1">#It defaults to False automatically but this makes it clear we are not applying it to the original dataframe.</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">False</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
@@ -333,8 +333,9 @@
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

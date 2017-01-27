@@ -131,11 +131,11 @@
 <li>Now to finish the the final step to accomplish the goal below.</li>
 </ul>
 <h2>Goal: To get each row to represent the week performance of a song.</h2>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -199,12 +199,12 @@
 <p>1 rows × 83 columns</p>
 </div>
 
-<div class="codehilite"><pre><span></span><span class="c1">#Check the shape of the dataset we&#39;re starting with.</span>
+<div class="highlight"><pre><span></span><span class="c1">#Check the shape of the dataset we&#39;re starting with.</span>
 <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(317, 83)
+<div class="highlight"><pre><span></span>(317, 83)
 </pre></div>
 
 
@@ -213,19 +213,19 @@
 <p>We will use the ".melt" function to accomplish what we need for this dataset. More information on it can be found in the <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.melt.html", target="_blank"> documentation here.</a></p>
 <h3>Notes on pd.melt</h3>
 <p>First off we see that it is not applied to a dataframe, so we don't do "df.melt" it actually gets passed the entire dataframe object as an argument and is called by starting with "pd."</p>
-<div class="codehilite"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
 
 <h2>Create a new dataframe</h2>
 <p>Simply for the ease of still being able to track back to our original csv in case something doesn't work. We will then declare a new dataframe that will take on the results of the pd.melt( ) function.</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
 
 <h2>id_vars=[ ]</h2>
 <p>We already passed the dataframe. The id_vars argument will be the columns that will be retained in the dataframe so we'll declare that by listing the columns we want to keep. Note that this argument is taking on a list so we can pass the columns to it with all the columns list methods that we know. For this example i'll just list out the columns since there are so few.</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">])</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">])</span>
 </pre></div>
 
 
@@ -233,19 +233,19 @@
 <p>This argument says it is for stating all the columns to "unpivot". Phew, we have a lot of weeks... do we have to list them all? That's the beauty of this function. If we simply leave this blank it will default to unpivot all of the columns that are not listed in the "id_vars=[ ]" argument. SWEET!!!</p>
 <h2>var_name=[ ]</h2>
 <p>So we have this tricky thing to do with unpivoting... we'll have all the week columns get turned into row cells and they will need a column header. To do this we declare the "var_name=[ ]" argument with the column header we want.</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <h2>value_name[ ]</h2>
 <p>Now what about all the values that are listed in each week column right now? Where are those supposed to go? Glad you asked that. These are the values that we are "unpivoting" but they to will need a column header since we just took the week columns away. We know that those values represent the weekly ranking of a song during that week so we'll "unpivot" those values to a new column called "rank"</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;artist&#39;</span><span class="p">,</span> <span class="s1">&#39;track&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;genre&#39;</span><span class="p">,</span> <span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span>
               <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;week&#39;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Check your work.</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
@@ -332,11 +332,11 @@
 
 <h2>Cool! It worked!</h2>
 <p>We now have the rows representing the lowest level of data in our dataset. What did this do to the shape of our table? Remember what it was at the beginning? Lets check it again to see what happened.</p>
-<div class="codehilite"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">shape</span>
+<div class="highlight"><pre><span></span><span class="n">df2</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span>(24092, 9)
+<div class="highlight"><pre><span></span>(24092, 9)
 </pre></div>
 
 
@@ -345,8 +345,9 @@
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

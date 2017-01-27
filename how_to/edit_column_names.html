@@ -126,11 +126,11 @@
 <a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/editing_column_names_code.ipynb'>Link to the code only jupyter notebook.</a></p>
 <p>In this example we'll be working with the billboard hot 100 dataset. The overall structure of this dataset could be setup better for what we need to do with some interesting correlations so we'll be using it for a lot of dataset manipulation examples.</p>
 <p>One method for organizing a data table is for each row to represent the "lowest level" of data available. Here we have each row representing a song, but if you notice the column names there is one for each week. And if you look at the shape of our data we have 83 columns total. Can you guess what the lowest level of data really is for this dataset then?</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -201,35 +201,35 @@
 <p>This will allow us to convert them into integers and sort them later.
 Now its as easy as looking for the things that are in those week columns that are not numbers and removing them.
 We will take all our edits and apply them to the "df.columns" variable. This will overwrite the column names in our dataframe.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span>
 </pre></div>
 
 
 <p>Since df.columns is a list of column names we have to pass it a list back so we start our function with brackets.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span> <span class="p">]</span>
 </pre></div>
 
 
 <h3>Remove values with .replace</h3>
 <p>Next we get to say what we want to happen to the list we are going to pass back to df.column to replace its current list of column names. One way to remove values and get down to numbers is to replace the values with just blanks and thereby remove the values. So we use the "col.replace" method to define what values in the column header list we're going to replace.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span> <span class="p">)</span>
 </pre></div>
 
 
 <p>Now we get to tell df.columns what we want its new names to be. So what do you think is the first thing we can remove? It looks like ".week" is on every column name so lets take that out and see what we have left.
 NOTE: We are using a list comprehension so the values at the beginning of the list are what we will get back. In this case it will be all the columns in df.columns but with the ".week" removed(replaced with blanks).</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Cool! That's gone now what? What's the next thing to be removed? Looks, like they all have "x" in front of them (for whatever reason...). Lets replace that with blanks.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Now we're getting somewhere. We are just left with the values that come after the 1, 2, 3, and 4. This part might be tedious but since from 4 onward every value ends with a "th" it's not too bad. So we run the list comprehension another four times to replace these values with blanks.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.week&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;st&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;nd&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
@@ -239,7 +239,7 @@ NOTE: We are using a list comprehension so the values at the beginning of the li
 
 
 <p>Check your work to make sure it worked as expected. You only need to load one row since we are looking at columns.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -309,28 +309,28 @@ NOTE: We are using a list comprehension so the values at the beginning of the li
 <p>This is powerful function that we will use again in other contexts. But for columns it is very useful. Remember that dictionaries contain a key and a value. For this application we are telling pandas to go through all our columns and find the ones that match the "key" in our dictionary and when it does to replace it with the "value" in our dictionary. So this is less flexible than other dictionaries but very useful for our applications.</p>
 <p>The .rename method can be applied to both rows and columns so it actually goes with the entire datafarme instead of just the columns like the .replace function we used earlier. It also is different because it doesn't have to be used with a list comprehension it takes arguments that can be found in the <a href='http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.rename.html'>pandas documentation here.</a></p>
 <p>So we start by applying the .rename method to the dataframe and add ( ) at the end because it takes arguments.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">()</span>
 </pre></div>
 
 
 <p>What do you think we should pass to it as an argument? If you look at the pandas documentation you'll see all kinds of things you can make the .rename() method do.
 For our application we're going to pass it a dictionary like list of column names. So we use the columns= argument.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Remember we're passing it a dictionary like list. So we don't use brackets [ ] like normal lists. It has to be the dictionary brackets { }.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> <span class="p">})</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span> <span class="p">})</span>
 </pre></div>
 
 
 <p>Now we tell the rename method which columns to look for by giving it "keys".</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span> <span class="p">})</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span> <span class="p">})</span>
 </pre></div>
 
 
 <p>Then all we have to do is say what we want to change the column name to. To make the nameing scheme simpler we'll make it be just "artist".</p>
-<div class="codehilite"><pre><span></span><span class="c1">#The [:1] is slicing this data to only load one row since we&#39;re just interested in columns right now.</span>
+<div class="highlight"><pre><span></span><span class="c1">#The [:1] is slicing this data to only load one row since we&#39;re just interested in columns right now.</span>
 <span class="c1">#Notice it gives the same result as the df.head(1) we used earlier.</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span><span class="s1">&#39;artist&#39;</span><span class="p">})[:</span><span class="mi">1</span><span class="p">]</span>
@@ -396,7 +396,7 @@ For our application we're going to pass it a dictionary like list of column name
 </div>
 
 <p>Check your work to make sure it applied like you expect.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -460,7 +460,7 @@ For our application we're going to pass it a dictionary like list of column name
 
 <h2>Huh? What happened? Why isn't it changed?</h2>
 <p>Like all debugging, lets backtrack. What happens when you run the code without the df.head() after it.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span><span class="s1">&#39;artist&#39;</span><span class="p">})[:</span><span class="mi">1</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span><span class="s1">&#39;artist&#39;</span><span class="p">})[:</span><span class="mi">1</span><span class="p">]</span>
 </pre></div>
 
 
@@ -531,12 +531,12 @@ Because pandas does not see you declaring something so explicitly it assumes(BY 
 <h2>Use the inplace argument</h2>
 <p>To get every method that can be applied to a dataframe object to write over the existing dataframe you have to say that you want inplace=True (it defaults to False). This will write over your original dataframe in the place where you apply a method and argument to it.</p>
 <h2>2a. Fix the arti.inverted column with inplace=True</h2>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span><span class="s1">&#39;artist&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arti.inverted&#39;</span><span class="p">:</span><span class="s1">&#39;artist&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Now, check your work again.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -601,12 +601,12 @@ Because pandas does not see you declaring something so explicitly it assumes(BY 
 <h2>Yay! Success!!!</h2>
 <h2>BONUS: You can rename more than one column at a time.</h2>
 <p>Note that we removed the "." from "artist.inverted" when we renamed it. However, "date.entered" and "date.peaked" still have them. From what we know about dictionaries that have have many keys and values so why not simply add a comma after the first key value pair and then type in another one?</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;date.entered&#39;</span><span class="p">:</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;date.peaked&#39;</span><span class="p">:</span><span class="s1">&#39;peaked&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;date.entered&#39;</span><span class="p">:</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;date.peaked&#39;</span><span class="p">:</span><span class="s1">&#39;peaked&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Check your work and see what happens.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 
@@ -673,8 +673,9 @@ Because pandas does not see you declaring something so explicitly it assumes(BY 
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

@@ -125,41 +125,41 @@
 <p><a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/import_dataset_from_url.ipynb' target='_blank'>Link to the full jupyter notebook.</a><br/>
 <a href='http://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/python/import_dataset_from_url_code.ipynb' target='_blank'>Link to the code only jupyter notebook.</a></p>
 <p>We'll bring in data with urllib and then load it into our dataset as a csv.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urllib</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
 <h3>1. Create a variable called "data_url" and paste in the URL as a string</h3>
-<div class="codehilite"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;http://instantinate.com/data/sales_data.html&quot;</span>
+<div class="highlight"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;http://instantinate.com/data/sales_data.html&quot;</span>
 </pre></div>
 
 
 <h3>2. Call the urllib function with the urlretrieve method</h3>
 <p>The first argument we pass is the variable with the link to the dataset. And the second argument is the name of the dataset.</p>
-<div class="codehilite"><pre><span></span><span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span> <span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="s2">&quot;sales.data&quot;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span> <span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="s2">&quot;sales.data&quot;</span><span class="p">)</span>
 </pre></div>
 
 
 <h3>3. Create the "data" variable and use the pandas.read_csv method</h3>
 <p>Pass the 'sales.data' argument to the read_csv method. Specify the delimiter for the dataset which in this case is spaces.</p>
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sales.data&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sales.data&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">)</span>
 </pre></div>
 
 
 <h3>4. Create a dataframe using the the .dataframe method</h3>
 <p>Pass the data variable which read all the information from the url.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 </pre></div>
 
 
 <h3>5. Print out the .head( ) to confirm the dataset was loaded correctly.</h3>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
 
 <h3>Here is the full code.</h3>
-<div class="codehilite"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;http://instantinate.com/data/sales_data.html&quot;</span>
+<div class="highlight"><pre><span></span><span class="n">data_url</span> <span class="o">=</span> <span class="s2">&quot;http://instantinate.com/data/sales_data.html&quot;</span>
 <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span> <span class="p">(</span><span class="n">data_url</span><span class="p">,</span> <span class="s2">&quot;sales.data&quot;</span><span class="p">)</span>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;sales.data&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;\s+&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -220,8 +220,9 @@
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>

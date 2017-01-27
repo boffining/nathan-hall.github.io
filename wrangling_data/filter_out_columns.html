@@ -125,11 +125,11 @@
 <p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/filter_out_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
 <a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/filter_out_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
 <p>This is a slightly more complicated application of filtering out columns than the standard df.drop method you may have seen. But if you stick with each element I promise it will begin to make sense.</p>
-<div class="codehilite"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 </pre></div>
 
 
-<div class="codehilite"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard.csv&#39;</span><span class="p">)</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -195,7 +195,7 @@
 
 <h2>Filter out columns that contain a keyword</h2>
 <p>Remember what method we use to drop columns or rows in a dataset? We will be using the same one again here. So we begin our function by saying...</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span> <span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span> <span class="p">)</span>
 </pre></div>
 
 
@@ -204,22 +204,22 @@
 <p>Conceptually lets lay out what we're trying to accomplish. We want the .drop method to get automatically populated with a list of columns that match some type of filter criteria. To get a list of columns that match a criteria we would use a for loop. However, that is too cumbersome to try to embed in the .drop method which is why <a href="https://docs.python.org/2/tutorial/datastructures.html#list-comprehensions" target="_blank">list comprehensions</a> are very useful to be placed in arguments.</p>
 <h2>Use list comprehension to return the columns to be dropped</h2>
 <p>Remember that list comprehensions you start by declaring what variable you will be getting and then go on to declare the function setup. For our example we're going to say give me all the columns that are in our dataframe if they have the number "6" in them. (No real reason behind 6 this is purely for example purposes). We put our comprehension in brackets since its returning a list and declare the first variable we're getting back "col".</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">col</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Next we need to give it the for loop (what we want it to look through). In this case we want it to give all the "col" values that match our filter so we say "for col in df.columns" since we're looking through all the columns.</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
 
 
 <p>Lastly, we get to delcare our filtering criteria, which we said was columns that have the number "6" in them. Note, that all the columns are strings so we need to put the 6 in quotations when declaring what to filter. At any rate, we are looking at all the "col" so we want all the ones if "6" is in them.</p>
-<div class="codehilite"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">]</span>
 </pre></div>
 
 
 <p>And that's it we have our filter setup with a easy logic filtering test to apply to all the columns. We can place this straight into the df.drop method and add the other arguments for the column axis and inplace being set to true so we apply this to our dataframe.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s2">&quot;6&quot;</span> <span class="ow">in</span> <span class="n">col</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1">#Check your work</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -287,7 +287,7 @@
 <p>We see when we scroll over that all the columns from the sixties are removed and the ones like 56. Everything with a 6 is gone you powerful data scientist you.</p>
 <h2>Filter out columns that start with "__"</h2>
 <p>Because we did a logical argument with the list comprehension the sky is the limit for what we want it to return. In the below example I am asking it to take it one step further and look at the first letter of all the columns, if the letter is an "x" then it should drop that column.</p>
-<div class="codehilite"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="c1">#Check your work</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
@@ -327,8 +327,9 @@
 </div>
     <aside>
     <div class="bug-reporting__panel">
-        <h3>Find an error or bug? Have a suggestion?</h3>
-        <p>See the code to <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
     </div>
     </aside>
 </section>
