@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Design for website inspired by Chris Albon-->
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Personal Data Science Blog of Nate Hall">
+    <meta name="author" content="Nate Hall">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <title>Predicting West Nile Outbreak in Chicago - Articles</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+              <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <!--<li class="dropdown">
+                    <a href="../visuals.html" role="button" aria-haspopup="true" aria-expanded="false">Visualizations</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Top Visuals</a></li>
+                        <li><a href="./visuals.html">Projects</a></li>
+                    </ul>
+                </li>-->
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../index.html">Python</a></li>
+                          <li><a href="../index.html">Data Wrangling</a></li>
+                          <li><a href="../index.html">Machine Learning</a></li>
+                          <li><a href="../index.html">Statistics</a></li>
+                          <li><a href="../index.html">Visualization</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                        <a href="../articles.html" role="button" aria-haspopup="true" aria-expanded="false">Articles</a>
+                        <!--<ul class="dropdown-menu">
+                            <li><a href="./blog.html">Articles</a></li>
+                            <li><a href="./blog.html">Projects</a></li>
+                        </ul>-->
+                    </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../pages/about_nate.html">About Nate</a></li>
+                          <li><a href="https://github.com/nathan-hall/nathan-hall.github.io">GitHub</a></li>
+                          <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a">LinkedIn</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      Predicting West Nile Outbreak in Chicago
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2017-02-16T12:00:00-05:00">
+            16 February 2017
+        </time>
+    </li>
+    <li>Articles</li>
+</ol>
+</header>
+<div class='article_content'>
+<p>GOALS:</p>
+<ol>
+<li>Predicting mosquito breeding.</li>
+<li>Predicting mosquito migration.</li>
+<li>Factor in spraying</li>
+<li>Predicting the effect of spraying locations.</li>
+<li>Predicting probability of westnile postive.</li>
+</ol>
+<p>Process/Methods:
+1. Clean weather data.
+    - Calculate features.
+2. Stagger weather data.
+3. Incorporate spray data.
+4. Weight by distance.
+    - Extract zip codes from data.
+5. Account for row leakage.</p>
+<h2>METHODS TO TRY:</h2>
+<h6>1. Predicting number of mosquitos. Fit by month?</h6>
+<h6>2. Predicting where sprays happened. Assign sprays effect to specific traps.</h6>
+<h6>3. Optimize decision tree model with manual encoding of labels. (A method that labels categorical variables by the order of the variable likelihood.)</h6>
+<h2>Features to Consider:</h2>
+<h6>1. Plot the increase in mosquito population from wind speed to get the likelihood that mosquitos will migrate towards wind directions.</h6>
+<h6>2. See also if the wind affects if mosquitos are congregating or avoiding the spraying done by Chicago.</h6>
+<h5>Check correlations of features to NumMosquitos feature</h5>
+<div class="highlight"><pre><span></span><span class="c1">#Computation</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+<span class="c1">#Geographic Distance</span>
+<span class="kn">from</span> <span class="nn">haversine</span> <span class="kn">import</span> <span class="n">haversine</span>
+
+<span class="c1">#Visualization</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="c1">#Modeling</span>
+<span class="kn">import</span> <span class="nn">hdbscan</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">LabelEncoder</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span><span class="p">,</span> <span class="n">GradientBoostingRegressor</span><span class="p">,</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn.grid_search</span> <span class="kn">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">ensemble</span><span class="p">,</span> <span class="n">preprocessing</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Function to format the date columns.</span>
+<span class="k">def</span> <span class="nf">extract_date_data</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">date_column_name</span><span class="p">):</span>
+    <span class="c1">#df = pd.DataFrame(train_raw)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">])</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span>
+    <span class="n">data</span><span class="p">[</span><span class="s1">&#39;Weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">date_column_name</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">weekday</span>
+    <span class="c1">#data.drop(date_column_name, axis=1, inplace=True)</span>
+    <span class="k">return</span> <span class="n">data</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Function to format the weather dataframe:</span>
+<span class="k">def</span> <span class="nf">weather_format</span><span class="p">(</span><span class="n">weather</span><span class="p">):</span>
+    <span class="c1">#Replace some missing values.</span>
+    <span class="n">weather</span> <span class="o">=</span> <span class="n">weather</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;[\MT-]&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;day_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Sunset&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span> <span class="o">-</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Sunrise&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;tem_range&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Tmax&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Tmin&#39;</span><span class="p">]</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;dew_len&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;DewPoint&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Tmin&#39;</span><span class="p">]</span>
+    <span class="c1">#Dropping columns that we won&#39;t use in the weather section.</span>
+    <span class="n">weather</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Sunset&#39;</span><span class="p">,</span> <span class="s1">&#39;Sunrise&#39;</span><span class="p">,</span> <span class="s1">&#39;Tmax&#39;</span><span class="p">,</span> <span class="s1">&#39;Tmin&#39;</span><span class="p">,</span> <span class="s1">&#39;DewPoint&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;WetBulb&#39;</span><span class="p">,</span> <span class="s1">&#39;Water1&#39;</span><span class="p">,</span> <span class="s1">&#39;SnowFall&#39;</span><span class="p">,</span> <span class="s1">&#39;CodeSum&#39;</span><span class="p">,</span> <span class="s1">&#39;Heat&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;Cool&#39;</span><span class="p">,</span> <span class="s1">&#39;StnPressure&#39;</span><span class="p">,</span> <span class="s1">&#39;ResultSpeed&#39;</span><span class="p">,</span> <span class="s1">&#39;Depth&#39;</span><span class="p">,</span> <span class="s1">&#39;SeaLevel&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;Year&#39;</span><span class="p">,</span> <span class="s1">&#39;Month&#39;</span><span class="p">,</span> <span class="s1">&#39;Day&#39;</span><span class="p">,</span> <span class="s1">&#39;Weekday&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#Fill in missing data for sunrise and sunset since station 2 didn&#39;t have it.</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;day_len&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">weather</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)[</span><span class="s1">&#39;day_len&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1">#assign latitude longitude to each weather station.</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span><span class="mf">41.995</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mf">41.786</span><span class="p">})</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mf">87.933</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mf">87.752</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">weather</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Function to assign the nearest weather station to each trap.</span>
+<span class="k">def</span> <span class="nf">assign_station</span><span class="p">(</span><span class="n">train</span><span class="p">):</span>
+    <span class="c1">#create a reference data frame for each station.</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span> <span class="p">[</span><span class="mf">41.995</span><span class="p">,</span><span class="mf">41.786</span><span class="p">],</span> <span class="mi">1</span><span class="p">:</span> <span class="p">[</span><span class="o">-</span><span class="mf">87.933</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.752</span><span class="p">]}</span>
+    <span class="n">station_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">d</span><span class="p">,</span> <span class="n">orient</span><span class="o">=</span><span class="s1">&#39;index&#39;</span><span class="p">)</span>
+    <span class="n">station_df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;Station1&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;Station2&#39;</span><span class="p">})</span>
+    <span class="c1">#Function to find the distance from every trap to station 1 and station 2</span>
+    <span class="n">df5_station</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="n">station_df</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">station_df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">HOLDER</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]):</span>
+            <span class="n">STATION</span> <span class="o">=</span> <span class="p">(</span><span class="n">station_df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">station_df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">TRAP</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+            <span class="n">HOLDER</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">haversine</span><span class="p">(</span><span class="n">STATION</span><span class="p">,</span> <span class="n">TRAP</span><span class="p">,</span> <span class="n">miles</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+        <span class="n">df5_station</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">HOLDER</span>
+    <span class="c1">#Function to assign the closest station into a new variable and then add that variable as a column to df_train.</span>
+    <span class="n">station</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df5_station</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
+        <span class="n">station</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df5_station</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">idxmin</span><span class="p">())</span>
+    <span class="n">train</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station</span>
+    <span class="k">return</span> <span class="n">train</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Function to create calculate mosquito breeding features from weather data.</span>
+<span class="k">def</span> <span class="nf">breeding_date</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">train</span><span class="p">,</span> <span class="n">test</span><span class="p">):</span>
+    <span class="c1">#Create a duplicate date column we will reference as a breeding date later.</span>
+    <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span>
+    <span class="c1">#Create a breeding date to merge the some weather information to it.</span>
+    <span class="n">train</span><span class="p">[</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+    <span class="n">test</span><span class="p">[</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">-</span> <span class="n">pd</span><span class="o">.</span><span class="n">DateOffset</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">15</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weather_breeding_features</span><span class="p">(</span><span class="n">weather</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
+    <span class="c1">#Split the weather dataframe by station.</span>
+    <span class="n">station_1</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">station_2</span> <span class="o">=</span> <span class="n">weather</span><span class="p">[</span><span class="n">weather</span><span class="p">[</span><span class="s1">&#39;Station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1">#Trying to factor in the relative speed of incubation based upon the average temperature during that period.</span>
+    <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;temp_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;temp_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1">#Trying to factor in the relative dew_point for bitting liklihood.</span>
+    <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;dew_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;dew_len&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;dew_mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;dew_len&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span><span class="n">window</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1">#merge with train/test on a date that is staggerd by 15 days.</span>
+    <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;preci_weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_1</span><span class="p">[</span><span class="s1">&#39;PrecipTotal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;preci_weighted&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">station_2</span><span class="p">[</span><span class="s1">&#39;PrecipTotal&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">ewm</span><span class="p">(</span><span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_periods</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ignore_na</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1">#Dataframes for train.</span>
+    <span class="n">df_station1</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">df_station2</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;station&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1"># Merge with weather data for station 1.</span>
+    <span class="n">df_station1</span> <span class="o">=</span> <span class="n">df_station1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">station_1</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Tavg&#39;</span><span class="p">,</span> <span class="s1">&#39;PrecipTotal&#39;</span><span class="p">,</span> <span class="s1">&#39;day_len&#39;</span><span class="p">,</span> <span class="s1">&#39;tem_range&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_len&#39;</span><span class="p">,</span> <span class="s1">&#39;temp_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_mean&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="c1"># Merge with breeding weather data for station 1.</span>
+    <span class="n">df_station1</span> <span class="o">=</span> <span class="n">df_station1</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">station_1</span><span class="p">[[</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">,</span> <span class="s1">&#39;preci_weighted&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">)</span>
+    <span class="c1">#Merge with the weather data for station 2.</span>
+    <span class="n">df_station2</span> <span class="o">=</span> <span class="n">df_station2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">station_2</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Tavg&#39;</span><span class="p">,</span> <span class="s1">&#39;PrecipTotal&#39;</span><span class="p">,</span> <span class="s1">&#39;day_len&#39;</span><span class="p">,</span> <span class="s1">&#39;tem_range&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_len&#39;</span><span class="p">,</span> <span class="s1">&#39;temp_mean&#39;</span><span class="p">,</span> <span class="s1">&#39;dew_mean&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="c1">#Merge with the breeding weather data for station 2.</span>
+    <span class="n">df_station2</span> <span class="o">=</span> <span class="n">df_station2</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">station_2</span><span class="p">[[</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">,</span> <span class="s1">&#39;preci_weighted&#39;</span><span class="p">]],</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;breeding_date&#39;</span><span class="p">)</span>
+    <span class="c1">#Putting the dataframes back together again with the new data included.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df_station1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_station2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#As seen here: https://gist.github.com/jeromer/2005586</span>
+<span class="k">def</span> <span class="nf">calculate_initial_compass_bearing</span><span class="p">(</span><span class="n">pointA</span><span class="p">,</span> <span class="n">pointB</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the bearing between two points.</span>
+<span class="sd">    The formulae used is the following:</span>
+<span class="sd">        θ = atan2(sin(Δlong).cos(lat2),</span>
+<span class="sd">                  cos(lat1).sin(lat2) − sin(lat1).cos(lat2).cos(Δlong))</span>
+<span class="sd">    :Parameters:</span>
+<span class="sd">      - `pointA: The tuple representing the latitude/longitude for the</span>
+<span class="sd">        first point. Latitude and longitude must be in decimal degrees</span>
+<span class="sd">      - `pointB: The tuple representing the latitude/longitude for the</span>
+<span class="sd">        second point. Latitude and longitude must be in decimal degrees</span>
+<span class="sd">    :Returns:</span>
+<span class="sd">      The bearing in degrees</span>
+<span class="sd">    :Returns Type:</span>
+<span class="sd">      float</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pointA</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">pointB</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;Only tuples are supported as arguments&quot;</span><span class="p">)</span>
+
+    <span class="n">lat1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">pointA</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">lat2</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">pointB</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="n">diffLong</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">pointB</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">pointA</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">diffLong</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">lat1</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">diffLong</span><span class="p">))</span>
+
+    <span class="n">initial_bearing</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">atan2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+    <span class="c1"># Now we have the initial bearing but math.atan2 return values</span>
+    <span class="c1"># from -180° to + 180° which is not what we want for a compass bearing</span>
+    <span class="c1"># The solution is to normalize the initial bearing as shown below</span>
+    <span class="n">initial_bearing</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">initial_bearing</span><span class="p">)</span>
+    <span class="n">compass_bearing</span> <span class="o">=</span> <span class="p">(</span><span class="n">initial_bearing</span> <span class="o">+</span> <span class="mi">360</span><span class="p">)</span> <span class="o">%</span> <span class="mi">360</span>
+
+    <span class="k">return</span> <span class="n">compass_bearing</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">HDBSCAN</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
+    <span class="n">df_spray</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1">#Instantiate the model and declare the min_sample size.</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="c1">#Fit to the target dataframe.</span>
+    <span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_spray</span><span class="p">)</span>
+    <span class="c1">#Add a new column to the spray_raw dataframe that assigns each spray location to a zone.</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">spray_zone_labels</span><span class="p">(</span><span class="n">month_df</span><span class="p">,</span> <span class="n">train</span><span class="p">):</span>
+    <span class="c1">#Simplify the spray data so that we can get some more distinguishable clusters.</span>
+    <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span>
+    <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span>
+    <span class="n">month_df</span> <span class="o">=</span> <span class="n">month_df</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="c1">#Add a trap column so that we can filter out the spray cluster data.</span>
+    <span class="n">month_df</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="c1">#Add in the train data and append the two sets together.</span>
+    <span class="n">traps</span> <span class="o">=</span> <span class="n">train</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Trap&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+    <span class="n">cluster_set</span> <span class="o">=</span> <span class="n">month_df</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">traps</span><span class="p">)</span>
+    <span class="c1">#Set the target variables for HDBSCAN</span>
+    <span class="n">cluster_set1</span> <span class="o">=</span> <span class="n">cluster_set</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="c1">#Instantiate the model and declare the min_sample size.</span>
+    <span class="n">clusterer</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+    <span class="c1">#Fit to the target dataframe.</span>
+    <span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">cluster_set1</span><span class="p">)</span>
+    <span class="c1">#Add a new column to the spray_raw dataframe that assigns each spray location to a zone.</span>
+    <span class="n">cluster_set</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span>
+    <span class="c1">#Extract the labels for traps.</span>
+    <span class="k">return</span> <span class="n">cluster_set</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_clusters</span><span class="p">(</span><span class="n">cluster_test_spray</span><span class="p">,</span> <span class="n">cluster_test_trap</span><span class="p">):</span>
+    <span class="n">mapdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;assets/mapdata_copyright_openstreetmap_contributors.txt&quot;</span><span class="p">)</span>
+    <span class="c1">#Create the color range for each of the 40 labels.</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cluster_test_spray</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]]</span>
+    <span class="n">color1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cluster_test_trap</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]]</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+    <span class="n">lon_lat_box</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">41.6</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">)</span>
+    <span class="n">aspect</span> <span class="o">=</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapdata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">lon_lat_box</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="n">aspect</span><span class="p">)</span>
+
+    <span class="n">locations</span> <span class="o">=</span> <span class="n">cluster_test_spray</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">traps</span> <span class="o">=</span> <span class="n">cluster_test_trap</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">locations</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">locations</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">traps</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">traps</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">color1</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Generate Ullam Pattern reference</span>
+<span class="n">reference</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">move_left</span> <span class="o">=</span> <span class="mf">0.002</span>
+<span class="n">move_right</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.002</span>
+<span class="n">stay</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">pattern_long</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">alternator</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">reference</span><span class="p">:</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">alternator</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move_right</span><span class="p">)</span>
+            <span class="n">alternator</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move_left</span><span class="p">)</span>
+            <span class="n">alternator</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stay</span><span class="p">)</span>
+    <span class="n">pattern_long</span> <span class="o">=</span> <span class="n">pattern_long</span> <span class="o">+</span> <span class="n">holder</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">reference</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">move_left</span> <span class="o">=</span> <span class="mf">0.002</span>
+<span class="n">move_right</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.002</span>
+<span class="n">stay</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">pattern_lat</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">alternator</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">reference</span><span class="p">:</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">stay</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">alternator</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move_left</span><span class="p">)</span>
+            <span class="n">alternator</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move_right</span><span class="p">)</span>
+            <span class="n">alternator</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">pattern_lat</span> <span class="o">=</span> <span class="n">pattern_lat</span> <span class="o">+</span> <span class="n">holder</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<h1>Import the data</h1>
+<div class="highlight"><pre><span></span><span class="c1">#Import data sets and format date columns.</span>
+<span class="n">train_raw</span> <span class="o">=</span> <span class="n">extract_date_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;assets/0_train.csv&#39;</span><span class="p">),</span> <span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">test_raw</span> <span class="o">=</span> <span class="n">extract_date_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;assets/0_test.csv&#39;</span><span class="p">),</span> <span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">spray_raw</span> <span class="o">=</span> <span class="n">extract_date_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;assets/0_spray.csv&#39;</span><span class="p">),</span> <span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="n">weather_raw</span> <span class="o">=</span> <span class="n">extract_date_data</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;assets/0_weather.csv&#39;</span><span class="p">),</span> <span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+<span class="c1">#Format the weather table to the features we want.</span>
+<span class="n">weather_raw</span> <span class="o">=</span> <span class="n">weather_format</span><span class="p">(</span><span class="n">weather_raw</span><span class="p">)</span>
+<span class="c1">#Assign a weather station to each trap</span>
+<span class="n">train_raw</span> <span class="o">=</span> <span class="n">assign_station</span><span class="p">(</span><span class="n">train_raw</span><span class="p">)</span>
+<span class="n">test_raw</span> <span class="o">=</span> <span class="n">assign_station</span><span class="p">(</span><span class="n">test_raw</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>Incorporate the weather data and breeding features</h1>
+<div class="highlight"><pre><span></span><span class="c1">#Create the breeding date for each of the datasets.</span>
+<span class="n">breeding_date</span><span class="p">(</span><span class="n">weather_raw</span><span class="p">,</span> <span class="n">train_raw</span><span class="p">,</span> <span class="n">test_raw</span><span class="p">)</span>
+<span class="c1">#Include the weather features into the data sets.</span>
+<span class="n">train_raw</span> <span class="o">=</span> <span class="n">weather_breeding_features</span><span class="p">(</span><span class="n">weather_raw</span><span class="p">,</span> <span class="n">train_raw</span><span class="p">)</span>
+<span class="n">test_raw</span> <span class="o">=</span> <span class="n">weather_breeding_features</span><span class="p">(</span><span class="n">weather_raw</span><span class="p">,</span> <span class="n">test_raw</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>Incorporating the Spray Data</h1>
+<p>DBSCAN and other clustering methods won't work for getting a good sense of spraying effect on trap locations. This is because there is a LARGE varying density of spraying zones and regular clustering techniques don't take this into consideration when building clusters.</p>
+<p>So below I am using HDBSCAN. One nice benefit is that it won't add every spray location to a zone and thereby unnecessarily taint the clusters.</p>
+<div class="highlight"><pre><span></span><span class="n">spray_raw</span> <span class="o">=</span> <span class="n">spray_raw</span><span class="p">[</span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mf">42.1</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Split the clusters up into 3 dataframes so we can make clusters based on the time of the spray.</span>
+<span class="n">df_july</span> <span class="o">=</span> <span class="n">spray_raw</span><span class="p">[</span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">7</span><span class="p">]</span>
+<span class="n">df_august</span> <span class="o">=</span> <span class="n">spray_raw</span><span class="p">[</span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">8</span><span class="p">]</span>
+<span class="n">df_september_13</span> <span class="o">=</span> <span class="n">spray_raw</span><span class="p">[(</span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">9</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2013</span><span class="p">)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Get the labels for july 2013.</span>
+<span class="n">july_cluster</span> <span class="o">=</span> <span class="n">spray_zone_labels</span><span class="p">(</span><span class="n">df_july</span><span class="p">,</span> <span class="n">train_raw</span><span class="p">)</span>
+<span class="n">july_cluster_spray</span> <span class="o">=</span> <span class="n">july_cluster</span><span class="p">[</span><span class="n">july_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">july_cluster_trap</span> <span class="o">=</span> <span class="n">july_cluster</span><span class="p">[</span><span class="n">july_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">#Get the labels for august 2013.</span>
+<span class="n">august_cluster</span> <span class="o">=</span> <span class="n">spray_zone_labels</span><span class="p">(</span><span class="n">df_august</span><span class="p">,</span> <span class="n">train_raw</span><span class="p">)</span>
+<span class="n">august_cluster_spray</span> <span class="o">=</span> <span class="n">august_cluster</span><span class="p">[</span><span class="n">august_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">august_cluster_trap</span> <span class="o">=</span> <span class="n">august_cluster</span><span class="p">[</span><span class="n">august_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+
+<span class="c1">#Get the labels for september 2013.</span>
+<span class="n">september_cluster</span> <span class="o">=</span> <span class="n">spray_zone_labels</span><span class="p">(</span><span class="n">df_september_13</span><span class="p">,</span> <span class="n">train_raw</span><span class="p">)</span>
+<span class="n">september_cluster_spray</span> <span class="o">=</span> <span class="n">september_cluster</span><span class="p">[</span><span class="n">september_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">september_cluster_trap</span> <span class="o">=</span> <span class="n">september_cluster</span><span class="p">[</span><span class="n">september_cluster</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="c1">#Fixing some of the september labels manually.</span>
+<span class="n">september_cluster_trap</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>/Users/nathanhall/anaconda2/lib/python2.7/site-packages/ipykernel/__main__.py:3: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  app.launch_new_instance()
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/ipykernel/__main__.py:4: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/ipykernel/__main__.py:16: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Look into finding clusters by adding a point for every mosquito in a trap in a stacked circumference by</span>
+<span class="c1">#manually manipulating the longitude and lattitude of the data.</span>
+
+<span class="c1">#If the wind is in play. Then manipulate the location of the clusters accordingly.</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">visualize_clusters</span><span class="p">(</span><span class="n">july_cluster_spray</span><span class="p">,</span> <span class="n">july_cluster_trap</span><span class="p">)</span>
+<span class="n">visualize_clusters</span><span class="p">(</span><span class="n">august_cluster_spray</span><span class="p">,</span> <span class="n">august_cluster_trap</span><span class="p">)</span>
+<span class="n">visualize_clusters</span><span class="p">(</span><span class="n">september_cluster_spray</span><span class="p">,</span> <span class="n">september_cluster_trap</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/predicting_west_nile/output_27_0.png"></p>
+<p><img alt="png" src="../images/predicting_west_nile/output_27_1.png"></p>
+<p><img alt="png" src="../images/predicting_west_nile/output_27_2.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Manually adjust the 0&#39;s here to be -1&#39;s.</span>
+<span class="c1">#sns.lmplot(x=&#39;Longitude&#39;, y=&#39;Latitude&#39;, hue=&#39;zone&#39;, fit_reg=False, data=september_cluster_trap)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Manually make labels that can be sequential with the numbers we have for July.</span>
+<span class="n">august_cluster_trap</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span><span class="mi">7</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span><span class="mi">8</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">september_cluster_trap</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">9</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>/Users/nathanhall/anaconda2/lib/python2.7/site-packages/pandas/core/generic.py:3443: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self._update_inplace(new_data)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create dictionaries for each month that we can then apply to the month columns in 2013.</span>
+<span class="n">july_dict</span> <span class="o">=</span> <span class="n">july_cluster_trap</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Trap&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span>
+<span class="n">august_dict</span> <span class="o">=</span> <span class="n">august_cluster_trap</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Trap&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span>
+<span class="n">september_dict</span> <span class="o">=</span> <span class="n">september_cluster_trap</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Trap&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Get only the 2013 data from train that we can fit to for each month. We will put each month back together after</span>
+<span class="c1">#we apply the above dictionaries.</span>
+<span class="n">spray_df_2013</span> <span class="o">=</span> <span class="n">train_raw</span><span class="p">[</span><span class="n">train_raw</span><span class="p">[</span><span class="s1">&#39;Year&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">2013</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#June</span>
+<span class="n">spray_df_june</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="p">[</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">6</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#July</span>
+<span class="n">spray_df_july</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="p">[</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">7</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#August</span>
+<span class="n">spray_df_august</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="p">[</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">8</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#September</span>
+<span class="n">spray_df_september</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="p">[</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Month&#39;</span><span class="p">]</span><span class="o">==</span><span class="mi">9</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Map the dictionaries to each dataframe. Fill all of june with -1 since that corresponds to not being in a spray zone.</span>
+<span class="n">spray_df_june</span><span class="p">[</span><span class="s1">&#39;spray_zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="n">spray_df_july</span><span class="p">[</span><span class="s1">&#39;spray_zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_july</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">july_dict</span><span class="p">)</span>
+<span class="n">spray_df_august</span><span class="p">[</span><span class="s1">&#39;spray_zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_august</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">august_dict</span><span class="p">)</span>
+<span class="n">spray_df_september</span><span class="p">[</span><span class="s1">&#39;spray_zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_september</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">september_dict</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">spray_df_2013</span> <span class="o">=</span> <span class="n">spray_df_june</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">spray_df_july</span><span class="p">,</span> <span class="n">spray_df_august</span><span class="p">,</span><span class="n">spray_df_september</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Python code for computing euler spiral. Taken from here: http://digitalassets.lib.berkeley.edu/techreports/ucb/text/EECS-2009-162.pdf</span>
+<span class="k">def</span> <span class="nf">fit_euler</span><span class="p">(</span><span class="n">th0</span><span class="p">,</span> <span class="n">th1</span><span class="p">):</span>
+    <span class="n">k1_old</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">e_old</span> <span class="o">=</span> <span class="n">th1</span> <span class="o">-</span> <span class="n">th0</span>
+    <span class="n">k0</span> <span class="o">=</span> <span class="n">th0</span> <span class="o">+</span> <span class="n">th1</span>
+    <span class="n">k1</span> <span class="o">=</span> <span class="mi">6</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="p">((</span><span class="o">.</span><span class="mi">5</span> <span class="o">/</span> <span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">k0</span><span class="p">)</span> <span class="o">**</span> <span class="mi">3</span><span class="p">)</span> <span class="o">*</span> <span class="n">e_old</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">spiro</span><span class="p">(</span><span class="n">k0</span><span class="p">,</span> <span class="n">k1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="p">(</span><span class="n">th1</span> <span class="o">-</span> <span class="n">th0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">atan2</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="o">.</span><span class="mi">25</span> <span class="o">*</span> <span class="n">k1</span>
+        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="mf">1e-9</span><span class="p">:</span> <span class="k">break</span>
+        <span class="n">k1_old</span><span class="p">,</span> <span class="n">e_old</span><span class="p">,</span> <span class="n">k1</span> <span class="o">=</span> <span class="n">k1</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">k1</span> <span class="o">+</span> <span class="p">(</span><span class="n">k1_old</span> <span class="o">-</span> <span class="n">k1</span><span class="p">)</span> <span class="o">*</span> <span class="n">e</span> <span class="o">/</span> <span class="p">(</span><span class="n">e</span> <span class="o">-</span> <span class="n">e_old</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">k0</span><span class="p">,</span> <span class="n">k1</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>  File &quot;&lt;ipython-input-28-39ad59be0e90&gt;&quot;, line 10
+    if abs(e) 1e-9: break
+                 ^
+SyntaxError: invalid syntax
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_aug</span> <span class="o">=</span> <span class="n">spray_df_august</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Trap&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df_mosquitos_august</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_aug</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]):</span>
+    <span class="n">df_holder</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">cluster_aug</span><span class="p">[</span><span class="s1">&#39;NumMosquitos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]):</span>
+        <span class="n">move</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pattern_lat</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>
+        <span class="n">lat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">move</span>
+    <span class="n">df_holder</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span>    
+    <span class="n">start1</span> <span class="o">=</span> <span class="n">cluster_aug</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">log1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">cluster_aug</span><span class="p">[</span><span class="s1">&#39;NumMosquitos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]):</span>
+        <span class="n">move1</span> <span class="o">=</span> <span class="n">start1</span> <span class="o">+</span> <span class="n">pattern_long</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
+        <span class="n">log1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move1</span><span class="p">)</span>
+        <span class="n">start1</span> <span class="o">=</span> <span class="n">move1</span>
+    <span class="n">df_holder</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">log1</span>
+    <span class="n">df_mosquitos_august</span> <span class="o">=</span> <span class="n">df_mosquitos_august</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_holder</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_new</span> <span class="o">=</span> <span class="n">spray_df_september</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;Trap&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df_mosquitos_september</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cluster_new</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]):</span>
+    <span class="n">df_holder</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">])</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="n">y</span>
+    <span class="n">lat</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">cluster_new</span><span class="p">[</span><span class="s1">&#39;NumMosquitos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]):</span>
+        <span class="n">move</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">pattern_lat</span><span class="p">[</span><span class="n">z</span><span class="p">]</span>
+        <span class="n">lat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move</span><span class="p">)</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">move</span>
+    <span class="n">df_holder</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lat</span>    
+    <span class="n">start1</span> <span class="o">=</span> <span class="n">cluster_new</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+    <span class="n">log1</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">cluster_new</span><span class="p">[</span><span class="s1">&#39;NumMosquitos&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]):</span>
+        <span class="n">move1</span> <span class="o">=</span> <span class="n">start1</span> <span class="o">+</span> <span class="n">pattern_long</span><span class="p">[</span><span class="n">w</span><span class="p">]</span>
+        <span class="n">log1</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">move1</span><span class="p">)</span>
+        <span class="n">start1</span> <span class="o">=</span> <span class="n">move1</span>
+    <span class="n">df_holder</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">log1</span>
+    <span class="n">df_mosquitos_september</span> <span class="o">=</span> <span class="n">df_mosquitos_september</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df_holder</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">mapdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;assets/mapdata_copyright_openstreetmap_contributors.txt&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">lon_lat_box</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">41.6</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">)</span>
+<span class="n">aspect</span> <span class="o">=</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapdata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">lon_lat_box</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="n">aspect</span><span class="p">)</span>
+
+<span class="n">locations</span> <span class="o">=</span> <span class="n">df_mosquitos_august</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">august_cluster_trap</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">locations</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">locations</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">traps</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">traps</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/predicting_west_nile/output_39_0.png"></p>
+<div class="highlight"><pre><span></span><span class="n">mapdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s2">&quot;assets/mapdata_copyright_openstreetmap_contributors.txt&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">lon_lat_box</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">88</span><span class="p">,</span> <span class="o">-</span><span class="mf">87.5</span><span class="p">,</span> <span class="mf">41.6</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">)</span>
+<span class="n">aspect</span> <span class="o">=</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">mapdata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">mapdata</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">get_cmap</span><span class="p">(</span><span class="s1">&#39;gray&#39;</span><span class="p">),</span> <span class="n">extent</span><span class="o">=</span><span class="n">lon_lat_box</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="n">aspect</span><span class="p">)</span>
+
+<span class="n">locations</span> <span class="o">=</span> <span class="n">df_mosquitos_september</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">traps</span> <span class="o">=</span> <span class="n">september_cluster_trap</span><span class="p">[[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">locations</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">locations</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">traps</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">traps</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/predicting_west_nile/output_40_0.png"></p>
+<h4>Use the 2013 spray zones to predict the spray zones for other years.</h4>
+<div class="highlight"><pre><span></span><span class="c1">#Make our target variable for spray zones.</span>
+<span class="n">zones</span><span class="o">=</span><span class="n">spray_df_2013</span><span class="o">.</span><span class="n">spray_zone</span><span class="o">.</span><span class="n">values</span>    <span class="c1"># prediction target</span>
+<span class="n">spray_df_2013</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;spray_zone&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">spray_df_2013</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Index([u&#39;Date&#39;, u&#39;Address&#39;, u&#39;Species&#39;, u&#39;Block&#39;, u&#39;Street&#39;, u&#39;Trap&#39;,
+       u&#39;AddressNumberAndStreet&#39;, u&#39;Latitude&#39;, u&#39;Longitude&#39;,
+       u&#39;AddressAccuracy&#39;, u&#39;NumMosquitos&#39;, u&#39;WnvPresent&#39;, u&#39;Year&#39;, u&#39;Month&#39;,
+       u&#39;Day&#39;, u&#39;Weekday&#39;, u&#39;station&#39;, u&#39;breeding_date&#39;, u&#39;Tavg&#39;,
+       u&#39;PrecipTotal&#39;, u&#39;day_len&#39;, u&#39;tem_range&#39;, u&#39;dew_len&#39;, u&#39;temp_mean&#39;,
+       u&#39;dew_mean&#39;, u&#39;preci_weighted&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Add integer latitude/longitude columns</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Lat_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="o">.</span><span class="n">Latitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Long_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="o">.</span><span class="n">Longitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="c1">#test[&#39;Lat_int&#39;] = test.Latitude.apply(int)</span>
+<span class="c1">#test[&#39;Long_int&#39;] = test.Longitude.apply(int)</span>
+
+<span class="c1"># drop address columns</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;temp_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">spray_df_2013</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="s1">&#39;AddressNumberAndStreet&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;breeding_date&#39;</span><span class="p">,</span> <span class="s1">&#39;PrecipTotal&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#test = test.drop([&#39;Id&#39;, &#39;Address&#39;, &#39;AddressNumberAndStreet&#39;], axis = 1)</span>
+
+<span class="c1"># Convert categorical data to numbers</span>
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="c1">#test[&#39;Species&#39;] = lbl.transform(test[&#39;Species&#39;].values)</span>
+
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="c1">#test[&#39;Street&#39;] = lbl.transform(test[&#39;Street&#39;].values)</span>
+
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="c1">#test[&#39;Trap&#39;] = lbl.transform(test[&#39;Trap&#39;].values)</span>
+
+<span class="c1"># drop columns with -1s</span>
+<span class="c1">#train = train.ix[:,(train != -1).any(axis=0)]</span>
+<span class="c1">#test = test.ix[:,(test != -1).any(axis=0)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">clf4</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                                <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_weight_fraction_leaf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                                <span class="n">max_depth</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Running train test split on the test data set so that we can get an ROC_AUC score.</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">spray_df_2013</span><span class="p">,</span> <span class="n">zones</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">clf4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>GradientBoostingRegressor(alpha=0.9, init=None, learning_rate=0.015,
+             loss=&#39;ls&#39;, max_depth=9, max_features=0.85,
+             max_leaf_nodes=None, min_samples_leaf=5, min_samples_split=2,
+             min_weight_fraction_leaf=0.0, n_estimators=750,
+             presort=&#39;auto&#39;, random_state=101, subsample=0.8, verbose=0,
+             warm_start=False)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;GradientBoosting Cross_Val Score:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf4</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;Train/Test GradientBoosting Score:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">clf4</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>GradientBoosting Cross_Val Score:   0.970044740597
+Train/Test GradientBoosting Score:  0.996521689665
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">])</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s1">&#39;Features&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">spray_df_2013</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf4</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Look at the most important features.</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_features</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11e022310&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/predicting_west_nile/output_50_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Create a plot for the predicted vs. the actual before we go and apply this method to the train and test datasets.</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">clf4</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">df_check</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">,</span> <span class="s1">&#39;y_test&#39;</span><span class="p">])</span>
+<span class="n">df_check</span><span class="p">[</span><span class="s1">&#39;y_test&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_test</span>
+<span class="n">df_check</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_pred</span>
+<span class="n">df_check</span><span class="p">[</span><span class="s1">&#39;y_pred_round&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df_check</span><span class="p">[</span><span class="s1">&#39;y_pred&#39;</span><span class="p">]]</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;y_test&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;y_pred_round&#39;</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_check</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11f01f7d0&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/predicting_west_nile/output_51_1.png"></p>
+<h1>TO DO:</h1>
+<h1>Check for correlations of features to #number of mosquitos.</h1>
+<h1>Use cluster probabilities from HDBSCAN as a feature to predict number of mosquitos.</h1>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># GB Classifier</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;log2&#39;</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">wnv</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a random forest model to predict which zone each trap will be associated with.</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">max_depth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">rf</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">z</span><span class="p">[</span><span class="s1">&#39;zone_trap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+<span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">spray_raw</span><span class="p">[</span><span class="s1">&#39;zone_proba&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">probabilities_</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">trap_locations</span> <span class="o">=</span> <span class="n">train_raw</span><span class="p">[[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">trap_locations</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<h2>Predicting mosquito breeding</h2>
+<div class="highlight"><pre><span></span><span class="c1">#If the average temperature drops below 50 degrees after the mosquitos have hatched then severely weight the liklihood</span>
+<span class="c1">#of large amounts of mosquitos hatching down.</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Make our target variable for Num of Mosquitos.</span>
+<span class="c1">#y=np.log(train.NumMosquitos.values+1) # log(# of mosquitos) is a target variable in stacking procedure</span>
+<span class="n">y</span><span class="o">=</span><span class="n">train</span><span class="o">.</span><span class="n">NumMosquitos</span><span class="o">.</span><span class="n">values</span>
+<span class="n">wnv</span><span class="o">=</span><span class="n">train</span><span class="o">.</span><span class="n">WnvPresent</span><span class="o">.</span><span class="n">values</span>    <span class="c1"># prediction target</span>
+<span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;NumMosquitos&#39;</span><span class="p">,</span> <span class="s1">&#39;WnvPresent&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Add integer latitude/longitude columns</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Lat_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Latitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Long_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">Longitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Lat_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">Latitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Long_int&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">Longitude</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># drop address columns</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;temp_mean&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">train</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)[</span><span class="s1">&#39;Tavg&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">),</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="s1">&#39;AddressNumberAndStreet&#39;</span><span class="p">,</span> <span class="s1">&#39;station&#39;</span><span class="p">,</span> <span class="s1">&#39;breeding_date&#39;</span><span class="p">,</span> <span class="s1">&#39;PrecipTotal&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Id&#39;</span><span class="p">,</span> <span class="s1">&#39;Address&#39;</span><span class="p">,</span> <span class="s1">&#39;AddressNumberAndStreet&#39;</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Convert categorical data to numbers</span>
+<span class="n">lbl</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Species&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Street&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="n">lbl</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">))</span>
+<span class="n">train</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="n">test</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lbl</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">test</span><span class="p">[</span><span class="s1">&#39;Trap&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+<span class="c1"># drop columns with -1s</span>
+<span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,(</span><span class="n">train</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">test</span><span class="o">.</span><span class="n">ix</span><span class="p">[:,(</span><span class="n">test</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">clf4</span> <span class="o">=</span> <span class="n">GradientBoostingRegressor</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s1">&#39;ls&#39;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.015</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">750</span><span class="p">,</span> <span class="n">subsample</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+                                <span class="n">min_samples_split</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">min_samples_leaf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">min_weight_fraction_leaf</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+                                <span class="n">max_depth</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">init</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">101</span><span class="p">,</span> <span class="n">max_features</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                                <span class="n">max_leaf_nodes</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">warm_start</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Running train test split on the test data set so that we can get an ROC_AUC score.</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">train</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.33</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">clf4</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;GradientBoosting Cross_Val Score:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">clf4</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="k">print</span> <span class="s2">&quot;Train/Test GradientBoosting Score:</span><span class="se">\t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">clf4</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df_features</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">])</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s1">&#39;Features&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">columns</span>
+<span class="n">df_features</span><span class="p">[</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clf4</span><span class="o">.</span><span class="n">feature_importances_</span>
+<span class="n">df_features</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Look at the most important features.</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Importance (GB_Regressor)&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Features&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_features</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<h2>Predicting mosquito migration</h2>
+<div class="highlight"><pre><span></span><span class="c1">#You would most likely need to create a reference dataframe that stored the nearest traps and their compass bearing.</span>
+
+<span class="c1">#This will be the type of thing you use when you take wind speed/direction into consideration.</span>
+<span class="n">calculate_initial_compass_bearing</span><span class="p">((</span><span class="n">weather_raw</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">weather_raw</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="p">(</span><span class="n">test_raw</span><span class="p">[</span><span class="s1">&#39;Latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">test_raw</span><span class="p">[</span><span class="s1">&#39;Longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Break things down into spray zones(or concentration zones). And then estimate the migration weight between the spray zones.</span>
+</pre></div>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <!--<footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center>This project contains 20 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.
+                <br/>
+                Copyright &copy; Nate Hall
+                    <time datetime="2016">2016</time>.
+                </center>
+            </p>
+        </div>
+    </footer>-->
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
