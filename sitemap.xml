@@ -5,8 +5,22 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2017-02-16T10:04:31-00:00</lastmod>
+<lastmod>2017-02-16T10:14:59-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/articles/analyzing_iowa_liqour_sales_project.html</loc>
+<lastmod>2017-02-16T12:00:00-05:00</lastmod>
+<changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/articles/finding_a_data_science_job_with_data_science.html</loc>
+<lastmod>2017-02-16T12:00:00-05:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -125,13 +139,6 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 <loc>http://www.instantinate.com/python/load_dataset_with_csv_reader.html</loc>
 <lastmod>2016-11-23T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/articles/finding_a_data_science_job_with_data_science.html</loc>
-<lastmod>2016-06-16T12:00:00-04:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>

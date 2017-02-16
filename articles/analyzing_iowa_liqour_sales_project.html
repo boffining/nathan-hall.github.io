@@ -1,0 +1,3605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Design for website inspired by Chris Albon-->
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Personal Data Science Blog of Nate Hall">
+    <meta name="author" content="Nate Hall">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <title>Analyzing Iowa Liquor Sales Project - Articles</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+              <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <!--<li class="dropdown">
+                    <a href="../visuals.html" role="button" aria-haspopup="true" aria-expanded="false">Visualizations</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Top Visuals</a></li>
+                        <li><a href="./visuals.html">Projects</a></li>
+                    </ul>
+                </li>-->
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../index.html">Python</a></li>
+                          <li><a href="../index.html">Data Wrangling</a></li>
+                          <li><a href="../index.html">Machine Learning</a></li>
+                          <li><a href="../index.html">Statistics</a></li>
+                          <li><a href="../index.html">Visualization</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                        <a href="../articles.html" role="button" aria-haspopup="true" aria-expanded="false">Articles</a>
+                        <!--<ul class="dropdown-menu">
+                            <li><a href="./blog.html">Articles</a></li>
+                            <li><a href="./blog.html">Projects</a></li>
+                        </ul>-->
+                    </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../pages/about_nate.html">About Nate</a></li>
+                          <li><a href="https://github.com/nathan-hall/nathan-hall.github.io">GitHub</a></li>
+                          <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a">LinkedIn</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      Analyzing Iowa Liquor Sales Project
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2017-02-16T12:00:00-05:00">
+            16 February 2017
+        </time>
+    </li>
+    <li>Articles</li>
+</ol>
+</header>
+<div class='article_content'>
+<h2>Scenario 2: Market research for new store locations</h2>
+<p>A liquor store owner in Iowa is looking to expand to new locations and has hired you to investigate the market data for potential new locations. The business owner is interested in the details of the best model you can fit to the data so that his team can evaluate potential locations for a new storefront.</p>
+<h6>Goal for Scenario #2: Your task is to:</h6>
+<ul>
+<li>Build models of total sales based on location, price per bottle, total bottles sold. You may find it useful to build models for each county, zip code, or city.</li>
+<li>Provide a table of the best performing stores by location type of your choice (city, county, or zip code) and the predictions of your model(s).</li>
+<li>Based on your models and the table of data, recommend some general locations to the business owner, taking into account model performance. Validate your model's performance and ability to predict future sales using cross-validation.</li>
+</ul>
+<h1>1. Define Success</h1>
+<h5>Definition of "BEST LOCATION":</h5>
+<p>The best location would consider all of the following
+1. The most demand.
+2. The strongest demand.
+3. The most opportunity.</p>
+<h1>2. Data Wrangling: Import Data</h1>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">## Load the data into a DataFrame</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../../../project2_data/Iowa_Liquor_Sales_reduced.csv&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="o">/</span><span class="n">Users</span><span class="o">/</span><span class="n">nathanhall</span><span class="o">/</span><span class="n">anaconda</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">site</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">IPython</span><span class="o">/</span><span class="n">core</span><span class="o">/</span><span class="n">interactiveshell</span><span class="o">.</span><span class="n">py</span><span class="p">:</span><span class="mi">2717</span><span class="p">:</span> <span class="n">DtypeWarning</span><span class="p">:</span> <span class="n">Columns</span> <span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="n">have</span> <span class="n">mixed</span> <span class="n">types</span><span class="o">.</span> <span class="n">Specify</span> <span class="n">dtype</span> <span class="n">option</span> <span class="n">on</span> <span class="kn">import</span> <span class="nn">or</span> <span class="nn">set</span> <span class="nn">low_memory</span><span class="o">=</span><span class="bp">False</span><span class="o">.</span>
+  <span class="n">interactivity</span><span class="o">=</span><span class="n">interactivity</span><span class="p">,</span> <span class="n">compiler</span><span class="o">=</span><span class="n">compiler</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#See what the data looks like</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date</th>
+      <th>Store Number</th>
+      <th>City</th>
+      <th>Zip Code</th>
+      <th>County Number</th>
+      <th>County</th>
+      <th>Category</th>
+      <th>Category Name</th>
+      <th>Vendor Number</th>
+      <th>Item Number</th>
+      <th>Item Description</th>
+      <th>Bottle Volume (ml)</th>
+      <th>State Bottle Cost</th>
+      <th>State Bottle Retail</th>
+      <th>Bottles Sold</th>
+      <th>Sale (Dollars)</th>
+      <th>Volume Sold (Liters)</th>
+      <th>Volume Sold (Gallons)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>03/31/2016</td>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>82.0</td>
+      <td>Scott</td>
+      <td>1022100.0</td>
+      <td>TEQUILA</td>
+      <td>370</td>
+      <td>87152</td>
+      <td>Avion Silver</td>
+      <td>375</td>
+      <td>$9.99</td>
+      <td>$14.99</td>
+      <td>12</td>
+      <td>$179.88</td>
+      <td>4.5</td>
+      <td>1.19</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>03/31/2016</td>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>82.0</td>
+      <td>Scott</td>
+      <td>1022100.0</td>
+      <td>TEQUILA</td>
+      <td>395</td>
+      <td>89197</td>
+      <td>Jose Cuervo Especial Reposado Tequila</td>
+      <td>1000</td>
+      <td>$12.50</td>
+      <td>$18.75</td>
+      <td>2</td>
+      <td>$37.50</td>
+      <td>2.0</td>
+      <td>0.53</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>03/31/2016</td>
+      <td>4959</td>
+      <td>CEDAR FALLS</td>
+      <td>50613</td>
+      <td>7.0</td>
+      <td>Black Hawk</td>
+      <td>1071100.0</td>
+      <td>AMERICAN COCKTAILS</td>
+      <td>380</td>
+      <td>63959</td>
+      <td>Uv Blue Raspberry Lemonade Pet</td>
+      <td>1750</td>
+      <td>$5.97</td>
+      <td>$8.96</td>
+      <td>6</td>
+      <td>$53.76</td>
+      <td>10.5</td>
+      <td>2.77</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>03/31/2016</td>
+      <td>2190</td>
+      <td>DES MOINES</td>
+      <td>50314</td>
+      <td>77.0</td>
+      <td>Polk</td>
+      <td>1031200.0</td>
+      <td>VODKA FLAVORED</td>
+      <td>205</td>
+      <td>40597</td>
+      <td>New Amsterdam Red Berry</td>
+      <td>200</td>
+      <td>$2.24</td>
+      <td>$3.36</td>
+      <td>48</td>
+      <td>$161.28</td>
+      <td>9.6</td>
+      <td>2.54</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>03/31/2016</td>
+      <td>5240</td>
+      <td>WEST BRANCH</td>
+      <td>52358</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>1081200.0</td>
+      <td>CREAM LIQUEURS</td>
+      <td>305</td>
+      <td>73055</td>
+      <td>Rumchata</td>
+      <td>750</td>
+      <td>$12.50</td>
+      <td>$18.75</td>
+      <td>6</td>
+      <td>$112.50</td>
+      <td>4.5</td>
+      <td>1.19</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Size and shape of data set.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>(2709552, 18)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check data types.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dtypes</span>
+<span class="c1">#We have several object columns which can store multiple types of values in them. We&#39;ll need to keep an eye on these</span>
+<span class="c1">#for the multiple data-type warning received with importing the csv file.</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Date                      object
+Store Number               int64
+City                      object
+Zip Code                  object
+County Number            float64
+County                    object
+Category                 float64
+Category Name             object
+Vendor Number              int64
+Item Number                int64
+Item Description          object
+Bottle Volume (ml)         int64
+State Bottle Cost         object
+State Bottle Retail       object
+Bottles Sold               int64
+Sale (Dollars)            object
+Volume Sold (Liters)     float64
+Volume Sold (Gallons)    float64
+dtype: object
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check for missing values.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Date                         0
+Store Number                 0
+City                         0
+Zip Code                     0
+County Number            10913
+County                   10913
+Category                   779
+Category Name             6109
+Vendor Number                0
+Item Number                  0
+Item Description             0
+Bottle Volume (ml)           0
+State Bottle Cost            0
+State Bottle Retail          0
+Bottles Sold                 0
+Sale (Dollars)               0
+Volume Sold (Liters)         0
+Volume Sold (Gallons)        0
+dtype: int64
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check for duplicate rows.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>(2709552, 18)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#We&#39;re goign to drop the following columns as they are all redundant with another column.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;County Number&#39;</span><span class="p">,</span> <span class="s1">&#39;Volume Sold (Gallons)&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>2. Data Wrangling: Resolve Missing Data</h1>
+<h3>"Counties" Column</h3>
+<h5>REFERENCE: Make Dictionary to Fix the Missing Counties</h5>
+<p>Below is the code used for fixing the data type and testing the mapping function</p>
+<div class="highlight"><pre><span></span><span class="c1">#Put County and Zip Code into their own dataframe.</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;County&#39;</span><span class="p">,</span> <span class="s1">&#39;Zip Code&#39;</span><span class="p">]]</span>
+<span class="c1">#Convert df_fill to string data type (otherwise this will duplicate dictionary values for the ones that are strings and the ones that are integers)</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="c1">#Check shape to confirm we&#39;re ok.</span>
+<span class="n">df_test</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<p>I had used the below code to make a dictionary off these columns.
+Then I filled in the dozen remaining missing counties for zip codes by looking them up online.
+After that I was left with a dictionary by which I could replace the missing values.</p>
+<div class="highlight"><pre><span></span><span class="c1">#Drop duplicates on the zipcode column.</span>
+<span class="n">df_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">])</span>
+<span class="c1">#Check shape to confirm we&#39;re ok.</span>
+<span class="n">df_test</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1">#Turn dataframe into dictionary.</span>
+<span class="n">dict_test</span> <span class="o">=</span> <span class="n">df_test</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;County&#39;</span><span class="p">]</span>
+<span class="c1">#Check dictionary to confimr it worked as expected.</span>
+<span class="n">dict_test</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#The dictionary created in the above step was saved as in a .py file and is being imported here.</span>
+<span class="kn">from</span> <span class="nn">missing_data_dictionaries</span> <span class="kn">import</span> <span class="n">zip_counties_map</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#We have mixed data types in the zip code column so we&#39;ll set those to all be strings.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a new column that uses the zip code column and zip code dictionary to return a complete county column.</span>
+<span class="c1">#This is MUCH faster than using &quot;fillna&quot; or &quot;replace&quot; to impute values into a column from a dictionary.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;County&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">zip_counties_map</span><span class="p">)</span>
+<span class="c1">#Checking results</span>
+<span class="c1">#print df.County.value_counts()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check for missing values.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="c1">#All the missing values have been correctly mapped and resolved.</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Date                       0
+Store Number               0
+City                       0
+Zip Code                   0
+County                     0
+Category                 779
+Category Name           6109
+Vendor Number              0
+Item Number                0
+Item Description           0
+Bottle Volume (ml)         0
+State Bottle Cost          0
+State Bottle Retail        0
+Bottles Sold               0
+Sale (Dollars)             0
+Volume Sold (Liters)       0
+dtype: int64
+</pre></div>
+
+
+<h3>"Categories Name" Column</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Put Category and item description into a data frame.</span>
+<span class="n">df_category_name</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Category Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Item Description&#39;</span><span class="p">]]</span>
+<span class="n">df_category_name</span><span class="o">.</span><span class="n">shape</span>
+<span class="c1">#Drop duplicates on the Item Description column.</span>
+<span class="n">df_category_name</span> <span class="o">=</span> <span class="n">df_category_name</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;Item Description&#39;</span><span class="p">])</span>
+<span class="c1">#Convert the nan&#39;s to strings.</span>
+<span class="n">df_category_name</span> <span class="o">=</span> <span class="n">df_category_name</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="c1">#Turn dataframe into dictionary.</span>
+<span class="n">dict_category_name</span> <span class="o">=</span> <span class="n">df_category_name</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Item Description&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;Category Name&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Split the two dictionaries using dictionary comprehension</span>
+<span class="c1">#Filtering out the dictionary that has nan&#39;s to fix by hand.</span>
+<span class="n">dict_nan</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dict_category_name</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="s1">&#39;nan&#39;</span><span class="p">}</span>
+<span class="c1">#Retaining the dictionary that has correct values.</span>
+<span class="n">dict_category</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dict_category_name</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="s1">&#39;nan&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#The dictionary with missing values was exported to a .py file, fixed by hand, and is being imported back here.</span>
+<span class="kn">from</span> <span class="nn">missing_data_dictionaries</span> <span class="kn">import</span> <span class="n">missing_category_names_map</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Concatenate the two dictionaries to create a complete map to fill in missing values.</span>
+<span class="n">dict_category_name_complete</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">dict_category</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="o">+</span> <span class="n">missing_category_names_map</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Fill in the missing values using the .map function and check to see that all missing values were resolved.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Category Name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Item Description&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">dict_category_name_complete</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Date                      0
+Store Number              0
+City                      0
+Zip Code                  0
+County                    0
+Category                779
+Category Name             0
+Vendor Number             0
+Item Number               0
+Item Description          0
+Bottle Volume (ml)        0
+State Bottle Cost         0
+State Bottle Retail       0
+Bottles Sold              0
+Sale (Dollars)            0
+Volume Sold (Liters)      0
+dtype: int64
+</pre></div>
+
+
+<h3>"Zip Code" Column</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Bringing in data that was scraped from iowa.hometownlocator.com to validate the zip code column.</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../../../project2_data/Iowa_Population_Scraped_Data.csv&#39;</span><span class="p">)</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Average Family Size</th>
+      <th>Average Household Size</th>
+      <th>Diversity Index2</th>
+      <th>Family Households</th>
+      <th>Population Density1</th>
+      <th>Population in Families</th>
+      <th>Population in Group Qrtrs</th>
+      <th>Population in Households</th>
+      <th>Total Households</th>
+      <th>Total Population</th>
+      <th>Zips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.0</td>
+      <td>2.76</td>
+      <td>8.0</td>
+      <td>206.0</td>
+      <td>30.0</td>
+      <td>651.0</td>
+      <td>0.0</td>
+      <td>736.0</td>
+      <td>267.0</td>
+      <td>736.0</td>
+      <td>50001</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>3.0</td>
+      <td>2.28</td>
+      <td>7.0</td>
+      <td>367.0</td>
+      <td>12.0</td>
+      <td>1052.0</td>
+      <td>0.0</td>
+      <td>1325.0</td>
+      <td>581.0</td>
+      <td>1325.0</td>
+      <td>50002</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3.0</td>
+      <td>2.57</td>
+      <td>11.0</td>
+      <td>2027.0</td>
+      <td>63.0</td>
+      <td>6254.0</td>
+      <td>119.0</td>
+      <td>7465.0</td>
+      <td>2910.0</td>
+      <td>7584.0</td>
+      <td>50003</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>3.0</td>
+      <td>2.46</td>
+      <td>9.0</td>
+      <td>222.0</td>
+      <td>26.0</td>
+      <td>632.0</td>
+      <td>0.0</td>
+      <td>757.0</td>
+      <td>308.0</td>
+      <td>757.0</td>
+      <td>50005</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>3.0</td>
+      <td>2.45</td>
+      <td>10.0</td>
+      <td>501.0</td>
+      <td>14.0</td>
+      <td>1479.0</td>
+      <td>2.0</td>
+      <td>1798.0</td>
+      <td>735.0</td>
+      <td>1800.0</td>
+      <td>50006</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert Zip Code columns to strings so we&#39;re comparing apples to apples.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zips&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zips&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check if the &quot;Zip Code&quot; values in our data set are also in the &quot;Zips&quot; column that was scraped.</span>
+<span class="c1">#Return a true or false and place the values into a &quot;Zip_Check&quot; column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip_Check&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zips&#39;</span><span class="p">]),</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Get a value count of the &quot;Zip_Check&quot; column and see where we stand.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip_Check&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>True     2694948
+False      14604
+Name: Zip_Check, dtype: int64
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Filter out the &quot;False&quot; rows into a new dataframe that we can analyze further.</span>
+<span class="n">df_zips</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip_Check&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;False&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Now lets see what city zip codes don&#39;t match the list we scraped.</span>
+<span class="n">df_zips</span><span class="p">[</span><span class="s1">&#39;City&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>array([&#39;DAVENPORT&#39;, &#39;DUNLAP&#39;, &#39;CEDAR RAPIDS&#39;, &#39;BURLINGTON&#39;, &#39;MANCHESTER&#39;,
+       &#39;DES MOINES&#39;], dtype=object)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Lets check what the given zip codes for these cities are in our original dataframe.</span>
+<span class="n">df_zips</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>array([&#39;52084&#39;, &#39;712-2&#39;, &#39;52303&#39;, &#39;56201&#39;, &#39;52087&#39;, &#39;50300&#39;], dtype=object)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#After looking these cities and zips up online its clear these zip codes are mis-entered. We&#39;ll fix them below.</span>
+<span class="c1">#Fix DAVENPORT zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;52084&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;52804&#39;</span><span class="p">)</span>
+<span class="c1">#Fix MANCHESTER zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;52087&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;52057&#39;</span><span class="p">)</span>
+<span class="c1">#Fix DUNLAP zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;712-2&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;51529&#39;</span><span class="p">)</span>
+<span class="c1">#Fix DES MOINES zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;50300&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;50301&#39;</span><span class="p">)</span>
+<span class="c1">#Fix BURLINGTON zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;56201&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;52601&#39;</span><span class="p">)</span>
+<span class="c1">#Fix Cedar Rapids zip code</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="s1">&#39;52303&#39;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s1">&#39;52403&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Run the check again to make sure all the values in our zip codes column are accurate zip codes.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip_Check2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zips&#39;</span><span class="p">]),</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip_Check2&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>True    2709552
+Name: Zip_Check2, dtype: int64
+</pre></div>
+
+
+<h3>"Category" Column</h3>
+<div class="highlight"><pre><span></span><span class="c1">#The code below was used to create a dictionary of category names to category. The category values were then</span>
+<span class="c1">#replaced with higher level generic names for meaningful data analysis.</span>
+
+<span class="c1">#Put Category and Category name into a data frame.</span>
+<span class="n">df_cat</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;Category Name&#39;</span><span class="p">,</span> <span class="s1">&#39;Category&#39;</span><span class="p">]]</span>
+<span class="c1">#Drop duplicates on the Category Name column.</span>
+<span class="n">df_cat</span> <span class="o">=</span> <span class="n">df_cat</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;Category Name&#39;</span><span class="p">])</span>
+<span class="c1">#Convert the nan&#39;s to strings.</span>
+<span class="n">df_cat</span> <span class="o">=</span> <span class="n">df_cat</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="c1">#Turn dataframe into dictionary.</span>
+<span class="n">dict_cat</span> <span class="o">=</span> <span class="n">df_cat</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Category Name&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_dict</span><span class="p">()[</span><span class="s1">&#39;Category&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#The dictionary was then exported as a .py file and is being imported back into the notebook here.</span>
+<span class="kn">from</span> <span class="nn">missing_data_dictionaries</span> <span class="kn">import</span> <span class="n">general_map</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Use the above dictionary map to relabel the &quot;Category&quot; column based on the values in the &quot;Category Name&quot; column</span>
+<span class="c1">#Then check for missing values.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Category Name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">general_map</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Date                    0
+Store Number            0
+City                    0
+Zip Code                0
+County                  0
+Category                0
+Category Name           0
+Vendor Number           0
+Item Number             0
+Item Description        0
+Bottle Volume (ml)      0
+State Bottle Cost       0
+State Bottle Retail     0
+Bottles Sold            0
+Sale (Dollars)          0
+Volume Sold (Liters)    0
+Zip_Check               0
+Zip_Check2              0
+dtype: int64
+</pre></div>
+
+
+<h3>RESULT: Resolving Missing Values</h3>
+<ul>
+<li>Dataframe Shape Before = (2709552, 18)</li>
+<li>Dataframe Shape After = (2709552, 18)</li>
+<li>Missing Values Resolved = 17,801</li>
+<li>Missing Values Unresolved/Dropped = 0</li>
+</ul>
+<h1>2. Data Wrangling: Extract Data</h1>
+<h3>["Date"] to --&gt; ["year"] ["month"] ["day"] ["weekday"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Convert the date column to string so we know what to expect with each step below.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a year column with simple slicing.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">:]</span>
+<span class="c1">#Create month column with simple slicing.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a day column with a two step slicing.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;day&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#import datetime library to get the weekday for the &quot;Date&quot; column.</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="kn">as</span> <span class="nn">dt</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Run the most annoying code in the world on the &quot;Date&quot; column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date_Change&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a weekday column from the new &quot;Date_Change&quot; column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Date_Change&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert the weekdays from numbers to their abbreviations.</span>
+<span class="n">days</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;Mon&#39;</span><span class="p">,</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;Tues&#39;</span><span class="p">,</span><span class="mi">2</span><span class="p">:</span><span class="s1">&#39;Weds&#39;</span><span class="p">,</span><span class="mi">3</span><span class="p">:</span><span class="s1">&#39;Thurs&#39;</span><span class="p">,</span><span class="mi">4</span><span class="p">:</span><span class="s1">&#39;Fri&#39;</span><span class="p">,</span><span class="mi">5</span><span class="p">:</span><span class="s1">&#39;Sat&#39;</span><span class="p">,</span><span class="mi">6</span><span class="p">:</span><span class="s1">&#39;Sun&#39;</span><span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">days</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>["Bottle Volumn (ml)"] ["Bottles Sold"] to --&gt; ["ml_sold"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a new column called  &quot;ml_sold&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Bottle Volume (ml)&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Bottles Sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>["Sale (Dollars)] and ["State Bottle Cost"] formatting</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Format the Sale (Dollars) column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+<span class="c1">#Format the State Cost column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;$&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>["Sale (Dollars)"] ["ml_sold"] to --&gt; ["price_per_ml"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a new column called  &quot;price_per_ml&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;price_per_ml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h3>["State Bottle Cost"] ["ml_sold"] to --&gt; ["cost_per_ml"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a new column called  &quot;cost_per_ml&quot;</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;cost_per_ml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h3>["Category"] ["ml_sold"] to --&gt; ["BRANDY"] ["GIN"] ["LIQUEUR"] ["MISC"] ["MIXED"] ["RUM"] ["TEQUILA"] ["VODKA"] ["WHISKEY"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create dummy variables for category so we can compare the different alcohols.</span>
+<span class="n">cat_dummy</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Category&#39;</span><span class="p">])</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">cat_dummy</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Multiply the dummy variables by ml_sold so that we can aggregate a total sold for each category.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h1>3. Import Outside Data</h1>
+<h3>IMPORTING --&gt; ["Food Service Businesses per Zip Code"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Importing population data to accomplish some of these key questions.</span>
+<span class="n">biz_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/biz_data.csv&#39;</span><span class="p">)</span>
+<span class="n">biz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">biz_data</span><span class="p">)</span>
+<span class="n">biz</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">biz</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+<span class="n">biz</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">biz</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">biz</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="c1">#Data taken from US Census NAICS industry data for zip codes</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Zip Code</th>
+      <th>Food Businesses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>50002</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>50003</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>50006</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>50009</td>
+      <td>41</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50010</td>
+      <td>120</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert Zip Code column to integer to merge datasets on.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Merge the biz dataframe with the main dataframe.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">biz</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Fill any &quot;NaN&quot; with 0&#39;s as that zip code doesn&#39;t have any food businesses registered.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#Convert datatype back to int</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+
+
+<h3>IMPORTING --&gt; ["Total Housing Units"] ["Median Home Value"] ["Average Home Value"] ["Median Household Income"] ["Average Household Income"] ["Per Capita Income"] ["Population Density"] ["Population in Families"] ["Total Population"]</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Bringing in data that was scraped from iowa.hometownlocator.com</span>
+<span class="n">data2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../../../project2_data/Iowa_Population_Scraped_Data_Second_Table_Fixed.csv&#39;</span><span class="p">)</span>
+<span class="n">df3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Housing Units&#39;</span><span class="p">,</span><span class="s1">&#39;Renter Occupied HU_percent&#39;</span><span class="p">,</span> <span class="s1">&#39;Renter Occupied HU&#39;</span><span class="p">,</span> <span class="s1">&#39;Vacant Housing Units&#39;</span><span class="p">,</span> <span class="s1">&#39;Vacant Housing Units _percent&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Median Home Value</th>
+      <th>Average Home Value</th>
+      <th>Median Household Income</th>
+      <th>Average Household Income</th>
+      <th>Per Capita Income</th>
+      <th>Zips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>214394.0</td>
+      <td>229626.0</td>
+      <td>69372.0</td>
+      <td>82718.0</td>
+      <td>30008.0</td>
+      <td>50001</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>96875.0</td>
+      <td>124448.0</td>
+      <td>47230.0</td>
+      <td>58575.0</td>
+      <td>25684.0</td>
+      <td>50002</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>187228.0</td>
+      <td>239472.0</td>
+      <td>64408.0</td>
+      <td>84820.0</td>
+      <td>32778.0</td>
+      <td>50003</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>130000.0</td>
+      <td>159231.0</td>
+      <td>54553.0</td>
+      <td>69720.0</td>
+      <td>28367.0</td>
+      <td>50005</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>87207.0</td>
+      <td>113404.0</td>
+      <td>53722.0</td>
+      <td>72983.0</td>
+      <td>29811.0</td>
+      <td>50006</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Bringing in data that was scraped from iowa.hometownlocator.com</span>
+<span class="n">data3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../../../../../project2_data/Iowa_Population_Scraped_Data.csv&#39;</span><span class="p">)</span>
+<span class="n">df4</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;Average Family Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Average Household Size&#39;</span><span class="p">,</span> <span class="s1">&#39;Diversity Index2&#39;</span><span class="p">,</span> <span class="s1">&#39;Population in Group Qrtrs&#39;</span><span class="p">,</span> <span class="s1">&#39;Population in Households&#39;</span><span class="p">,</span> <span class="s1">&#39;Family Households&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Households&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Population Density1</th>
+      <th>Population in Families</th>
+      <th>Total Population</th>
+      <th>Zips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>30.0</td>
+      <td>651.0</td>
+      <td>736.0</td>
+      <td>50001</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12.0</td>
+      <td>1052.0</td>
+      <td>1325.0</td>
+      <td>50002</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>63.0</td>
+      <td>6254.0</td>
+      <td>7584.0</td>
+      <td>50003</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>26.0</td>
+      <td>632.0</td>
+      <td>757.0</td>
+      <td>50005</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>14.0</td>
+      <td>1479.0</td>
+      <td>1800.0</td>
+      <td>50006</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Rename &quot;Zips&quot; column and set to integer so we can merge on it.</span>
+<span class="n">df4</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Zips&#39;</span><span class="p">:</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df4</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Rename &quot;Zips&quot; column and set to integer so we can merge on it.</span>
+<span class="n">df3</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Zips&#39;</span><span class="p">:</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df3</span><span class="p">[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Merge on Zip Code column</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">df3</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Merge on Zip Code column</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">df4</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Index([u&#39;Store Number&#39;, u&#39;City&#39;, u&#39;Zip Code&#39;, u&#39;County&#39;, u&#39;Category&#39;,
+       u&#39;Category Name&#39;, u&#39;Vendor Number&#39;, u&#39;Item Number&#39;, u&#39;Item Description&#39;,
+       u&#39;Bottle Volume (ml)&#39;, u&#39;State Bottle Cost&#39;, u&#39;State Bottle Retail&#39;,
+       u&#39;Bottles Sold&#39;, u&#39;Sale (Dollars)&#39;, u&#39;Volume Sold (Liters)&#39;, u&#39;year&#39;,
+       u&#39;month&#39;, u&#39;day&#39;, u&#39;weekday&#39;, u&#39;Food Businesses&#39;, u&#39;Median Home Value&#39;,
+       u&#39;Average Home Value&#39;, u&#39;Median Household Income&#39;,
+       u&#39;Average Household Income&#39;, u&#39;Per Capita Income&#39;,
+       u&#39;Population Density1&#39;, u&#39;Population in Families&#39;, u&#39;Total Population&#39;],
+      dtype=&#39;object&#39;)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Dropping columns that won&#39;t get used.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Zip_Check&#39;</span><span class="p">,</span> <span class="s1">&#39;Zip_Check2&#39;</span><span class="p">,</span> <span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Date_Change&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Creating a new dataframe called &quot;df_clean&quot; that we&#39;ll used for EDA.</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df</span>
+<span class="n">df_clean</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Store Number</th>
+      <th>City</th>
+      <th>Zip Code</th>
+      <th>County</th>
+      <th>Category</th>
+      <th>Category Name</th>
+      <th>Vendor Number</th>
+      <th>Item Number</th>
+      <th>Item Description</th>
+      <th>Bottle Volume (ml)</th>
+      <th>...</th>
+      <th>weekday</th>
+      <th>Food Businesses</th>
+      <th>Median Home Value</th>
+      <th>Average Home Value</th>
+      <th>Median Household Income</th>
+      <th>Average Household Income</th>
+      <th>Per Capita Income</th>
+      <th>Population Density1</th>
+      <th>Population in Families</th>
+      <th>Total Population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>370</td>
+      <td>87152</td>
+      <td>Avion Silver</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>395</td>
+      <td>89197</td>
+      <td>Jose Cuervo Especial Reposado Tequila</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4959</td>
+      <td>CEDAR FALLS</td>
+      <td>50613</td>
+      <td>Black Hawk</td>
+      <td>MIXED</td>
+      <td>AMERICAN COCKTAILS</td>
+      <td>380</td>
+      <td>63959</td>
+      <td>Uv Blue Raspberry Lemonade Pet</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>110</td>
+      <td>185832.0</td>
+      <td>213143.0</td>
+      <td>54779.0</td>
+      <td>72853.0</td>
+      <td>30239.0</td>
+      <td>332.0</td>
+      <td>26715.0</td>
+      <td>39926.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2190</td>
+      <td>DES MOINES</td>
+      <td>50314</td>
+      <td>Polk</td>
+      <td>VODKA</td>
+      <td>VODKA FLAVORED</td>
+      <td>205</td>
+      <td>40597</td>
+      <td>New Amsterdam Red Berry</td>
+      <td>200</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>24</td>
+      <td>87153.0</td>
+      <td>104188.0</td>
+      <td>31885.0</td>
+      <td>43863.0</td>
+      <td>15501.0</td>
+      <td>5617.0</td>
+      <td>9831.0</td>
+      <td>14112.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5240</td>
+      <td>WEST BRANCH</td>
+      <td>52358</td>
+      <td>Cedar</td>
+      <td>LIQUEUR</td>
+      <td>CREAM LIQUEURS</td>
+      <td>305</td>
+      <td>73055</td>
+      <td>Rumchata</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>9</td>
+      <td>164138.0</td>
+      <td>197958.0</td>
+      <td>62530.0</td>
+      <td>73256.0</td>
+      <td>29832.0</td>
+      <td>46.0</td>
+      <td>3035.0</td>
+      <td>3865.0</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>4988</td>
+      <td>CEDAR FALLS</td>
+      <td>50613</td>
+      <td>Black Hawk</td>
+      <td>WHISKEY</td>
+      <td>STRAIGHT BOURBON WHISKIES</td>
+      <td>260</td>
+      <td>17090</td>
+      <td>Bulleit Bourbon 10YR</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>110</td>
+      <td>185832.0</td>
+      <td>213143.0</td>
+      <td>54779.0</td>
+      <td>72853.0</td>
+      <td>30239.0</td>
+      <td>332.0</td>
+      <td>26715.0</td>
+      <td>39926.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>3993</td>
+      <td>WATERLOO</td>
+      <td>50701</td>
+      <td>Black Hawk</td>
+      <td>LIQUEUR</td>
+      <td>IMPORTED SCHNAPPS</td>
+      <td>421</td>
+      <td>69636</td>
+      <td>Dr. Mcgillicuddy's Cherry Schnapps</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>61</td>
+      <td>145403.0</td>
+      <td>165981.0</td>
+      <td>50060.0</td>
+      <td>65911.0</td>
+      <td>28708.0</td>
+      <td>422.0</td>
+      <td>22760.0</td>
+      <td>30930.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>410</td>
+      <td>88294</td>
+      <td>Patron Silver Tequila</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>5144</td>
+      <td>ANKENY</td>
+      <td>50021</td>
+      <td>Polk</td>
+      <td>BRANDY</td>
+      <td>AMERICAN GRAPE BRANDIES</td>
+      <td>259</td>
+      <td>52318</td>
+      <td>Christian Bros Brandy</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>74</td>
+      <td>195948.0</td>
+      <td>211988.0</td>
+      <td>79976.0</td>
+      <td>94705.0</td>
+      <td>37508.0</td>
+      <td>985.0</td>
+      <td>21100.0</td>
+      <td>25657.0</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>BRANDY</td>
+      <td>IMPORTED GRAPE BRANDIES</td>
+      <td>389</td>
+      <td>49185</td>
+      <td>Remy Martin Vsop (flask)</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>410</td>
+      <td>88296</td>
+      <td>Patron Tequila Silver</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>BRANDY</td>
+      <td>IMPORTED GRAPE BRANDIES</td>
+      <td>420</td>
+      <td>48105</td>
+      <td>Hennessy VS</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>BRANDY</td>
+      <td>IMPORTED GRAPE BRANDIES</td>
+      <td>389</td>
+      <td>49186</td>
+      <td>Remy Martin Vsop Cognac</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>260</td>
+      <td>11298</td>
+      <td>Crown Royal Canadian Whisky</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>RUM</td>
+      <td>SPICED RUM</td>
+      <td>260</td>
+      <td>43337</td>
+      <td>Captain Morgan Spiced Rum</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>RUM</td>
+      <td>SPICED RUM</td>
+      <td>260</td>
+      <td>43244</td>
+      <td>Captain Morgan 100 Proof Spiced Rum</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>4447</td>
+      <td>URBANDALE</td>
+      <td>50322</td>
+      <td>Polk</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>300</td>
+      <td>36904</td>
+      <td>Mccormick Vodka Pet</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>87</td>
+      <td>184512.0</td>
+      <td>196452.0</td>
+      <td>74240.0</td>
+      <td>94575.0</td>
+      <td>39596.0</td>
+      <td>3019.0</td>
+      <td>26021.0</td>
+      <td>33071.0</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>LIQUEUR</td>
+      <td>MISC. IMPORTED CORDIALS &amp; LIQUEURS</td>
+      <td>192</td>
+      <td>65256</td>
+      <td>Jagermeister Liqueur</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>395</td>
+      <td>89196</td>
+      <td>Jose Cuervo Especial Reposado Tequila</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>STRAIGHT BOURBON WHISKIES</td>
+      <td>65</td>
+      <td>19066</td>
+      <td>Jim Beam</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>260</td>
+      <td>10805</td>
+      <td>Crown Royal Regal Apple</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>21</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>BLENDED WHISKIES</td>
+      <td>297</td>
+      <td>23826</td>
+      <td>Five Star</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>22</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>115</td>
+      <td>11774</td>
+      <td>Black Velvet</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>23</th>
+      <td>5034</td>
+      <td>MASON CITY</td>
+      <td>50401</td>
+      <td>Cerro Gordo</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>55</td>
+      <td>11936</td>
+      <td>Canadian Ltd Whisky Convenience Pack</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>82</td>
+      <td>121305.0</td>
+      <td>148989.0</td>
+      <td>44670.0</td>
+      <td>60145.0</td>
+      <td>27169.0</td>
+      <td>195.0</td>
+      <td>21502.0</td>
+      <td>29540.0</td>
+    </tr>
+    <tr>
+      <th>24</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>260</td>
+      <td>11297</td>
+      <td>Crown Royal Canadian Whisky</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>VODKA</td>
+      <td>IMPORTED VODKA - MISC</td>
+      <td>260</td>
+      <td>64511</td>
+      <td>Ciroc Apple</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>26</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>380</td>
+      <td>37346</td>
+      <td>Phillips Vodka</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>27</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>BRANDY</td>
+      <td>PEACH BRANDIES</td>
+      <td>115</td>
+      <td>56195</td>
+      <td>Paul Masson Peach Grande Amber Brandy</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>28</th>
+      <td>4802</td>
+      <td>DES MOINES</td>
+      <td>50310</td>
+      <td>Polk</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>115</td>
+      <td>11788</td>
+      <td>Black Velvet</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>78</td>
+      <td>144152.0</td>
+      <td>151836.0</td>
+      <td>54430.0</td>
+      <td>67785.0</td>
+      <td>29144.0</td>
+      <td>3926.0</td>
+      <td>23098.0</td>
+      <td>31820.0</td>
+    </tr>
+    <tr>
+      <th>29</th>
+      <td>5029</td>
+      <td>DAVENPORT</td>
+      <td>52806</td>
+      <td>Scott</td>
+      <td>BRANDY</td>
+      <td>AMERICAN GRAPE BRANDIES</td>
+      <td>205</td>
+      <td>52594</td>
+      <td>E &amp; J Vs Brandy</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Thurs</td>
+      <td>85</td>
+      <td>144979.0</td>
+      <td>159648.0</td>
+      <td>51336.0</td>
+      <td>64201.0</td>
+      <td>26216.0</td>
+      <td>944.0</td>
+      <td>23161.0</td>
+      <td>29531.0</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2709522</th>
+      <td>2527</td>
+      <td>DES MOINES</td>
+      <td>50315</td>
+      <td>Polk</td>
+      <td>LIQUEUR</td>
+      <td>PEPPERMINT SCHNAPPS</td>
+      <td>322</td>
+      <td>75213</td>
+      <td>Kinky Blue</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>59</td>
+      <td>117251.0</td>
+      <td>131356.0</td>
+      <td>46894.0</td>
+      <td>57460.0</td>
+      <td>22566.0</td>
+      <td>3879.0</td>
+      <td>28913.0</td>
+      <td>38347.0</td>
+    </tr>
+    <tr>
+      <th>2709523</th>
+      <td>3403</td>
+      <td>COLUMBUS JUNCTION</td>
+      <td>52738</td>
+      <td>Louisa</td>
+      <td>RUM</td>
+      <td>SPICED RUM</td>
+      <td>260</td>
+      <td>43337</td>
+      <td>Captain Morgan Spiced Rum</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>5</td>
+      <td>118569.0</td>
+      <td>151177.0</td>
+      <td>53253.0</td>
+      <td>63189.0</td>
+      <td>23659.0</td>
+      <td>30.0</td>
+      <td>2958.0</td>
+      <td>3609.0</td>
+    </tr>
+    <tr>
+      <th>2709524</th>
+      <td>4267</td>
+      <td>ANITA</td>
+      <td>50020</td>
+      <td>Cass</td>
+      <td>LIQUEUR</td>
+      <td>COFFEE LIQUEURS</td>
+      <td>65</td>
+      <td>67556</td>
+      <td>Kamora Coffee Liqueur</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>2</td>
+      <td>86962.0</td>
+      <td>131983.0</td>
+      <td>46092.0</td>
+      <td>58449.0</td>
+      <td>25658.0</td>
+      <td>16.0</td>
+      <td>1109.0</td>
+      <td>1403.0</td>
+    </tr>
+    <tr>
+      <th>2709525</th>
+      <td>4229</td>
+      <td>HARLAN</td>
+      <td>51537</td>
+      <td>Shelby</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>434</td>
+      <td>36308</td>
+      <td>Hawkeye Vodka</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>17</td>
+      <td>128089.0</td>
+      <td>164435.0</td>
+      <td>49391.0</td>
+      <td>62325.0</td>
+      <td>26784.0</td>
+      <td>40.0</td>
+      <td>5041.0</td>
+      <td>6475.0</td>
+    </tr>
+    <tr>
+      <th>2709526</th>
+      <td>4794</td>
+      <td>BURLINGTON</td>
+      <td>52601</td>
+      <td>Des Moines</td>
+      <td>GIN</td>
+      <td>IMPORTED DRY GINS</td>
+      <td>35</td>
+      <td>28236</td>
+      <td>Bombay Sapphire Gin</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>81</td>
+      <td>97672.0</td>
+      <td>130929.0</td>
+      <td>42928.0</td>
+      <td>55654.0</td>
+      <td>24203.0</td>
+      <td>215.0</td>
+      <td>22636.0</td>
+      <td>29893.0</td>
+    </tr>
+    <tr>
+      <th>2709527</th>
+      <td>2560</td>
+      <td>MARION</td>
+      <td>52302</td>
+      <td>Linn</td>
+      <td>LIQUEUR</td>
+      <td>CREAM LIQUEURS</td>
+      <td>260</td>
+      <td>68022</td>
+      <td>Bailey's Salted Caramel</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>56</td>
+      <td>179547.0</td>
+      <td>215378.0</td>
+      <td>66825.0</td>
+      <td>85049.0</td>
+      <td>33963.0</td>
+      <td>507.0</td>
+      <td>32580.0</td>
+      <td>40249.0</td>
+    </tr>
+    <tr>
+      <th>2709528</th>
+      <td>2558</td>
+      <td>MOUNT PLEASANT</td>
+      <td>52641</td>
+      <td>Henry</td>
+      <td>LIQUEUR</td>
+      <td>IMPORTED SCHNAPPS</td>
+      <td>421</td>
+      <td>69611</td>
+      <td>Dr. Mcgillicuddy's Apple Pie Schnapps</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>37</td>
+      <td>126127.0</td>
+      <td>162932.0</td>
+      <td>47282.0</td>
+      <td>63247.0</td>
+      <td>25012.0</td>
+      <td>60.0</td>
+      <td>8692.0</td>
+      <td>12166.0</td>
+    </tr>
+    <tr>
+      <th>2709529</th>
+      <td>2573</td>
+      <td>MUSCATINE</td>
+      <td>52761</td>
+      <td>Muscatine</td>
+      <td>VODKA</td>
+      <td>VODKA FLAVORED</td>
+      <td>380</td>
+      <td>40244</td>
+      <td>Prairie Organic Cucumber</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>73</td>
+      <td>131936.0</td>
+      <td>158914.0</td>
+      <td>51255.0</td>
+      <td>65218.0</td>
+      <td>25484.0</td>
+      <td>181.0</td>
+      <td>25123.0</td>
+      <td>31280.0</td>
+    </tr>
+    <tr>
+      <th>2709530</th>
+      <td>4188</td>
+      <td>HOLY CROSS</td>
+      <td>52053</td>
+      <td>Dubuque</td>
+      <td>BRANDY</td>
+      <td>AMERICAN GRAPE BRANDIES</td>
+      <td>85</td>
+      <td>52806</td>
+      <td>Korbel Brandy</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>1</td>
+      <td>140534.0</td>
+      <td>192355.0</td>
+      <td>53391.0</td>
+      <td>64017.0</td>
+      <td>23886.0</td>
+      <td>20.0</td>
+      <td>1001.0</td>
+      <td>1131.0</td>
+    </tr>
+    <tr>
+      <th>2709531</th>
+      <td>2599</td>
+      <td>CORALVILLE</td>
+      <td>52241</td>
+      <td>Johnson</td>
+      <td>MIXED</td>
+      <td>AMERICAN COCKTAILS</td>
+      <td>395</td>
+      <td>58872</td>
+      <td>Jose Cuervo Authentic Light Margarita Lime</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>104</td>
+      <td>208008.0</td>
+      <td>252146.0</td>
+      <td>58212.0</td>
+      <td>81118.0</td>
+      <td>34195.0</td>
+      <td>1512.0</td>
+      <td>13204.0</td>
+      <td>19909.0</td>
+    </tr>
+    <tr>
+      <th>2709532</th>
+      <td>3952</td>
+      <td>BETTENDORF</td>
+      <td>52722</td>
+      <td>Scott</td>
+      <td>VODKA</td>
+      <td>IMPORTED VODKA - MISC</td>
+      <td>370</td>
+      <td>34029</td>
+      <td>Absolut Citron (lemon Vodka)</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>76</td>
+      <td>220240.0</td>
+      <td>259427.0</td>
+      <td>75901.0</td>
+      <td>103441.0</td>
+      <td>42042.0</td>
+      <td>1384.0</td>
+      <td>31521.0</td>
+      <td>38041.0</td>
+    </tr>
+    <tr>
+      <th>2709533</th>
+      <td>3631</td>
+      <td>AUDUBON</td>
+      <td>50025</td>
+      <td>Audubon</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>260</td>
+      <td>37994</td>
+      <td>Smirnoff Vodka 80 Prf</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>4</td>
+      <td>82997.0</td>
+      <td>119378.0</td>
+      <td>47561.0</td>
+      <td>70060.0</td>
+      <td>30843.0</td>
+      <td>18.0</td>
+      <td>2452.0</td>
+      <td>3094.0</td>
+    </tr>
+    <tr>
+      <th>2709534</th>
+      <td>3773</td>
+      <td>CEDAR RAPIDS</td>
+      <td>52401</td>
+      <td>Linn</td>
+      <td>TEQUILA</td>
+      <td>TEQUILA</td>
+      <td>410</td>
+      <td>88296</td>
+      <td>Patron Tequila Silver</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>39</td>
+      <td>80690.0</td>
+      <td>98950.0</td>
+      <td>23066.0</td>
+      <td>37809.0</td>
+      <td>18864.0</td>
+      <td>1794.0</td>
+      <td>1081.0</td>
+      <td>2359.0</td>
+    </tr>
+    <tr>
+      <th>2709535</th>
+      <td>2643</td>
+      <td>WATERLOO</td>
+      <td>50701</td>
+      <td>Black Hawk</td>
+      <td>BRANDY</td>
+      <td>AMERICAN GRAPE BRANDIES</td>
+      <td>259</td>
+      <td>52317</td>
+      <td>Christian Bros Brandy-Square</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>61</td>
+      <td>145403.0</td>
+      <td>165981.0</td>
+      <td>50060.0</td>
+      <td>65911.0</td>
+      <td>28708.0</td>
+      <td>422.0</td>
+      <td>22760.0</td>
+      <td>30930.0</td>
+    </tr>
+    <tr>
+      <th>2709536</th>
+      <td>2633</td>
+      <td>DES MOINES</td>
+      <td>50320</td>
+      <td>Polk</td>
+      <td>LIQUEUR</td>
+      <td>MISC. IMPORTED CORDIALS &amp; LIQUEURS</td>
+      <td>260</td>
+      <td>66636</td>
+      <td>Romana Sambuca Italian Liquore</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>29</td>
+      <td>165019.0</td>
+      <td>177346.0</td>
+      <td>57010.0</td>
+      <td>71409.0</td>
+      <td>26095.0</td>
+      <td>1150.0</td>
+      <td>18038.0</td>
+      <td>22180.0</td>
+    </tr>
+    <tr>
+      <th>2709537</th>
+      <td>2648</td>
+      <td>WEST DES MOINES</td>
+      <td>50265</td>
+      <td>Polk</td>
+      <td>WHISKEY</td>
+      <td>SINGLE BARREL BOURBON WHISKIES</td>
+      <td>65</td>
+      <td>19235</td>
+      <td>Knob Creek Single Barrel Reserve</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>78</td>
+      <td>195826.0</td>
+      <td>237351.0</td>
+      <td>70458.0</td>
+      <td>90579.0</td>
+      <td>37942.0</td>
+      <td>1852.0</td>
+      <td>25769.0</td>
+      <td>34256.0</td>
+    </tr>
+    <tr>
+      <th>2709538</th>
+      <td>2506</td>
+      <td>BURLINGTON</td>
+      <td>52601</td>
+      <td>Des Moines</td>
+      <td>WHISKEY</td>
+      <td>CANADIAN WHISKIES</td>
+      <td>65</td>
+      <td>10628</td>
+      <td>Canadian Club Whisky</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>81</td>
+      <td>97672.0</td>
+      <td>130929.0</td>
+      <td>42928.0</td>
+      <td>55654.0</td>
+      <td>24203.0</td>
+      <td>215.0</td>
+      <td>22636.0</td>
+      <td>29893.0</td>
+    </tr>
+    <tr>
+      <th>2709539</th>
+      <td>4164</td>
+      <td>BETTENDORF</td>
+      <td>52722</td>
+      <td>Scott</td>
+      <td>WHISKEY</td>
+      <td>TENNESSEE WHISKIES</td>
+      <td>85</td>
+      <td>86668</td>
+      <td>Jack Daniel's Tennessee Honey Mini</td>
+      <td>500</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>76</td>
+      <td>220240.0</td>
+      <td>259427.0</td>
+      <td>75901.0</td>
+      <td>103441.0</td>
+      <td>42042.0</td>
+      <td>1384.0</td>
+      <td>31521.0</td>
+      <td>38041.0</td>
+    </tr>
+    <tr>
+      <th>2709540</th>
+      <td>4972</td>
+      <td>MONONA</td>
+      <td>52159</td>
+      <td>Clayton</td>
+      <td>VODKA</td>
+      <td>VODKA FLAVORED</td>
+      <td>380</td>
+      <td>40625</td>
+      <td>UV Chocolate Cake</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>4</td>
+      <td>118807.0</td>
+      <td>146975.0</td>
+      <td>50226.0</td>
+      <td>61501.0</td>
+      <td>26205.0</td>
+      <td>33.0</td>
+      <td>1791.0</td>
+      <td>2212.0</td>
+    </tr>
+    <tr>
+      <th>2709541</th>
+      <td>3525</td>
+      <td>WASHINGTON</td>
+      <td>52353</td>
+      <td>Washington</td>
+      <td>VODKA</td>
+      <td>IMPORTED VODKA - MISC</td>
+      <td>260</td>
+      <td>64727</td>
+      <td>Ciroc Amaretto</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>22</td>
+      <td>118875.0</td>
+      <td>145151.0</td>
+      <td>50677.0</td>
+      <td>60831.0</td>
+      <td>25570.0</td>
+      <td>55.0</td>
+      <td>7118.0</td>
+      <td>9210.0</td>
+    </tr>
+    <tr>
+      <th>2709542</th>
+      <td>4000</td>
+      <td>WOODBINE</td>
+      <td>51579</td>
+      <td>Harrison</td>
+      <td>LIQUEUR</td>
+      <td>COFFEE LIQUEURS</td>
+      <td>370</td>
+      <td>67571</td>
+      <td>Kahlua Mocha Liqueur</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>3</td>
+      <td>111635.0</td>
+      <td>148433.0</td>
+      <td>43525.0</td>
+      <td>59893.0</td>
+      <td>24762.0</td>
+      <td>20.0</td>
+      <td>1891.0</td>
+      <td>2370.0</td>
+    </tr>
+    <tr>
+      <th>2709543</th>
+      <td>2590</td>
+      <td>CEDAR RAPIDS</td>
+      <td>52402</td>
+      <td>Linn</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>297</td>
+      <td>35913</td>
+      <td>Five O'clock Vodka</td>
+      <td>200</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>148</td>
+      <td>146730.0</td>
+      <td>178726.0</td>
+      <td>58412.0</td>
+      <td>78027.0</td>
+      <td>32653.0</td>
+      <td>3070.0</td>
+      <td>29625.0</td>
+      <td>41311.0</td>
+    </tr>
+    <tr>
+      <th>2709544</th>
+      <td>3494</td>
+      <td>WATERLOO</td>
+      <td>50702</td>
+      <td>Black Hawk</td>
+      <td>VODKA</td>
+      <td>VODKA 80 PROOF</td>
+      <td>55</td>
+      <td>37938</td>
+      <td>Skol Vodka</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>71</td>
+      <td>108462.0</td>
+      <td>121424.0</td>
+      <td>42359.0</td>
+      <td>52451.0</td>
+      <td>22515.0</td>
+      <td>1933.0</td>
+      <td>15330.0</td>
+      <td>20750.0</td>
+    </tr>
+    <tr>
+      <th>2709545</th>
+      <td>3907</td>
+      <td>MUSCATINE</td>
+      <td>52761</td>
+      <td>Muscatine</td>
+      <td>RUM</td>
+      <td>FLAVORED RUM</td>
+      <td>35</td>
+      <td>43136</td>
+      <td>Bacardi Limon</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>73</td>
+      <td>131936.0</td>
+      <td>158914.0</td>
+      <td>51255.0</td>
+      <td>65218.0</td>
+      <td>25484.0</td>
+      <td>181.0</td>
+      <td>25123.0</td>
+      <td>31280.0</td>
+    </tr>
+    <tr>
+      <th>2709546</th>
+      <td>2448</td>
+      <td>INDIANOLA</td>
+      <td>50125</td>
+      <td>Warren</td>
+      <td>WHISKEY</td>
+      <td>WHISKEY LIQUEUR</td>
+      <td>85</td>
+      <td>86887</td>
+      <td>Southern Comfort</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>40</td>
+      <td>177962.0</td>
+      <td>206910.0</td>
+      <td>61032.0</td>
+      <td>79096.0</td>
+      <td>30345.0</td>
+      <td>123.0</td>
+      <td>15267.0</td>
+      <td>19900.0</td>
+    </tr>
+    <tr>
+      <th>2709547</th>
+      <td>4696</td>
+      <td>WEST DES MOINES</td>
+      <td>50266</td>
+      <td>Polk</td>
+      <td>VODKA</td>
+      <td>VODKA FLAVORED</td>
+      <td>205</td>
+      <td>40192</td>
+      <td>New Amsterdam Pineapple</td>
+      <td>375</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>138</td>
+      <td>241009.0</td>
+      <td>271953.0</td>
+      <td>75865.0</td>
+      <td>101637.0</td>
+      <td>43971.0</td>
+      <td>1562.0</td>
+      <td>23494.0</td>
+      <td>32129.0</td>
+    </tr>
+    <tr>
+      <th>2709548</th>
+      <td>2590</td>
+      <td>CEDAR RAPIDS</td>
+      <td>52402</td>
+      <td>Linn</td>
+      <td>WHISKEY</td>
+      <td>SCOTCH WHISKIES</td>
+      <td>260</td>
+      <td>5346</td>
+      <td>Johnnie Walker Red</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>148</td>
+      <td>146730.0</td>
+      <td>178726.0</td>
+      <td>58412.0</td>
+      <td>78027.0</td>
+      <td>32653.0</td>
+      <td>3070.0</td>
+      <td>29625.0</td>
+      <td>41311.0</td>
+    </tr>
+    <tr>
+      <th>2709549</th>
+      <td>3631</td>
+      <td>AUDUBON</td>
+      <td>50025</td>
+      <td>Audubon</td>
+      <td>LIQUEUR</td>
+      <td>PEACH SCHNAPPS</td>
+      <td>65</td>
+      <td>82847</td>
+      <td>Dekuyper Peachtree</td>
+      <td>1000</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>4</td>
+      <td>82997.0</td>
+      <td>119378.0</td>
+      <td>47561.0</td>
+      <td>70060.0</td>
+      <td>30843.0</td>
+      <td>18.0</td>
+      <td>2452.0</td>
+      <td>3094.0</td>
+    </tr>
+    <tr>
+      <th>2709550</th>
+      <td>2517</td>
+      <td>NEWTON</td>
+      <td>50208</td>
+      <td>Jasper</td>
+      <td>MIXED</td>
+      <td>AMERICAN COCKTAILS</td>
+      <td>395</td>
+      <td>58868</td>
+      <td>Jose Cuervo Authentic Strawberry Margarita</td>
+      <td>1750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>44</td>
+      <td>122724.0</td>
+      <td>148301.0</td>
+      <td>49278.0</td>
+      <td>60441.0</td>
+      <td>25089.0</td>
+      <td>126.0</td>
+      <td>14902.0</td>
+      <td>20484.0</td>
+    </tr>
+    <tr>
+      <th>2709551</th>
+      <td>2643</td>
+      <td>WATERLOO</td>
+      <td>50701</td>
+      <td>Black Hawk</td>
+      <td>WHISKEY</td>
+      <td>SCOTCH WHISKIES</td>
+      <td>260</td>
+      <td>5329</td>
+      <td>Johnnie Walker Blue</td>
+      <td>750</td>
+      <td>...</td>
+      <td>Mon</td>
+      <td>61</td>
+      <td>145403.0</td>
+      <td>165981.0</td>
+      <td>50060.0</td>
+      <td>65911.0</td>
+      <td>28708.0</td>
+      <td>422.0</td>
+      <td>22760.0</td>
+      <td>30930.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>2709552 rows × 28 columns</p>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Sending cleansed dataset to CSV so I don&#39;t have to run the cleansing code multiple times during EDA and Modeling.</span>
+<span class="c1">#df.to_csv(&#39;../../../../../project2_data/Iowa_Liquor_Cleansed.csv&#39;)</span>
+</pre></div>
+
+
+<h1>4. EDA</h1>
+<h3>Key Questions: (Written Before EDA Is Started)</h3>
+<ol>
+<li>Do specialty alcohols sell better in more urban areas?</li>
+<li>If people drink a lot do they pay less for it?(price per ml).</li>
+<li>Do certain types of liquor sell better on specific days of the week?</li>
+<li>Is there a correlation between number of food businesses and sales/consumption?</li>
+<li>Where is the most demand?</li>
+<li>Where is the strongest demand?</li>
+<li>Where is the most opportunity?</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<h3>4.0 Create Three Dataframes to Answer All The Questions Below.</h3>
+<p>As a result of the merges we have some data duplicated on rows such as total population per zip code. This will need to be aggregated differently than total sales per zip code. Also we have store number duplicated many times for each sale row, this will have to be aggregated separately as well to get an accurate count of stores per zip code.</p>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe grouped by store number to get store number count per City.</span>
+<span class="c1">#To do this we will need to do a groupby mean and then a groupby count.</span>
+<span class="n">df_store_agg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">,</span><span class="s1">&#39;Store Number&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df_store_agg</span> <span class="o">=</span> <span class="n">df_store_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_store_agg</span> <span class="o">=</span> <span class="n">df_store_agg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+<span class="n">df_store_agg</span> <span class="o">=</span> <span class="n">df_store_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_store_agg</span> <span class="o">=</span> <span class="n">df_store_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span><span class="s1">&#39;Store Number&#39;</span><span class="p">]]</span>
+<span class="n">df_store_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>City</th>
+      <th>Store Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ACKLEY</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ADAIR</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ADEL</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AFTON</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AKRON</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe grouped by city with population data for each city.</span>
+<span class="c1">#To do this we will need to do a groupby mean and then a groupby sum.</span>
+<span class="n">df_city_agg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">,</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">df_city_agg</span> <span class="o">=</span> <span class="n">df_city_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_city_agg</span> <span class="o">=</span> <span class="n">df_city_agg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_city_agg</span> <span class="o">=</span> <span class="n">df_city_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_city_agg</span> <span class="o">=</span> <span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="s1">&#39;Food Businesses&#39;</span><span class="p">,</span> <span class="s1">&#39;Median Home Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Average Home Value&#39;</span><span class="p">,</span> <span class="s1">&#39;Median Household Income&#39;</span><span class="p">,</span> <span class="s1">&#39;Average Household Income&#39;</span><span class="p">,</span> <span class="s1">&#39;Per Capita Income&#39;</span><span class="p">,</span> <span class="s1">&#39;Population Density1&#39;</span><span class="p">,</span> <span class="s1">&#39;Population in Families&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">]]</span>
+<span class="n">df_city_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>City</th>
+      <th>Zip Code</th>
+      <th>Food Businesses</th>
+      <th>Median Home Value</th>
+      <th>Average Home Value</th>
+      <th>Median Household Income</th>
+      <th>Average Household Income</th>
+      <th>Per Capita Income</th>
+      <th>Population Density1</th>
+      <th>Population in Families</th>
+      <th>Total Population</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ACKLEY</td>
+      <td>50601</td>
+      <td>6.0</td>
+      <td>95066.0</td>
+      <td>123245.0</td>
+      <td>49502.0</td>
+      <td>63798.0</td>
+      <td>27282.0</td>
+      <td>18.0</td>
+      <td>1919.0</td>
+      <td>2415.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ADAIR</td>
+      <td>50002</td>
+      <td>5.0</td>
+      <td>96875.0</td>
+      <td>124448.0</td>
+      <td>47230.0</td>
+      <td>58575.0</td>
+      <td>25684.0</td>
+      <td>12.0</td>
+      <td>1052.0</td>
+      <td>1325.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ADEL</td>
+      <td>50003</td>
+      <td>12.0</td>
+      <td>187228.0</td>
+      <td>239472.0</td>
+      <td>64408.0</td>
+      <td>84820.0</td>
+      <td>32778.0</td>
+      <td>63.0</td>
+      <td>6254.0</td>
+      <td>7584.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AFTON</td>
+      <td>50830</td>
+      <td>4.0</td>
+      <td>98952.0</td>
+      <td>136323.0</td>
+      <td>47230.0</td>
+      <td>55645.0</td>
+      <td>22663.0</td>
+      <td>17.0</td>
+      <td>1320.0</td>
+      <td>1704.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AKRON</td>
+      <td>51001</td>
+      <td>3.0</td>
+      <td>115609.0</td>
+      <td>165228.0</td>
+      <td>53372.0</td>
+      <td>68927.0</td>
+      <td>28101.0</td>
+      <td>17.0</td>
+      <td>2176.0</td>
+      <td>2595.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe grouped by city for total sums of sales categories.</span>
+<span class="c1">#To do this we will need to do a groupby sum and then a groupby sum</span>
+<span class="n">df_cat_agg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">,</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_cat_agg</span> <span class="o">=</span> <span class="n">df_cat_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_cat_agg</span> <span class="o">=</span> <span class="n">df_cat_agg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;City&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_cat_agg</span> <span class="o">=</span> <span class="n">df_cat_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">df_cat_agg</span> <span class="o">=</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">,</span> <span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">,</span> <span class="s1">&#39;ml_sold&#39;</span><span class="p">,</span> <span class="s1">&#39;BRANDY&#39;</span><span class="p">,</span> <span class="s1">&#39;GIN&#39;</span><span class="p">,</span> <span class="s1">&#39;LIQUEUR&#39;</span><span class="p">,</span> <span class="s1">&#39;MISC&#39;</span><span class="p">,</span> <span class="s1">&#39;MIXED&#39;</span><span class="p">,</span> <span class="s1">&#39;RUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEQUILA&#39;</span><span class="p">,</span> <span class="s1">&#39;VODKA&#39;</span><span class="p">,</span> <span class="s1">&#39;WHISKEY&#39;</span><span class="p">]]</span>
+<span class="n">df_cat_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>City</th>
+      <th>Zip Code</th>
+      <th>State Bottle Cost</th>
+      <th>Sale (Dollars)</th>
+      <th>ml_sold</th>
+      <th>BRANDY</th>
+      <th>GIN</th>
+      <th>LIQUEUR</th>
+      <th>MISC</th>
+      <th>MIXED</th>
+      <th>RUM</th>
+      <th>TEQUILA</th>
+      <th>VODKA</th>
+      <th>WHISKEY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>ACKLEY</td>
+      <td>50601</td>
+      <td>8635.46</td>
+      <td>81583.88</td>
+      <td>7121525.0</td>
+      <td>74000.0</td>
+      <td>220750.0</td>
+      <td>432875.0</td>
+      <td>65250.0</td>
+      <td>28500.0</td>
+      <td>1021000.0</td>
+      <td>55000.0</td>
+      <td>2115400.0</td>
+      <td>3108750.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>ADAIR</td>
+      <td>50002</td>
+      <td>3278.76</td>
+      <td>48094.26</td>
+      <td>3276300.0</td>
+      <td>54900.0</td>
+      <td>51000.0</td>
+      <td>141000.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>473500.0</td>
+      <td>36375.0</td>
+      <td>1272875.0</td>
+      <td>1246650.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>ADEL</td>
+      <td>50003</td>
+      <td>24305.16</td>
+      <td>412478.63</td>
+      <td>31819450.0</td>
+      <td>399575.0</td>
+      <td>692125.0</td>
+      <td>1523125.0</td>
+      <td>331750.0</td>
+      <td>1956250.0</td>
+      <td>4810500.0</td>
+      <td>644150.0</td>
+      <td>10168975.0</td>
+      <td>11293000.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>AFTON</td>
+      <td>50830</td>
+      <td>1514.07</td>
+      <td>35284.62</td>
+      <td>2853900.0</td>
+      <td>45000.0</td>
+      <td>0.0</td>
+      <td>121500.0</td>
+      <td>0.0</td>
+      <td>93000.0</td>
+      <td>183000.0</td>
+      <td>29400.0</td>
+      <td>956700.0</td>
+      <td>1425300.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>AKRON</td>
+      <td>51001</td>
+      <td>5148.41</td>
+      <td>50029.53</td>
+      <td>4074625.0</td>
+      <td>45975.0</td>
+      <td>6750.0</td>
+      <td>291750.0</td>
+      <td>0.0</td>
+      <td>2250.0</td>
+      <td>591125.0</td>
+      <td>58500.0</td>
+      <td>1480600.0</td>
+      <td>1597675.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.1. Do specialty alcohols sell better in more urban areas?</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Now that we got two dataframes aggregated by city we&#39;ll concatenate them together with the columns we are</span>
+<span class="c1">#interested in.</span>
+<span class="n">city_agg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">]],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">,</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">,</span> <span class="s1">&#39;GIN&#39;</span><span class="p">,</span> <span class="s1">&#39;LIQUEUR&#39;</span><span class="p">,</span> <span class="s1">&#39;MISC&#39;</span><span class="p">,</span> <span class="s1">&#39;MIXED&#39;</span><span class="p">,</span> <span class="s1">&#39;RUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEQUILA&#39;</span><span class="p">,</span> <span class="s1">&#39;VODKA&#39;</span><span class="p">,</span> <span class="s1">&#39;WHISKEY&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Index the dataframe with most populous city at the top</span>
+<span class="n">city_agg</span> <span class="o">=</span> <span class="n">city_agg</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;Total Population&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">city_agg</span> <span class="o">=</span> <span class="n">city_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">city_agg</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;index&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">city_agg</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>City</th>
+      <th>Total Population</th>
+      <th>ml_sold</th>
+      <th>BRANDY</th>
+      <th>GIN</th>
+      <th>LIQUEUR</th>
+      <th>MISC</th>
+      <th>MIXED</th>
+      <th>RUM</th>
+      <th>TEQUILA</th>
+      <th>VODKA</th>
+      <th>WHISKEY</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>DES MOINES</td>
+      <td>260565.0</td>
+      <td>2.737350e+09</td>
+      <td>111901050.0</td>
+      <td>92562150.0</td>
+      <td>291899107.0</td>
+      <td>21993525.0</td>
+      <td>46209525.0</td>
+      <td>309433200.0</td>
+      <td>204755250.0</td>
+      <td>910949200.0</td>
+      <td>747646630.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CEDAR RAPIDS</td>
+      <td>139975.0</td>
+      <td>1.677146e+09</td>
+      <td>60701150.0</td>
+      <td>49493825.0</td>
+      <td>175563944.0</td>
+      <td>38246025.0</td>
+      <td>56549650.0</td>
+      <td>218972150.0</td>
+      <td>58300750.0</td>
+      <td>547269950.0</td>
+      <td>472048550.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>DAVENPORT</td>
+      <td>106717.0</td>
+      <td>1.157200e+09</td>
+      <td>59139975.0</td>
+      <td>40239300.0</td>
+      <td>106694799.0</td>
+      <td>16302550.0</td>
+      <td>36091150.0</td>
+      <td>137470350.0</td>
+      <td>62455475.0</td>
+      <td>380296450.0</td>
+      <td>318509950.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>SIOUX CITY</td>
+      <td>87084.0</td>
+      <td>7.967826e+08</td>
+      <td>29191725.0</td>
+      <td>18879475.0</td>
+      <td>91298021.0</td>
+      <td>11412350.0</td>
+      <td>27882975.0</td>
+      <td>110612275.0</td>
+      <td>33366000.0</td>
+      <td>207301525.0</td>
+      <td>266838300.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>WATERLOO</td>
+      <td>80574.0</td>
+      <td>8.220125e+08</td>
+      <td>77652825.0</td>
+      <td>38660000.0</td>
+      <td>67757518.0</td>
+      <td>26733650.0</td>
+      <td>27258750.0</td>
+      <td>88387325.0</td>
+      <td>36272950.0</td>
+      <td>238445425.0</td>
+      <td>220844025.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#Calculate the ml per person for each alcohol category.</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Separate between rural and urban using the Census 50,000 population cutoff standard.</span>
+<span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Urban&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="k">else</span> <span class="s1">&#39;Rural&#39;</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">city_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">50000</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe to compare the ml per person consumption by rural vs. urban.</span>
+<span class="n">pop_agg</span> <span class="o">=</span> <span class="n">city_agg</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;pop&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">pop_agg</span> <span class="o">=</span> <span class="n">pop_agg</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">pop_agg</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Total Population&#39;</span><span class="p">,</span> <span class="s1">&#39;ml_sold&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">pop_agg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">pop_agg</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pop&#39;</span><span class="p">])</span>
+<span class="n">pop_agg</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;variable&#39;</span><span class="p">:</span><span class="s1">&#39;Alcohol Category&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="s1">&#39;Average Mililiters Consumed Per Person&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">factorplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Alcohol Category&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Average Mililiters Consumed Per Person&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;pop&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pop_agg</span><span class="p">,</span>
+                   <span class="n">size</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11dd39ed0&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_92_1.png"></p>
+<h2>ANSWER: YES, specialty alcohol does sell better in urban areas over rural once. However all alcohol sells better in the urban areas and Vodka is the best seller with the biggest difference between urban and rural. The urban population consumes 1400ml more Vodka per person than rural Vodka drinkers.</h2>
+<h3>4.2. If people drink a lot do they pay less for it?(price per ml).</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe from the ones made earlier to focus on the areas we&#39;re interested in.</span>
+<span class="n">price_per_agg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">]],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">,</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create two new variables called price per ml and ml per person. These will let us see clearly where consumption</span>
+<span class="c1">#tracks with cost.</span>
+<span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;price_per_ml&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span>
+<span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;ml_per_person&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">price_per_agg</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;ml_per_person&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;price_per_ml&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">price_per_agg</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x1192f7310&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_97_1.png"></p>
+<h2>ANSWER: No, there does not seem to be a clear correlation between the per person ml consumption and the price per ml variables.</h2>
+<h3>4.3. Do certain types of liqour sell better on specific days of the week?</h3>
+<div class="highlight"><pre><span></span><span class="n">weekday_numeric</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Mon&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Tues&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;Weds&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;Thurs&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;Fri&#39;</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Sat&#39;</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s1">&#39;Sun&#39;</span><span class="p">:</span><span class="mi">7</span><span class="p">}</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe grouped by weekday for total sold of each category.</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;weekday&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[[</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">,</span> <span class="s1">&#39;GIN&#39;</span><span class="p">,</span> <span class="s1">&#39;LIQUEUR&#39;</span><span class="p">,</span> <span class="s1">&#39;MISC&#39;</span><span class="p">,</span> <span class="s1">&#39;MIXED&#39;</span><span class="p">,</span> <span class="s1">&#39;RUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEQUILA&#39;</span><span class="p">,</span> <span class="s1">&#39;VODKA&#39;</span><span class="p">,</span> <span class="s1">&#39;WHISKEY&#39;</span><span class="p">]]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;weekday_numeric&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">weekday_numeric</span><span class="p">)</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;weekday_numeric&#39;</span><span class="p">],</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="n">weekday_dif</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="s1">&#39;weekday_numeric&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Calculate new columns that show the change in sales between one day and the previous day for each alcohol category.</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;GIN&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;LIQUEUR&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MISC&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;MIXED&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;RUM&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;TEQUILA&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;VODKA&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY_CHANGE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY_CHANGE&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">weekday_dif</span><span class="p">[</span><span class="s1">&#39;WHISKEY&#39;</span><span class="p">][</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">weekday_dif</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;BRANDY&#39;</span><span class="p">,</span> <span class="s1">&#39;GIN&#39;</span><span class="p">,</span> <span class="s1">&#39;LIQUEUR&#39;</span><span class="p">,</span> <span class="s1">&#39;MISC&#39;</span><span class="p">,</span> <span class="s1">&#39;MIXED&#39;</span><span class="p">,</span> <span class="s1">&#39;RUM&#39;</span><span class="p">,</span> <span class="s1">&#39;TEQUILA&#39;</span><span class="p">,</span> <span class="s1">&#39;VODKA&#39;</span><span class="p">,</span> <span class="s1">&#39;WHISKEY&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">weekday_dif</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span><span class="n">weekday_dif</span><span class="p">,</span> <span class="n">id_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;weekday&#39;</span><span class="p">])</span>
+<span class="n">weekday_dif</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;variable&#39;</span><span class="p">:</span><span class="s1">&#39;Alcohol Category&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="s1">&#39;Change in Mililiters Sold Per Day&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  app.launch_new_instance()
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:5: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:7: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:9: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:11: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:13: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:15: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:17: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:19: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">factorplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;weekday&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Change in Mililiters Sold Per Day&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">weekday_dif</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Alcohol Category&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s2">&quot;muted&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11ce60450&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_103_1.png"></p>
+<h2>ANSWER: For the most part sales follow the expected weekend spike trend. One important exception to note is that on Thursdays Vodka is the best selling liqour instead of Whiskey.</h2>
+<h3>4.4. Is there a correlation between number of food businesses and sales/consumption?</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe from the ones made earlier to focus on the areas we&#39;re interested in.</span>
+<span class="n">biz_per</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">,</span> <span class="s1">&#39;Food Businesses&#39;</span><span class="p">]],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Create two new variables called price per ml and ml per person. These will let us see clearly where consumption</span>
+<span class="c1">#tracks with cost.</span>
+<span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;Mililiters Sold Per Person&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;Food Businesses Per 100 People&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]</span><span class="o">/</span><span class="p">(</span><span class="n">biz_per</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;Mililiters Sold Per Person&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;Food Businesses Per 100 People&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">biz_per</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x11c270a50&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_108_1.png"></p>
+<h2>ANSWER: Not enough information to determine correlation. Outliers would need to be addressed for any meaningful determination.</h2>
+<h3>4.5. Where is the most demand?</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe from the ones made earlier to focus on the areas we&#39;re interested in.</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">,</span> <span class="s1">&#39;Per Capita Income&#39;</span><span class="p">,</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">,</span> <span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Filter to show only the top 20.</span>
+<span class="n">demand</span> <span class="o">=</span> <span class="n">demand</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;City&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">demand</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x118c4f110&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_113_1.png"></p>
+<h3>4.6 . Where is the strongest demand?</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe from the ones made earlier to focus on the areas we&#39;re interested in.</span>
+<span class="n">demand_strength</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_city_agg</span><span class="p">[[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span><span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">,</span> <span class="s1">&#39;Per Capita Income&#39;</span><span class="p">,</span><span class="s1">&#39;Food Businesses&#39;</span><span class="p">]],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">,</span> <span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Calculate a simple per capita demand in terms of ml_sold</span>
+<span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;per_capita_demand&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Calculate a simple percent of total income spent</span>
+<span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;per_capita_sales&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;Total Population&#39;</span><span class="p">]</span>
+<span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;percent_of_income&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;per_capita_sales&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;Per Capita Income&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Combine the two metrics above to measure the demand of liqueur in that city simply by multiplying the two.</span>
+<span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;demand_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;per_capita_sales&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="n">demand_strength</span><span class="p">[</span><span class="s1">&#39;percent_of_income&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Filter to show the top 20 cities.</span>
+<span class="n">demand_strength_filtered</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;demand_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;demand_score&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;City&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">demand_strength_filtered</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11cca5310&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_120_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#A table to prove the numbers that I did not believe with my eyes.</span>
+<span class="n">demand_table</span> <span class="o">=</span> <span class="n">demand_strength</span><span class="p">[[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">,</span><span class="s1">&#39;per_capita_sales&#39;</span><span class="p">,</span> <span class="s1">&#39;percent_of_income&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_score&#39;</span><span class="p">]]</span>
+<span class="n">demand_table</span> <span class="o">=</span> <span class="n">demand_table</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;demand_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">demand_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Zip Code</th>
+      <th>City</th>
+      <th>Total Population</th>
+      <th>per_capita_sales</th>
+      <th>percent_of_income</th>
+      <th>demand_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>232</th>
+      <td>50163</td>
+      <td>MELCHER-DALLAS</td>
+      <td>228.0</td>
+      <td>701.242807</td>
+      <td>0.033308</td>
+      <td>23.357311</td>
+    </tr>
+    <tr>
+      <th>328</th>
+      <td>52166</td>
+      <td>ST LUCAS</td>
+      <td>156.0</td>
+      <td>523.275705</td>
+      <td>0.016314</td>
+      <td>8.536521</td>
+    </tr>
+    <tr>
+      <th>245</th>
+      <td>52314</td>
+      <td>MOUNT VERNON</td>
+      <td>6093.0</td>
+      <td>449.256936</td>
+      <td>0.015559</td>
+      <td>6.990088</td>
+    </tr>
+    <tr>
+      <th>369</th>
+      <td>50483</td>
+      <td>WESLEY</td>
+      <td>686.0</td>
+      <td>420.552259</td>
+      <td>0.013007</td>
+      <td>5.470083</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>50517</td>
+      <td>BANCROFT</td>
+      <td>1027.0</td>
+      <td>373.490029</td>
+      <td>0.014556</td>
+      <td>5.436486</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>4.7. Where is the most opportunity?</h3>
+<div class="highlight"><pre><span></span><span class="c1">#Create a dataframe from the ones made earlier to focus on the areas we&#39;re interested in.</span>
+<span class="n">opportunity</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">demand_strength</span><span class="p">,</span> <span class="n">df_store_agg</span><span class="p">[</span><span class="s1">&#39;Store Number&#39;</span><span class="p">],</span> <span class="n">df_cat_agg</span><span class="p">[[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#We don&#39;t do stores to population since we obviously know that some populations buy more or less than others.</span>
+<span class="c1">#Therefore just looking at mililiters solds is most sufficient.</span>
+<span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;stores_to_ml_sold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;ml_sold&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;Store Number&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Multiply the two variables we have so far to get a measure of opportunity.</span>
+<span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;opportunity_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;stores_to_ml_sold&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;demand_score&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Filter to show the top 20.</span>
+<span class="n">opportunity_filtered</span> <span class="o">=</span> <span class="n">opportunity</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;opportunity_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">20</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;opportunity_score&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;City&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">opportunity_filtered</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11c219c90&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_127_1.png"></p>
+<div class="highlight"><pre><span></span><span class="n">opp_table</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[[</span><span class="s1">&#39;Zip Code&#39;</span><span class="p">,</span> <span class="s1">&#39;City&#39;</span><span class="p">,</span> <span class="s1">&#39;Total Population&#39;</span><span class="p">,</span> <span class="s1">&#39;per_capita_sales&#39;</span><span class="p">,</span><span class="s1">&#39;stores_to_ml_sold&#39;</span><span class="p">,</span> <span class="s1">&#39;opportunity_score&#39;</span> <span class="p">]]</span>
+<span class="n">opp_table</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Zip Code</th>
+      <th>City</th>
+      <th>Total Population</th>
+      <th>per_capita_sales</th>
+      <th>stores_to_ml_sold</th>
+      <th>opportunity_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>245</th>
+      <td>52314.0</td>
+      <td>MOUNT VERNON</td>
+      <td>6093.0</td>
+      <td>449.256936</td>
+      <td>97575225.0</td>
+      <td>6.820594e+08</td>
+    </tr>
+    <tr>
+      <th>232</th>
+      <td>50163.0</td>
+      <td>MELCHER-DALLAS</td>
+      <td>228.0</td>
+      <td>701.242807</td>
+      <td>10847150.0</td>
+      <td>2.533603e+08</td>
+    </tr>
+    <tr>
+      <th>234</th>
+      <td>51351.0</td>
+      <td>MILFORD</td>
+      <td>4711.0</td>
+      <td>318.862127</td>
+      <td>52797375.0</td>
+      <td>1.912796e+08</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>50517.0</td>
+      <td>BANCROFT</td>
+      <td>1027.0</td>
+      <td>373.490029</td>
+      <td>26187728.0</td>
+      <td>1.423692e+08</td>
+    </tr>
+    <tr>
+      <th>369</th>
+      <td>50483.0</td>
+      <td>WESLEY</td>
+      <td>686.0</td>
+      <td>420.552259</td>
+      <td>20724875.0</td>
+      <td>1.133668e+08</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h1>Build your models</h1>
+<p>Using scikit-learn or statsmodels, build the necessary models for your scenario. Evaluate model fit.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">r2_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="kn">import</span> <span class="n">LassoCV</span>
+<span class="kn">import</span> <span class="nn">statsmodels.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Lets build a quick correlation table comparison to see what we&#39;re dealing with.</span>
+<span class="n">df_validate</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[[</span><span class="s1">&#39;stores_to_ml_sold&#39;</span><span class="p">,</span><span class="s1">&#39;demand_score&#39;</span><span class="p">,</span><span class="s1">&#39;opportunity_score&#39;</span><span class="p">,</span> <span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">,</span> <span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]]</span>
+<span class="n">df_validate</span><span class="p">[</span><span class="s1">&#39;ROI_profit&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">opportunity</span><span class="p">[</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">]</span>
+<span class="n">df_validate</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;State Bottle Cost&#39;</span><span class="p">,</span> <span class="s1">&#39;Sale (Dollars)&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df_validate</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:3: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  app.launch_new_instance()
+/Users/nathanhall/anaconda/lib/python2.7/site-packages/ipykernel/__main__.py:4: SettingWithCopyWarning:
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>stores_to_ml_sold</th>
+      <th>demand_score</th>
+      <th>opportunity_score</th>
+      <th>ROI_profit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>3.560762e+06</td>
+      <td>0.041831</td>
+      <td>148950.252732</td>
+      <td>72948.42</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.638150e+06</td>
+      <td>0.051297</td>
+      <td>84032.201625</td>
+      <td>44815.50</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1.060648e+07</td>
+      <td>0.090245</td>
+      <td>957183.537765</td>
+      <td>388173.47</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2.853900e+06</td>
+      <td>0.018920</td>
+      <td>53994.939773</td>
+      <td>33770.55</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>4.074625e+06</td>
+      <td>0.013227</td>
+      <td>53894.443523</td>
+      <td>44881.12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1"># Compute the correlation matrix</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">df_validate</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+
+<span class="c1"># Generate a mask for the upper triangle</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">bool</span><span class="p">)</span>
+<span class="n">mask</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">triu_indices_from</span><span class="p">(</span><span class="n">mask</span><span class="p">)]</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="c1"># Set up the matplotlib figure</span>
+<span class="n">f</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+
+<span class="c1"># Generate a custom diverging colormap</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">diverging_palette</span><span class="p">(</span><span class="mi">220</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">as_cmap</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># Draw the heatmap with the mask and correct aspect ratio</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">corr</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">cmap</span><span class="p">,</span> <span class="n">square</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=.</span><span class="mi">5</span><span class="p">,</span> <span class="n">cbar_kws</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;shrink&quot;</span><span class="p">:</span> <span class="o">.</span><span class="mi">5</span><span class="p">},</span>
+            <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">annot</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;0.0&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11d0c2510&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_132_1.png"></p>
+<p>There is some collinearity it seems like with stores_to_ml_sold and opportunity_score. However, this is to be expected since opportunity score is made up of stores_to_ml_sold.
+Otherwise we have a pretty good start here.</p>
+<div class="highlight"><pre><span></span><span class="c1">#Lets start trying to validate our findings. Is opportunity score correlated to sales.</span>
+<span class="n">model_df1</span> <span class="o">=</span> <span class="n">df_validate</span><span class="p">[[</span><span class="s1">&#39;stores_to_ml_sold&#39;</span><span class="p">,</span> <span class="s1">&#39;demand_score&#39;</span><span class="p">]]</span>
+<span class="n">target1</span> <span class="o">=</span> <span class="n">df_validate</span><span class="p">[</span><span class="s1">&#39;ROI_profit&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Setting my X and y for modeling</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">model_df1</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">target1</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">X1_train</span><span class="p">,</span> <span class="n">X1_test</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">,</span> <span class="n">y1_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=.</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># fit a model</span>
+<span class="n">lm1</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LinearRegression</span><span class="p">()</span>
+
+<span class="n">model1</span> <span class="o">=</span> <span class="n">lm1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1_train</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">)</span>
+<span class="n">predictions1</span> <span class="o">=</span> <span class="n">lm1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1_test</span><span class="p">)</span>
+
+<span class="c1">## The line / model</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">y1_test</span><span class="p">,</span> <span class="n">predictions1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;True Values&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Predictions&quot;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s2">&quot;Score:&quot;</span><span class="p">,</span> <span class="n">model1</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X1_test</span><span class="p">,</span> <span class="n">y1_test</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;R2 Score:&quot;</span><span class="p">,</span> <span class="n">r2_score</span><span class="p">(</span><span class="n">y1_test</span><span class="p">,</span> <span class="n">predictions1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Score</span><span class="o">:</span> <span class="mf">0.149334090592</span>
+<span class="n">R2</span> <span class="n">Score</span><span class="o">:</span> <span class="mf">0.149334090592</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/analyzing_iowa_liqour_sales/output_137_1.png"></p>
+<h1>Present the Results</h1>
+<p><a href="https://docs.google.com/presentation/d/1di0WgdCIHvQBzCmrRf5HYWZpzD3wgQvM80qrcYBRCyU/edit#slide=id.g1a50fe6652_2_79" target="_blank">Click here to see the presentation of the above analysis.</a></p>
+<h1>Further Research:</h1>
+<ul>
+<li>Conduct further modeling without outliers.</li>
+<li>Look at further relationships between population density and ml_sold.</li>
+<li>Look at further relationships between population of families and ml_sold_per_capita.</li>
+<li>Look at further relationships between gender population and ml_sold_per_capita.</li>
+<li>Look at further relationships between children under 10 and ml_sold_per_capita.</li>
+</ul>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <!--<footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center>This project contains 19 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.
+                <br/>
+                Copyright &copy; Nate Hall
+                    <time datetime="2016">2016</time>.
+                </center>
+            </p>
+        </div>
+    </footer>-->
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
