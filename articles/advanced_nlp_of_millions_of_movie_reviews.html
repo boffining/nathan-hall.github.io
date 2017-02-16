@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Design for website inspired by Chris Albon-->
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Personal Data Science Blog of Nate Hall">
+    <meta name="author" content="Nate Hall">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <title>Advanced NLP of Millions of Movie Reviews - Articles</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+              <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <!--<li class="dropdown">
+                    <a href="../visuals.html" role="button" aria-haspopup="true" aria-expanded="false">Visualizations</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Top Visuals</a></li>
+                        <li><a href="./visuals.html">Projects</a></li>
+                    </ul>
+                </li>-->
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../index.html">Python</a></li>
+                          <li><a href="../index.html">Data Wrangling</a></li>
+                          <li><a href="../index.html">Machine Learning</a></li>
+                          <li><a href="../index.html">Statistics</a></li>
+                          <li><a href="../index.html">Visualization</a></li>
+                      </ul>
+                  </li>
+                  <li class="dropdown">
+                        <a href="../articles.html" role="button" aria-haspopup="true" aria-expanded="false">Articles</a>
+                        <!--<ul class="dropdown-menu">
+                            <li><a href="./blog.html">Articles</a></li>
+                            <li><a href="./blog.html">Projects</a></li>
+                        </ul>-->
+                    </li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../pages/about_nate.html">About Nate</a></li>
+                          <li><a href="https://github.com/nathan-hall/nathan-hall.github.io">GitHub</a></li>
+                          <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a">LinkedIn</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      Advanced NLP of Millions of Movie Reviews
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2017-02-16T12:00:00-05:00">
+            16 February 2017
+        </time>
+    </li>
+    <li>Articles</li>
+</ol>
+</header>
+<div class='article_content'>
+<p>PROCESS
+- Scrape raw reviews.
+- Split into 10 million sentences.
+- Run  manual ngram tagging with Cython.
+- Phrase model bigram words.
+- Vectorize words.
+    - perform 10 epochs of training.
+- Topic model words with T-SNE and clustering.
+    - This will be used for first order general questioning.
+- Vectorize words to documents.
+- Generate yes or no questions.
+    (e.g. do you like ['insert actor/director/or topic_name']
+- Use results to add a "similarity" score to documents.
+- After each answer, predict similarity score using the remaining features.
+- Generate the next question and start the process again.
+- Return a list of movie recommendations to the user.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">cPickle</span> <span class="kn">as</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="kn">as</span> <span class="nn">it</span>
+<span class="kn">from</span> <span class="nn">gensim.models.word2vec</span> <span class="kn">import</span> <span class="n">LineSentence</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">word2vec</span>
+<span class="kn">from</span> <span class="nn">gensim.models.phrases</span> <span class="kn">import</span> <span class="n">Phraser</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="kn">as</span> <span class="nn">it</span>
+<span class="kn">import</span> <span class="nn">multiprocessing</span>
+<span class="kn">from</span> <span class="nn">gensim.models</span> <span class="kn">import</span> <span class="n">Doc2Vec</span>
+<span class="kn">from</span> <span class="nn">sklearn.manifold</span> <span class="kn">import</span> <span class="n">TSNE</span>
+<span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span> <span class="k">as</span> <span class="n">sklearnPCA</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">hdbscan</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+
+<span class="kn">import</span> <span class="nn">spacy</span>
+<span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Load the data.</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/movie_metadata.csv&#39;</span><span class="p">)</span>
+<span class="n">movies_lists</span> <span class="o">=</span> <span class="n">movies</span><span class="p">[[</span><span class="s1">&#39;director_name&#39;</span><span class="p">,</span> <span class="s1">&#39;actor_2_name&#39;</span><span class="p">,</span> <span class="s1">&#39;movie_title&#39;</span><span class="p">,</span> <span class="s1">&#39;actor_3_name&#39;</span><span class="p">,]]</span>
+<span class="n">unigram_sentences</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/unigram_sentences_all.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Checking the processing power available.</span>
+<span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>8
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Column cleaning function</span>
+<span class="k">def</span> <span class="nf">clean_column</span><span class="p">(</span><span class="n">column</span><span class="p">):</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xc3</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa9</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa1</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa4</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xad</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa7</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa5</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x89</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xaf</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb3</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb6</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa6</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x94</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb8</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb1</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x81</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb4</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa8</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xbb</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x85</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x98</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x93</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xbc</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xab</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x9f</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x9c</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xba</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xae</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xaa</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb0</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xc2</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xbd</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xb7</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\xa2</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">column</span> <span class="o">=</span> <span class="n">column</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\x86</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">column</span>
+</pre></div>
+
+
+<h1>Some not so fun data cleaning steps.</h1>
+<div class="highlight"><pre><span></span><span class="c1">#Convert the data to a unique list. And convert each item to string because of some</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">clean_column</span><span class="p">(</span><span class="n">movies_lists</span><span class="p">[</span><span class="s1">&#39;movie_title&#39;</span><span class="p">])))</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">movies</span><span class="p">]</span>
+<span class="c1">#Remove extra spaces in movie titles</span>
+<span class="n">movies</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">movies</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert split the differing length movie titles into their corresponding list so we can</span>
+<span class="c1">#run the n_gram calculation.</span>
+<span class="n">movie_1_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_2_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_3_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_4_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_5_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_6_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_7_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_8_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">movie_x_gram</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">movies</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_1_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_2_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_3_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_4_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_5_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_6_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_7_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_8_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">:</span>
+            <span class="n">z</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+        <span class="n">movie_x_gram</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Check what the data looks like in the 8_gram list.</span>
+<span class="n">movie_8_gram</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>[[u&#39;a&#39;, u&#39;woman,&#39;, u&#39;a&#39;, u&#39;gun&#39;, u&#39;and&#39;, u&#39;a&#39;, u&#39;noodle&#39;, u&#39;shop&#39;],
+ [u&#39;how&#39;, u&#39;to&#39;, u&#39;lose&#39;, u&#39;a&#39;, u&#39;guy&#39;, u&#39;in&#39;, u&#39;10&#39;, u&#39;days&#39;],
+ [u&#39;the&#39;, u&#39;adventurer:&#39;, u&#39;the&#39;, u&#39;curse&#39;, u&#39;of&#39;, u&#39;the&#39;, u&#39;midas&#39;, u&#39;box&#39;],
+ [u&#39;friday&#39;, u&#39;the&#39;, u&#39;13th&#39;, u&#39;part&#39;, u&#39;vii:&#39;, u&#39;the&#39;, u&#39;new&#39;, u&#39;blood&#39;],
+ [u&#39;star&#39;, u&#39;wars:&#39;, u&#39;episode&#39;, u&#39;i&#39;, u&#39;-&#39;, u&#39;the&#39;, u&#39;phantom&#39;, u&#39;menace&#39;]]
+</pre></div>
+
+
+<h1>Manual n_gram tagging with Cython</h1>
+<div class="highlight"><pre><span></span><span class="c1">#Using cython gives operations like this up to 5x a speed bump.</span>
+<span class="o">%</span><span class="n">load_ext</span> <span class="n">Cython</span>
+</pre></div>
+
+
+<h3>8_gram movie titles.</h3>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">cython</span>
+
+<span class="k">def</span> <span class="nf">eight_grams_cython</span><span class="p">(</span><span class="n">sentencesa</span><span class="p">,</span> <span class="n">searchesa</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+    <span class="n">cdef</span> <span class="nb">list</span> <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentencesa</span>
+    <span class="n">cdef</span> <span class="nb">list</span> <span class="n">searches</span> <span class="o">=</span> <span class="n">searchesa</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">searches</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elem</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">second</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">second</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">third</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                    <span class="k">if</span> <span class="n">third</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                        <span class="n">fourth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                        <span class="k">if</span> <span class="n">fourth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                            <span class="n">fifth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                            <span class="k">if</span> <span class="n">fifth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                                <span class="n">sixth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                                <span class="k">if</span> <span class="n">sixth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+                                    <span class="n">seventh</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                                    <span class="k">if</span> <span class="n">seventh</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+                                        <span class="n">eigth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                                        <span class="k">if</span> <span class="n">eigth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span>
+                                            <span class="n">match</span> <span class="o">+=</span> <span class="mi">8</span>
+                                            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">elem</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">,</span> <span class="n">fifth</span><span class="p">,</span> <span class="n">sixth</span><span class="p">,</span> <span class="n">seventh</span><span class="p">,</span> <span class="n">eigth</span><span class="p">,</span> <span class="n">tag</span><span class="p">]))</span>                    
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Skip the next element and reset true to 0.</span>
+            <span class="n">match</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">holder</span><span class="p">)</span>
+
+
+<span class="c1"># To show how i did this then for every n_gram of possible movie titles you can see the</span>
+<span class="c1">#differences here between the 8_gram movie title and the 7_gram movie title functions.</span>
+
+<span class="k">def</span> <span class="nf">seven_grams_cython</span><span class="p">(</span><span class="n">sentencesa</span><span class="p">,</span> <span class="n">searchesa</span><span class="p">,</span> <span class="n">tag</span><span class="p">):</span>
+    <span class="n">cdef</span> <span class="nb">list</span> <span class="n">sentences</span> <span class="o">=</span> <span class="n">sentencesa</span>
+    <span class="n">cdef</span> <span class="nb">list</span> <span class="n">searches</span> <span class="o">=</span> <span class="n">searchesa</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sentences</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">searches</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">elem</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                <span class="n">second</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="n">second</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+                    <span class="n">third</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                    <span class="k">if</span> <span class="n">third</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+                        <span class="n">fourth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                        <span class="k">if</span> <span class="n">fourth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+                            <span class="n">fifth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">4</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                            <span class="k">if</span> <span class="n">fifth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                                <span class="n">sixth</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">5</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                                <span class="k">if</span> <span class="n">sixth</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span>
+                                    <span class="n">seventh</span> <span class="o">=</span> <span class="n">sentences</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">6</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">sentences</span><span class="p">)]</span>
+                                    <span class="k">if</span> <span class="n">seventh</span> <span class="o">==</span> <span class="n">title</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+                                        <span class="n">match</span> <span class="o">+=</span> <span class="mi">7</span>
+                                        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">elem</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">,</span> <span class="n">fifth</span><span class="p">,</span> <span class="n">sixth</span><span class="p">,</span> <span class="n">seventh</span><span class="p">,</span> <span class="n">tag</span><span class="p">]))</span>                    
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1">#Skip the next element and reset true to 0.</span>
+            <span class="n">match</span> <span class="o">-=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">holder</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;data/movie_8_grams.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">unigram_sentences</span><span class="p">:</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">eight_grams_cython</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">movie_8_gram</span><span class="p">,</span> <span class="s1">&#39;MOVIE&#39;</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 3 µs, sys: 2 µs, total: 5 µs
+Wall time: 8.11 µs
+</pre></div>
+
+
+<p>TO SAVE YOU ON SCROLLING I AM GOING TO LOAD THE LAST MOVIE TITLE GRAM TXT FILE HERE WHICH IS A CULMINATION OF EACH MOVIE TITLE LIST 8 - 1.</p>
+<div class="highlight"><pre><span></span><span class="n">movie_2_gram_sentences</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/movie_2_grams.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>word2vec training</h1>
+<div class="highlight"><pre><span></span><span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1"># Import the built-in logging module and configure it so that Word2Vec</span>
+    <span class="c1"># creates nice output messages</span>
+    <span class="kn">import</span> <span class="nn">logging</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> : </span><span class="si">%(levelname)s</span><span class="s1"> : </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+
+    <span class="c1"># Training the model</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">word2vec</span><span class="o">.</span><span class="n">Word2Vec</span><span class="p">(</span><span class="n">sentences</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">(),</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">sg</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># perform another 5 epochs of training</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">sentences</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;model/modern_nlp_settings_c&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">word_model</span> <span class="o">=</span> <span class="n">word2vec</span><span class="o">.</span><span class="n">Word2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;model/modern_nlp_settings_c&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>When I first started working on this project i downloaded a pre-trained model and typed in the word "frozen". It returned a list that included freezing, freezer, refrigerator etc.. which is what you would expect for the word "frozen". However, when I trained the model on the corpus of movie reviews it is very cool to note how this word meaning changed and took on the definition that most matched the uniqueness of the corpus.</p>
+<div class="highlight"><pre><span></span><span class="n">word_model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="s1">&#39;frozen&#39;</span><span class="p">,</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>[(u&#39;tangled&#39;, 0.6662840247154236),
+ (u&#39;ice&#39;, 0.6432431936264038),
+ (u&#39;atlantis&#39;, 0.6430802345275879),
+ (u&#39;snow&#39;, 0.6322804689407349),
+ (u&#39;ice_age&#39;, 0.6203527450561523),
+ (u&#39;treasure_planet&#39;, 0.6173107028007507),
+ (u&#39;walle&#39;, 0.6139719486236572),
+ (u&#39;find_nemo&#39;, 0.6133394241333008),
+ (u&#39;tree&#39;, 0.6133368015289307),
+ (u&#39;finding_nemo&#39;, 0.6006965637207031)]
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># This is pretty addicting to search through all the movie possible combinations.</span>
+<span class="n">word_model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="n">positive</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;galaxy_quest&#39;</span><span class="p">,</span> <span class="s1">&#39;airplane&#39;</span><span class="p">],</span> <span class="n">negative</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;adam_sandler&#39;</span><span class="p">],</span> <span class="n">topn</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>[(u&#39;starship&#39;, 0.6349945068359375),
+ (u&#39;flight&#39;, 0.6091790199279785),
+ (u&#39;police_squad&#39;, 0.5725158452987671),
+ (u&#39;thunderbird&#39;, 0.5704771280288696),
+ (u&#39;hangar&#39;, 0.5651131868362427),
+ (u&#39;spaceballs&#39;, 0.563474714756012),
+ (u&#39;area_51&#39;, 0.5614309310913086),
+ (u&#39;peter_graves&#39;, 0.560431957244873),
+ (u&#39;klingon_ship&#39;, 0.559836745262146),
+ (u&#39;plane&#39;, 0.557942271232605),
+ (u&#39;aeroplane&#39;, 0.552922248840332),
+ (u&#39;dogfight&#39;, 0.5518968105316162),
+ (u&#39;air&#39;, 0.5509952306747437),
+ (u&#39;stargate&#39;, 0.5503530502319336),
+ (u&#39;space&#39;, 0.5448616743087769),
+ (u&#39;naked_gun&#39;, 0.5435949563980103),
+ (u&#39;submarine&#39;, 0.5419664978981018),
+ (u&#39;space_shuttle&#39;, 0.5395755767822266),
+ (u&#39;pilot&#39;, 0.5389735102653503),
+ (u&#39;spacecraft&#39;, 0.5374336838722229)]
+</pre></div>
+
+
+<h3>Outputting a vector dataframe for topic modeling.</h3>
+<div class="highlight"><pre><span></span><span class="c1"># build a list of the terms, integer indices,</span>
+<span class="c1"># and term counts from the food2vec model vocabulary</span>
+<span class="n">ordered_vocab</span> <span class="o">=</span> <span class="p">[(</span><span class="n">term</span><span class="p">,</span> <span class="n">voc</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">voc</span><span class="o">.</span><span class="n">count</span><span class="p">)</span> <span class="k">for</span> <span class="n">term</span><span class="p">,</span> <span class="n">voc</span> <span class="ow">in</span> <span class="n">word_model</span><span class="o">.</span><span class="n">wv</span><span class="o">.</span><span class="n">vocab</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()]</span>
+
+<span class="c1"># sort by the term counts, so the most common terms appear first</span>
+<span class="n">ordered_vocab</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ordered_vocab</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="p">(</span><span class="n">term</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">count</span><span class="p">):</span> <span class="o">-</span><span class="n">count</span><span class="p">)</span>
+
+<span class="c1"># unzip the terms, integer indices, and counts into separate lists</span>
+<span class="n">ordered_terms</span><span class="p">,</span> <span class="n">term_indices</span><span class="p">,</span> <span class="n">term_counts</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">ordered_vocab</span><span class="p">)</span>
+
+<span class="c1"># create a DataFrame with the food2vec vectors as data,</span>
+<span class="c1"># and the terms as row labels</span>
+<span class="n">pca_input</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">word_model</span><span class="o">.</span><span class="n">wv</span><span class="o">.</span><span class="n">syn0norm</span><span class="p">[</span><span class="n">term_indices</span><span class="p">,</span> <span class="p">:],</span> <span class="n">index</span><span class="o">=</span><span class="n">ordered_terms</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">pca_input</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">pca_input</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>(79546, 100)
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>...</th>
+      <th>90</th>
+      <th>91</th>
+      <th>92</th>
+      <th>93</th>
+      <th>94</th>
+      <th>95</th>
+      <th>96</th>
+      <th>97</th>
+      <th>98</th>
+      <th>99</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>the</th>
+      <td>-0.006607</td>
+      <td>0.087644</td>
+      <td>-0.191819</td>
+      <td>0.068397</td>
+      <td>0.117747</td>
+      <td>-0.083091</td>
+      <td>-0.004673</td>
+      <td>-0.075310</td>
+      <td>0.022064</td>
+      <td>-0.097117</td>
+      <td>...</td>
+      <td>-0.178093</td>
+      <td>0.016732</td>
+      <td>0.025307</td>
+      <td>-0.013847</td>
+      <td>0.122318</td>
+      <td>-0.037800</td>
+      <td>0.033586</td>
+      <td>-0.099291</td>
+      <td>0.089649</td>
+      <td>0.168384</td>
+    </tr>
+    <tr>
+      <th>be</th>
+      <td>0.158834</td>
+      <td>-0.061288</td>
+      <td>-0.079942</td>
+      <td>0.071525</td>
+      <td>0.082592</td>
+      <td>-0.072486</td>
+      <td>-0.136944</td>
+      <td>-0.032479</td>
+      <td>-0.116612</td>
+      <td>-0.096172</td>
+      <td>...</td>
+      <td>-0.163321</td>
+      <td>-0.045490</td>
+      <td>-0.050120</td>
+      <td>0.002621</td>
+      <td>0.203943</td>
+      <td>-0.128236</td>
+      <td>-0.146287</td>
+      <td>-0.060631</td>
+      <td>0.200469</td>
+      <td>0.129426</td>
+    </tr>
+    <tr>
+      <th>and</th>
+      <td>-0.034650</td>
+      <td>-0.023527</td>
+      <td>-0.110935</td>
+      <td>0.104412</td>
+      <td>-0.044961</td>
+      <td>-0.024426</td>
+      <td>-0.011504</td>
+      <td>0.003531</td>
+      <td>-0.012118</td>
+      <td>0.027816</td>
+      <td>...</td>
+      <td>-0.085960</td>
+      <td>-0.139890</td>
+      <td>0.093226</td>
+      <td>0.149776</td>
+      <td>0.142972</td>
+      <td>-0.067139</td>
+      <td>-0.043592</td>
+      <td>0.098253</td>
+      <td>0.105875</td>
+      <td>0.139702</td>
+    </tr>
+    <tr>
+      <th>a</th>
+      <td>0.039865</td>
+      <td>-0.094687</td>
+      <td>-0.010497</td>
+      <td>0.121537</td>
+      <td>0.016640</td>
+      <td>-0.125659</td>
+      <td>-0.004537</td>
+      <td>-0.226169</td>
+      <td>-0.019471</td>
+      <td>-0.032756</td>
+      <td>...</td>
+      <td>-0.127458</td>
+      <td>-0.083072</td>
+      <td>0.028279</td>
+      <td>-0.088658</td>
+      <td>0.097195</td>
+      <td>0.048650</td>
+      <td>0.025235</td>
+      <td>-0.092111</td>
+      <td>-0.071158</td>
+      <td>0.132155</td>
+    </tr>
+    <tr>
+      <th>of</th>
+      <td>-0.082322</td>
+      <td>0.127704</td>
+      <td>-0.081186</td>
+      <td>0.070754</td>
+      <td>-0.008305</td>
+      <td>-0.130454</td>
+      <td>-0.072349</td>
+      <td>-0.074793</td>
+      <td>-0.123280</td>
+      <td>-0.019668</td>
+      <td>...</td>
+      <td>-0.103899</td>
+      <td>-0.060130</td>
+      <td>0.044942</td>
+      <td>0.000217</td>
+      <td>0.098328</td>
+      <td>-0.101189</td>
+      <td>-0.003283</td>
+      <td>-0.050626</td>
+      <td>0.062987</td>
+      <td>0.019990</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 100 columns</p>
+</div>
+
+<h1>Topic Modeling with T-SNE and Clustering.</h1>
+<p>Because T-SNE is so computationally expensive it is best to reduce the 100 vectors to a smaller set. This is why running PCA before T-SNE is often recommended.</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;Shape before filter=&quot;</span><span class="p">,</span> <span class="n">pca_input</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">pca_input</span> <span class="o">=</span> <span class="n">pca_input</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">spacy</span><span class="o">.</span><span class="n">en</span><span class="o">.</span><span class="n">STOPWORDS</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">u&#39;ignore&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Shape after filter=&quot;</span><span class="p">,</span> <span class="n">pca_input</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Shape before filter= (79546, 100)
+Shape after filter= (79221, 100)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Apply PCA to reduce the computational space of TSNE first.</span>
+<span class="n">sklearn_pca</span> <span class="o">=</span> <span class="n">sklearnPCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">Y_sklearn</span> <span class="o">=</span> <span class="n">sklearn_pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">pca_input</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#PCA&#39;d dataframe.</span>
+<span class="n">tsne_input</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">Y_sklearn</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">pca_input</span><span class="o">.</span><span class="n">index</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">tsne_input</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">tsne_input</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>(79221, 15)
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+      <th>10</th>
+      <th>11</th>
+      <th>12</th>
+      <th>13</th>
+      <th>14</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>movie</th>
+      <td>-0.531683</td>
+      <td>0.180965</td>
+      <td>-0.098257</td>
+      <td>0.076532</td>
+      <td>0.204422</td>
+      <td>-0.013209</td>
+      <td>-0.103485</td>
+      <td>0.156739</td>
+      <td>-0.104214</td>
+      <td>-0.002614</td>
+      <td>-0.123811</td>
+      <td>-0.043702</td>
+      <td>-0.003700</td>
+      <td>-0.065315</td>
+      <td>-0.068262</td>
+    </tr>
+    <tr>
+      <th>film</th>
+      <td>-0.511645</td>
+      <td>-0.092992</td>
+      <td>-0.171228</td>
+      <td>-0.074192</td>
+      <td>0.116818</td>
+      <td>-0.056615</td>
+      <td>-0.062686</td>
+      <td>-0.010722</td>
+      <td>-0.074821</td>
+      <td>0.032187</td>
+      <td>-0.131693</td>
+      <td>-0.001245</td>
+      <td>-0.020679</td>
+      <td>0.022764</td>
+      <td>0.025776</td>
+    </tr>
+    <tr>
+      <th>'s</th>
+      <td>0.036475</td>
+      <td>-0.074423</td>
+      <td>-0.205148</td>
+      <td>-0.080752</td>
+      <td>0.037296</td>
+      <td>-0.072849</td>
+      <td>0.027733</td>
+      <td>0.010047</td>
+      <td>0.127851</td>
+      <td>0.003879</td>
+      <td>-0.089492</td>
+      <td>0.038738</td>
+      <td>-0.039199</td>
+      <td>0.052519</td>
+      <td>-0.008667</td>
+    </tr>
+    <tr>
+      <th>'</th>
+      <td>-0.229348</td>
+      <td>0.069690</td>
+      <td>-0.116387</td>
+      <td>0.124391</td>
+      <td>0.041442</td>
+      <td>0.032266</td>
+      <td>-0.055188</td>
+      <td>0.018840</td>
+      <td>-0.059814</td>
+      <td>0.007782</td>
+      <td>-0.103575</td>
+      <td>-0.042771</td>
+      <td>-0.038178</td>
+      <td>-0.091244</td>
+      <td>-0.086217</td>
+    </tr>
+    <tr>
+      <th>like</th>
+      <td>-0.302112</td>
+      <td>0.282551</td>
+      <td>-0.119511</td>
+      <td>0.097161</td>
+      <td>-0.020862</td>
+      <td>-0.011357</td>
+      <td>0.006670</td>
+      <td>0.136147</td>
+      <td>-0.028327</td>
+      <td>-0.026437</td>
+      <td>-0.116596</td>
+      <td>0.026851</td>
+      <td>-0.005005</td>
+      <td>-0.045054</td>
+      <td>-0.236422</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">tsne</span> <span class="o">=</span> <span class="n">TSNE</span><span class="p">()</span>
+    <span class="n">tsne_vectors</span> <span class="o">=</span> <span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">tsne_input</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model/tsne_model&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">tsne</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="n">pd</span><span class="o">.</span><span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;model/tsne_vectors.npy&#39;</span><span class="p">,</span> <span class="n">tsne_vectors</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model/tsne_model&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">tsne</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+<span class="n">tsne_vectors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">np</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;model/tsne_vectors.npy&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 284 ms, sys: 7.42 ms, total: 291 ms
+Wall time: 295 ms
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">tsne_vectors</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tsne_vectors</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">Index</span><span class="p">(</span><span class="n">tsne_input</span><span class="o">.</span><span class="n">index</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">u&#39;x_coord&#39;</span><span class="p">,</span> <span class="s1">u&#39;y_coord&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>---------------------------------------------------------------------------
+
+ValueError                                Traceback (most recent call last)
+
+&lt;ipython-input-42-d23acc6b4dfc&gt; in &lt;module&gt;()
+----&gt; 1 tsne_vectors = pd.DataFrame(tsne_vectors, index=pd.Index(tsne_input.index), columns=[u&#39;x_coord&#39;, u&#39;y_coord&#39;])
+
+
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/pandas/core/frame.pyc in __init__(self, data, index, columns, dtype, copy)
+    253             else:
+    254                 mgr = self._init_ndarray(data, index, columns, dtype=dtype,
+--&gt; 255                                          copy=copy)
+    256         elif isinstance(data, (list, types.GeneratorType)):
+    257             if isinstance(data, types.GeneratorType):
+
+
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/pandas/core/frame.pyc in _init_ndarray(self, values, index, columns, dtype, copy)
+    430             values = _possibly_infer_to_datetimelike(values)
+    431
+--&gt; 432         return create_block_manager_from_blocks([values], [columns, index])
+    433
+    434     @property
+
+
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/pandas/core/internals.pyc in create_block_manager_from_blocks(blocks, axes)
+   3991         blocks = [getattr(b, &#39;values&#39;, b) for b in blocks]
+   3992         tot_items = sum(b.shape[0] for b in blocks)
+-&gt; 3993         construction_error(tot_items, blocks[0].shape[1:], axes, e)
+   3994
+   3995
+
+
+/Users/nathanhall/anaconda2/lib/python2.7/site-packages/pandas/core/internals.pyc in construction_error(tot_items, block_shape, axes, e)
+   3968         raise ValueError(&quot;Empty data passed with indices specified.&quot;)
+   3969     raise ValueError(&quot;Shape of passed values is {0}, indices imply {1}&quot;.format(
+-&gt; 3970         passed, implied))
+   3971
+   3972
+
+
+ValueError: Shape of passed values is (2, 79244), indices imply (2, 79221)
+</pre></div>
+
+
+<h2>Clustering for topic modeling.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Copy the dataframe so as not to make any mistakes.</span>
+<span class="n">tsne_vectors_cluster</span> <span class="o">=</span> <span class="n">tsne_vectors</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df_clusters</span> <span class="o">=</span> <span class="n">tsne_vectors_cluster</span><span class="p">[[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">,</span> <span class="s1">&#39;y_coord&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#Instantiate the model and declare the min_sample size.</span>
+<span class="n">clusterer</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="c1">#Fit to the target dataframe.</span>
+<span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_clusters</span><span class="p">)</span>
+<span class="c1">#Add a new column to the spray_raw dataframe that assigns each spray location to a zone.</span>
+<span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span>
+<span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="s1">&#39;proba&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">probabilities_</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span><span class="p">))</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">labels</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3128</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_guide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;persistence&#39;</span><span class="p">])</span>
+<span class="n">cluster_guide</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">labels</span>
+<span class="n">cluster_guide</span><span class="p">[</span><span class="s1">&#39;persistence&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">cluster_persistence_</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">tsne_cluster</span> <span class="o">=</span> <span class="n">tsne_vectors_cluster</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Lets remove the outliers since they won&#39;t be of any value for our purposes.</span>
+<span class="k">print</span> <span class="s1">&#39;SHAPE BEFORE FILTER =&#39;</span><span class="p">,</span> <span class="n">tsne_vectors_cluster</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">tsne_plot</span> <span class="o">=</span> <span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span> <span class="s1">&#39;SHAPE AFTER FILTER =&#39;</span><span class="p">,</span> <span class="n">tsne_plot</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Well so we ran a clustering algorithm... did it work?</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">tsne_plot</span><span class="p">[[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">,</span> <span class="s1">&#39;y_coord&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Hell ya it did!</span>
+<span class="n">color</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">item</span><span class="o">/</span><span class="mf">6.</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">tsne_plot</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]]</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">))</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">tsne_plot</span><span class="p">[[</span><span class="s1">&#39;x_coord&#39;</span><span class="p">,</span> <span class="s1">&#39;y_coord&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">17</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Set1&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<h2>Now how many unique clusters do we have?</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Eesh... that&#39;s alot.</span>
+<span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">tsne_plot</span><span class="o">.</span><span class="n">topic</span><span class="p">))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#What if we filtered to the ones that have the highest count?</span>
+<span class="n">tsne_sorted</span> <span class="o">=</span> <span class="n">tsne_plot</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;topic&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;word&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">tsne_sorted</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Cool so lets get a list of the ones that we want to keep. For now we&#39;ll say if it has 25 or more.</span>
+<span class="c1">#Seems like a much more manageable number of categories. Lets dance.</span>
+<span class="n">tsne_sorted</span> <span class="o">=</span> <span class="n">tsne_sorted</span><span class="p">[</span><span class="n">tsne_sorted</span><span class="p">[</span><span class="s1">&#39;word&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">]</span>
+<span class="n">tsne_sorted</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Dance. dance. dance. in my fancy, pants. pants. pants.</span>
+<span class="c1">#From 79,000 to 12,000 not bad at all.</span>
+<span class="n">filter_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">tsne_sorted</span><span class="o">.</span><span class="n">topic</span><span class="p">)</span>
+<span class="n">tsne_filtered</span> <span class="o">=</span> <span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="n">tsne_vectors_cluster</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">filter_list</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">tsne_filtered</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">tsne_filtered</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<p>LETS USE A CLUSTER GUIDE DATAFRAME TO SEE WHERE WE SHOULD MAKE OUR QUESTIONS.</p>
+<div class="highlight"><pre><span></span><span class="c1">#Okey dokey then... lets see what&#39;s behind cluster number 2618</span>
+<span class="n">tsne_sorted</span> <span class="o">=</span> <span class="n">tsne_sorted</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;topic&#39;</span><span class="p">:</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;word&#39;</span><span class="p">:</span><span class="s1">&#39;count&#39;</span><span class="p">})</span>
+<span class="n">cluster_guide_new</span> <span class="o">=</span> <span class="n">cluster_guide</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">tsne_sorted</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;cluster&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_guide_new</span> <span class="o">=</span> <span class="n">cluster_guide_new</span><span class="p">[</span><span class="n">cluster_guide_new</span><span class="p">[</span><span class="s1">&#39;cluster&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">filter_list</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_guide_new</span><span class="p">[</span><span class="s1">&#39;sort_by&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cluster_guide_new</span><span class="p">[</span><span class="s1">&#39;count&#39;</span><span class="p">]</span><span class="o">*</span><span class="n">cluster_guide_new</span><span class="p">[</span><span class="s1">&#39;persistence&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_guide_new</span> <span class="o">=</span> <span class="n">cluster_guide_new</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;sort_by&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">cluster_guide_new</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">cluster_guide_present</span> <span class="o">=</span> <span class="n">cluster_guide_new</span><span class="p">[[</span><span class="s1">&#39;cluster&#39;</span><span class="p">,</span> <span class="s1">&#39;persistence&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">,</span> <span class="s1">&#39;proba&#39;</span><span class="p">,</span> <span class="s1">&#39;sort_by&#39;</span><span class="p">]]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Cool, so we&#39;re going to get the most out of cluster 1043 lets also sort them by probability.</span>
+<span class="n">tsne_filtered</span><span class="p">[</span><span class="n">tsne_filtered</span><span class="p">[</span><span class="s1">&#39;topic&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1043</span><span class="p">]</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;proba&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#What&#39;s going on with this thing?... when we look at each word and see how it relates</span>
+<span class="c1">#This seems to be our &quot;Classic Action&quot; genre.</span>
+<span class="n">word_model</span><span class="o">.</span><span class="n">most_similar</span><span class="p">(</span><span class="s1">&#39;juror_8&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<h1>THE REST OF THIS PROJECT IS STILL UNDER CONSTRUCTION AND WILL BE POSTED HERE SHORTLY.</h1>
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <!--<footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center>This project contains 21 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.
+                <br/>
+                Copyright &copy; Nate Hall
+                    <time datetime="2016">2016</time>.
+                </center>
+            </p>
+        </div>
+    </footer>-->
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
