@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Design for website inspired by Chris Albon-->
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Code, Tutorials, and References for Data Science">
+    <meta name="author" content="Code, Tutorials, and References for Data Science">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <title>Predicting if My 1 Year Old Will Sleep - Articles</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+              <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <!--<li class="dropdown">
+                    <a href="../visuals.html" role="button" aria-haspopup="true" aria-expanded="false">Visualizations</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Top Visuals</a></li>
+                        <li><a href="./visuals.html">Projects</a></li>
+                    </ul>
+                </li>-->
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../index.html">Data Wrangling</a></li>
+                          <li><a href="../index.html">Data Science</a></li>
+                          <li><a href="../index.html">Random</a></li>
+                      </ul>
+                  <!--</li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles<span class="caret"></span></a>
+                        <ul class="dropdown-menu">-->
+                  <li><a href="../articles.html">Articles</a></li>
+                  <li><a href="../portfolio.html">Portfolio</a></li>
+                        <!--</ul>
+                    </li>-->
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../pages/about_nate.html">About Nate</a></li>
+                          <li><a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">GitHub</a></li>
+                          <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a", target="_blank">LinkedIn</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+    <header>
+    <h1>
+      Predicting if My 1 Year Old Will Sleep
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2017-03-04T12:00:00-05:00">
+            04 March 2017
+        </time>
+    </li>
+    <li>Articles</li>
+</ol>
+</header>
+<div class='article_content'>
+<p><img src="../images/baby.jpg" width="1000"></p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">data_check</span> <span class="kn">import</span> <span class="n">summary</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+</pre></div>
+
+
+<h2>Loading in the data and exploring a little bit.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Import the sleep tracking data, parse the dates on this step.</span>
+<span class="n">df_sleep</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/sleep_tracker.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Start Time&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;Date.1&#39;</span><span class="p">,</span> <span class="s1">&#39;End Time&#39;</span><span class="p">]])</span>
+<span class="c1">#Copy this for calculating awake time later.</span>
+<span class="n">df_awake</span> <span class="o">=</span> <span class="n">df_sleep</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1">#Import the feeding tracking data, parse the dates on this step.</span>
+<span class="n">df_feed</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/feeding_tracker.csv&#39;</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[[</span><span class="s1">&#39;Date&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">]])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#What&#39;s in the sleep data?</span>
+<span class="k">print</span> <span class="s2">&quot;DF_SLEEP&quot;</span><span class="p">,</span> <span class="n">df_sleep</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df_sleep</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>DF_SLEEP (2738, 2)
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date_Start Time</th>
+      <th>Date.1_End Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-02-27 22:55:31</td>
+      <td>2017-02-27 23:01:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-02-27 21:13:00</td>
+      <td>2017-02-27 22:24:49</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-02-27 14:42:23</td>
+      <td>2017-02-27 15:19:48</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-02-27 11:01:37</td>
+      <td>2017-02-27 11:24:49</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-02-27 05:15:53</td>
+      <td>2017-02-27 07:30:33</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="highlight"><pre><span></span><span class="c1">#What&#39;s in the feed data?</span>
+<span class="k">print</span> <span class="s2">&quot;DF_FEED&quot;</span><span class="p">,</span> <span class="n">df_feed</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df_feed</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>DF_FEED (4239, 3)
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Date_Time</th>
+      <th>L</th>
+      <th>R</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-02-27 22:44:25</td>
+      <td>660.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-02-27 22:26:36</td>
+      <td>NaN</td>
+      <td>600.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-02-27 21:02:51</td>
+      <td>352.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-02-27 20:26:49</td>
+      <td>161.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-02-27 20:14:23</td>
+      <td>NaN</td>
+      <td>745.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Format the data into something easier to work with.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">merge_sleep_and_feed</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">merge_sleep_and_feed</span><span class="p">(</span><span class="n">df_sleep</span><span class="p">,</span> <span class="n">df_feed</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>(6977, 7)
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date_time</th>
+      <th>sleeping</th>
+      <th>feeding</th>
+      <th>feeding_left</th>
+      <th>feeding_right</th>
+      <th>feeding_duration</th>
+      <th>sleeping_duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2016-04-10 17:25:23</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>00:05:43</td>
+      <td>00:00:00</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016-04-10 18:38:30</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>00:08:35</td>
+      <td>00:00:00</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2016-04-10 18:47:11</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>00:00:00</td>
+      <td>00:37:43</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2016-04-10 20:01:09</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>00:06:32</td>
+      <td>00:00:00</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2016-04-10 21:59:52</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>00:06:36</td>
+      <td>00:00:00</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Remove misentered data... this was dad's fault.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">convert_to_minutes</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert durations to minutes so they can be visualized.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_minutes</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">convert_to_minutes</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_duration&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Plot the sleep durations.</span>
+<span class="n">sleep_plot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">sleep_plot</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_hours&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="n">sleep_plot</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">))]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;sleeping_duration_hours&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sleep_plot</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x11187bb50&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_13_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Plot the feeding durations.</span>
+<span class="n">feed_plot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">feed_plot</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">feed_plot</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">feed_plot</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1118ce5d0&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_14_1.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#Parents of bad sleepers know EXACTLY the most hours their child has given them in a night. So I can assure you that</span>
+<span class="c1">#my daughters longest run was a little over 7 hours. The other events where times when I forgot to stop the timer.</span>
+<span class="c1">#The long feedings being plotted are also the results of timers being forgotten to be stopped (though this wasn&#39;t</span>
+<span class="c1">#dad&#39;s fault this time). :P</span>
+
+<span class="c1">#Filter out sleep times that were over 500.</span>
+<span class="k">print</span> <span class="s2">&quot;SHAPE BEFORE FILTERING = &quot;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">]</span>
+
+<span class="c1">#Filter out feeding times that were over 30 minutes.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;SHAPE AFTER FILTERING = &quot;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>SHAPE BEFORE FILTERING =  (6977, 9)
+SHAPE AFTER FILTERING =  (6865, 9)
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Reset the index to avoid for loop issues later.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">#Check for null values</span>
+<span class="n">summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>ROWS = 6865  |  COLUMNS = 9
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>entries</th>
+      <th>null_entries</th>
+      <th>unique_entries</th>
+      <th>data_type</th>
+      <th>memory_usage(kb)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>date_time</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>6865</td>
+      <td>datetime64[ns]</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>sleeping</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2</td>
+      <td>int64</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>feeding</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2</td>
+      <td>int64</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>feeding_left</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2</td>
+      <td>int64</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>feeding_right</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2</td>
+      <td>int64</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>feeding_duration</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>1260</td>
+      <td>timedelta64[ns]</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>sleeping_duration</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2331</td>
+      <td>timedelta64[ns]</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>sleeping_duration_minutes</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>2331</td>
+      <td>float64</td>
+      <td>54</td>
+    </tr>
+    <tr>
+      <th>feeding_duration_minutes</th>
+      <td>6865</td>
+      <td>0</td>
+      <td>763</td>
+      <td>float64</td>
+      <td>54</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Combine feeding events if the time between events is less than 5mins.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">combine_feedings</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#As my daughter grew up she would feed on both sides. However, my wife would create a new entry for each side.</span>
+<span class="c1">#These should be seen as one feeding event.</span>
+<span class="c1">#So if two feeding rows are within 5mins of each other I have summed them together.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">combine_feedings</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="c1">#Reset the index to avoid for loop issues later.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;index&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>SHAPE BEFORE COMBINING =  (6865, 9)
+SHAPE AFTER COMBINING =  (5985, 9)
+</pre></div>
+
+
+<h2>Separate out dozing from sleeping.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">get_dozes</span><span class="p">,</span> <span class="n">get_duration</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#My daughter often dozes off and on before actually falling asleep.</span>
+<span class="c1">#Because we have a video baby monitor my wife will mark these events on the sleep tracker.</span>
+<span class="c1">#However these events are going to interfere with our ability to predict sleeping duration.</span>
+<span class="c1">#So we&#39;ll separate them out into another variable called &quot;dozes&quot;.</span>
+<span class="c1">#If a sleeping event is less than 30mins we&#39;ll call it a doze.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dozes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_dozes</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">])</span>
+<span class="c1">#Get the dozing durations.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;dozing_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;dozes&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">])</span>
+<span class="c1">#Subtract dozes out from the sleeping column so that we don&#39;t double flag them as naps or nights later.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;dozes&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<h2>Mark multi-feedings.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#With the feeding rows combined, we can mark which times Heather was fed on multiple sides.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;multi_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_left&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_right&#39;</span><span class="p">]</span>
+
+<span class="c1">#Convert the multi-feedings column to boolean.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;multi_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;multi_feeding&#39;</span><span class="p">]]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">multi_feed_plot</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s2">&quot;multi_feeding&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">multi_feed_plot</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x106b91f90&gt;
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_25_1.png"></p>
+<h2>Impute awake duration.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">impute_awake_time</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">impute_awake_time</span><span class="p">(</span><span class="n">df_awake</span><span class="p">,</span> <span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Split sleeping into naps and nights.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">data_formatting</span> <span class="kn">import</span> <span class="n">day_split</span><span class="p">,</span> <span class="n">night_split</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Add an hour column and then split sleeping into the categories.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">hour</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Napping equals after 9am and before 6pm.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;napping&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;napping_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;napping&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Nights equals after 6pm and before 9am.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_nights&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">night_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_nights&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<h2>Filter awake time to only include daytime durations.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Splitting awake and taking the day value.</span>
+<span class="c1">#It would be too easy for the model to predict sleeping if the night value were left in the dataset.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake_day&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake_day_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake_day&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake_duration_minutes&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<h2>Split feedings into day and night.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Feeding, day.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_feeding_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Feeding, night.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;night_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">night_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;night_feeding_duration_minutes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_duration</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;night_feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Splitting multi_feeding.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_multi_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">day_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;multi_feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;night_multi_feeding&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">night_split</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;multi_feeding&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])</span>
+</pre></div>
+
+
+<h2>Aggregate the data into 24hr periods from 6a.m. to 6a.m..</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Make a date column.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">date</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Minus a day if the hour is equal to or less than 6.</span>
+<span class="c1">#This will result in shifting the days by six hours.</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;day_period&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">-</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">6</span> <span class="k">else</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> \
+                         <span class="k">for</span> <span class="n">x</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;hour&#39;</span><span class="p">])]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Drop the columns we&#39;re done with.</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;awake&#39;</span><span class="p">,</span><span class="s1">&#39;awake_duration&#39;</span><span class="p">,</span> <span class="s1">&#39;awake_duration_minutes&#39;</span><span class="p">,</span> <span class="s1">&#39;feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;feeding_duration_minutes&#39;</span><span class="p">,</span>\
+              <span class="s1">&#39;multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;feeding_duration&#39;</span><span class="p">,</span> <span class="s1">&#39;date_time&#39;</span><span class="p">,</span> <span class="s1">&#39;feeding_left&#39;</span><span class="p">,</span> <span class="s1">&#39;feeding_right&#39;</span><span class="p">,</span>\
+              <span class="s1">&#39;sleeping&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_duration_minutes&#39;</span><span class="p">,</span><span class="s1">&#39;sleeping_duration&#39;</span><span class="p">,</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;hour&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Group the data and reset the index.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;day_period&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+</pre></div>
+
+
+<h2>One more step of filtering to remove the days where we weren't on top of tracking.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#She did all these things every day... so if a day doesn&#39;t have them its likely we didn&#39;t track very well</span>
+<span class="c1">#On that day.</span>
+<span class="k">print</span> <span class="s2">&quot;SHAPE BEFORE FILTERING = &quot;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;napping&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;awake_day&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;night_feeding&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<span class="k">print</span> <span class="s2">&quot;SHAPE AFTER FILTERING = &quot;</span><span class="p">,</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>SHAPE BEFORE FILTERING =  (324, 15)
+SHAPE AFTER FILTERING =  (321, 15)
+</pre></div>
+
+
+<h2>After all that feature engineering we now have.</h2>
+<div class="highlight"><pre><span></span><span class="n">summary</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>ROWS = 321  |  COLUMNS = 15
+</pre></div>
+
+
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>entries</th>
+      <th>null_entries</th>
+      <th>unique_entries</th>
+      <th>data_type</th>
+      <th>memory_usage(kb)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>day_period</th>
+      <td>321</td>
+      <td>0</td>
+      <td>321</td>
+      <td>object</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>dozes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>10</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>dozing_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>221</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>napping</th>
+      <td>321</td>
+      <td>0</td>
+      <td>4</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>napping_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>312</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>sleeping_nights</th>
+      <td>321</td>
+      <td>0</td>
+      <td>10</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>sleeping_nights_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>318</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>awake_day</th>
+      <td>321</td>
+      <td>0</td>
+      <td>6</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>awake_day_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>317</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>day_feeding</th>
+      <td>321</td>
+      <td>0</td>
+      <td>8</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>day_feeding_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>312</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>night_feeding</th>
+      <td>321</td>
+      <td>0</td>
+      <td>13</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>night_feeding_duration_minutes</th>
+      <td>321</td>
+      <td>0</td>
+      <td>314</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>day_multi_feeding</th>
+      <td>321</td>
+      <td>0</td>
+      <td>6</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>night_multi_feeding</th>
+      <td>321</td>
+      <td>0</td>
+      <td>7</td>
+      <td>float64</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Define the target variable.</h2>
+<div class="highlight"><pre><span></span><span class="c1">#Create a model dataframe.</span>
+<span class="n">df_model</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#I want to know for each day if my daughters sleep rate was above or below her median night sleep rate.</span>
+<span class="c1">#To do this we&#39;ll first need a sleep rate.</span>
+<span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;sleep_rate&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">]</span><span class="o">/</span><span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;sleeping_nights&#39;</span><span class="p">]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Then the median.</span>
+<span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;sleep_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>112.35694444444444
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Predict if the sleep rate will be above the median.</span>
+<span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mf">112.36</span> <span class="k">else</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;sleep_rate&#39;</span><span class="p">]]</span>
+</pre></div>
+
+
+<h1>Modeling</h1>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1">#Custom modules written for brevity.</span>
+<span class="kn">from</span> <span class="nn">classifier_plot</span> <span class="kn">import</span> <span class="n">evaluate_classifier</span><span class="p">,</span> <span class="n">evaluate_features</span>
+<span class="kn">from</span> <span class="nn">grid_search</span> <span class="kn">import</span> <span class="n">gb_grid_search</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">y</span> <span class="o">=</span> <span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df_model</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;day_period&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_model</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Gradient Boosting Classifier</h2>
+<div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">gb_grid_search</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Best score = 0.78125
+{&#39;max_features&#39;: &#39;log2&#39;, &#39;loss&#39;: &#39;exponential&#39;, &#39;learning_rate&#39;: 0.95, &#39;n_estimators&#39;: 100}
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#GB Classifier</span>
+<span class="n">gb_clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+<span class="n">gb_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">evaluate_classifier</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="s2">&quot;GRADIENT BOOSTING CLASSIFIER&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>-----------------------------------------------------------------------------------------------------------------
+
+                                           GRADIENT BOOSTING CLASSIFIER
+
+-----------------------------------------------------------------------------------------------------------------
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_61_1.png"></p>
+<div class="highlight"><pre><span></span>     --------------------------------------------            --------------------------------------------
+                   CONFUSION MATRIX                                     CLASSIFICATION REPORT
+                       (n = 97)                                         n = (0 = 49) (1 = 48)
+     --------------------------------------------            --------------------------------------------
+           |   TP = 38,   |   FN = 11    |                               |    0     |    1     |   avg   
+                                                              precision  |   0.81   |   0.78   |   0.79   
+           |   FP = 9,   |   TN = 39    |                    recall     |   0.78   |   0.81   |   0.79   
+                                                              f1-score   |   0.79   |   0.80   |   0.79   
+                                                             --------------------------------------------
+                                                              total_avg  |   0.79   |   0.80   |   0.79
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">evaluate_features</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="s1">&#39; GRADIENT BOOSTING CLASSIFIER&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_62_0.png"></p>
+<div class="highlight"><pre><span></span><span class="c1">#This is all very nice, and proves that my daughters sleep can be predicted. But now her mom and I</span>
+<span class="c1">#really want to know what are the positive and negative things we are doing. What things improve her</span>
+<span class="c1">#sleep chances, and impair her sleep chances?</span>
+
+<span class="c1">#For this information we&#39;ll use a logistic regression model.</span>
+</pre></div>
+
+
+<h3>Logistic Regression</h3>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">model_formatting</span> <span class="kn">import</span> <span class="n">get_dummies</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">svm</span><span class="p">,</span> <span class="n">linear_model</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Set a separate dataframe for this model.</span>
+<span class="n">df_logit</span> <span class="o">=</span> <span class="n">df_model</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_logit</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Convert the categorical count data here into dummy variables for a logistic regression.</span>
+<span class="n">df_logit</span> <span class="o">=</span> <span class="n">get_dummies</span><span class="p">([</span><span class="s1">&#39;dozes&#39;</span><span class="p">,</span> <span class="s1">&#39;napping&#39;</span><span class="p">,</span> <span class="s1">&#39;awake_day&#39;</span><span class="p">,</span> <span class="s1">&#39;day_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;night_feeding&#39;</span><span class="p">,</span>\
+                        <span class="s1">&#39;day_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;night_multi_feeding&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;doze_count&#39;</span><span class="p">,</span> <span class="s1">&#39;nap_count&#39;</span><span class="p">,</span>\
+                        <span class="s1">&#39;awake_count&#39;</span><span class="p">,</span> <span class="s1">&#39;day_feed_count&#39;</span><span class="p">,</span> <span class="s1">&#39;night_feed_count&#39;</span><span class="p">,</span> <span class="s1">&#39;day_multi_count&#39;</span><span class="p">,</span>\
+                        <span class="s1">&#39;night_multi_feed_count&#39;</span><span class="p">],</span> <span class="n">df_logit</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Drop one column from each dummy variable.</span>
+<span class="n">df_logit</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;doze_count_12&#39;</span><span class="p">,</span> <span class="s1">&#39;nap_count_4&#39;</span><span class="p">,</span> <span class="s1">&#39;awake_count_6&#39;</span><span class="p">,</span> <span class="s1">&#39;day_feed_count_1&#39;</span><span class="p">,</span>\
+              <span class="s1">&#39;night_feed_count_13&#39;</span><span class="p">,</span> <span class="s1">&#39;day_multi_count_0&#39;</span><span class="p">,</span> <span class="s1">&#39;night_multi_feed_count_0&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Define the target for logistic model</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">df_logit</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df_logit</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">df_logit</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">X1_train</span><span class="p">,</span> <span class="n">X1_test</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">,</span> <span class="n">y1_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Logistic Regression Classifier</span>
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;liblinear&#39;</span><span class="p">,</span>\
+                                             <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l1&#39;</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">Cs</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">logistic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1_train</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">)</span>
+<span class="n">y1_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1_test</span><span class="p">)</span>
+<span class="n">y1_proba</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X1_test</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">evaluate_classifier</span><span class="p">(</span><span class="n">X1_test</span><span class="p">,</span> <span class="n">y1_test</span><span class="p">,</span> <span class="n">y1_pred</span><span class="p">,</span> <span class="n">y1_proba</span><span class="p">,</span> <span class="s2">&quot;LOGISTIC REGRESSION CLASSIFIER&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>-----------------------------------------------------------------------------------------------------------------
+
+                                           LOGISTIC REGRESSION CLASSIFIER
+
+-----------------------------------------------------------------------------------------------------------------
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_72_1.png"></p>
+<div class="highlight"><pre><span></span>     --------------------------------------------            --------------------------------------------
+                   CONFUSION MATRIX                                     CLASSIFICATION REPORT
+                       (n = 97)                                         n = (0 = 49) (1 = 48)
+     --------------------------------------------            --------------------------------------------
+           |   TP = 40,   |   FN = 9    |                               |    0     |    1     |   avg   
+                                                              precision  |   0.83   |   0.82   |   0.82   
+           |   FP = 8,   |   TN = 40    |                    recall     |   0.82   |   0.83   |   0.82   
+                                                              f1-score   |   0.82   |   0.82   |   0.82   
+                                                             --------------------------------------------
+                                                              total_avg  |   0.82   |   0.82   |   0.82
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">logistic_coef</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">logistic</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">tolist</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
+        <span class="n">logistic_coef</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="p">)</span>
+<span class="n">evaluate_features</span><span class="p">(</span><span class="n">X1_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">logistic_coef</span><span class="p">,</span> <span class="s1">&#39; LOGISTIC REGRESSION CLASSIFIER&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mf">8.5</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/will_my_daughter_sleep/output_73_0.png"></p>
+<h1>FROM THIS POINT ON THIS ARTICLE IS STILL BEING DRAFTED. IT IS PUBLISHED HERE FOR PROOFREADING PURPOSES.</h1>
+<h2>Filter to only the statistically significant features and plot the coefficients.</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+<span class="kn">import</span> <span class="nn">statsmodels.formula.api</span> <span class="kn">as</span> <span class="nn">sm</span>
+<span class="kn">from</span> <span class="nn">patsy</span> <span class="kn">import</span> <span class="n">dmatrices</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">ensemble</span><span class="p">,</span> <span class="n">preprocessing</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_columns</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">max_colwidth</span> <span class="o">=</span> <span class="mi">300</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">df_model</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="n">holder</span> <span class="o">=</span> <span class="s1">u&#39; + &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">holder</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">holder</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>day_period + dozes + dozing_duration_minutes + napping + napping_duration_minutes + sleeping_nights + sleeping_nights_duration_minutes + awake_day + awake_day_duration_minutes + day_feeding + day_feeding_duration_minutes + night_feeding + night_feeding_duration_minutes + day_multi_feeding + night_multi_feeding + sleep_rate + target
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#model = sm.logit(&quot;target ~ day_period + dozes + dozing_duration_minutes + napping + napping_duration_minutes + sleeping_nights + sleeping_nights_duration_minutes + awake_day + awake_day_duration_minutes + day_feeding + day_feeding_duration_minutes + night_feeding + night_feeding_duration_minutes + day_multi_feeding + night_multi_feeding + sleep_rate&quot;, data=df_model).fit()</span>
+<span class="c1">#model.summary()</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">Warning</span><span class="o">:</span> <span class="n">Maximum</span> <span class="n">number</span> <span class="n">of</span> <span class="n">iterations</span> <span class="n">has</span> <span class="n">been</span> <span class="n">exceeded</span><span class="o">.</span>
+         <span class="n">Current</span> <span class="kd">function</span> <span class="n">value</span><span class="o">:</span> <span class="n">inf</span>
+         <span class="n">Iterations</span><span class="o">:</span> <span class="mi">35</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/statsmodels-0.8.0-py2.7-macosx-10.6-x86_64.egg/statsmodels/discrete/</span><span class="n">discrete_model</span><span class="o">.</span><span class="na">py</span><span class="o">:</span><span class="mi">1214</span><span class="o">:</span> <span class="n">RuntimeWarning</span><span class="o">:</span> <span class="n">overflow</span> <span class="n">encountered</span> <span class="k">in</span> <span class="n">exp</span>
+  <span class="k">return</span> <span class="mi">1</span><span class="o">/(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="na">exp</span><span class="o">(-</span><span class="n">X</span><span class="o">))</span>
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/statsmodels-0.8.0-py2.7-macosx-10.6-x86_64.egg/statsmodels/discrete/</span><span class="n">discrete_model</span><span class="o">.</span><span class="na">py</span><span class="o">:</span><span class="mi">1264</span><span class="o">:</span> <span class="n">RuntimeWarning</span><span class="o">:</span> <span class="n">divide</span> <span class="n">by</span> <span class="n">zero</span> <span class="n">encountered</span> <span class="k">in</span> <span class="n">log</span>
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="na">sum</span><span class="o">(</span><span class="n">np</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">self</span><span class="o">.</span><span class="na">cdf</span><span class="o">(</span><span class="n">q</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="na">dot</span><span class="o">(</span><span class="n">X</span><span class="o">,</span><span class="n">params</span><span class="o">))))</span>
+
+
+
+<span class="o">---------------------------------------------------------------------------</span>
+
+<span class="n">LinAlgError</span>                               <span class="n">Traceback</span> <span class="o">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="o">)</span>
+
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="n">input</span><span class="o">-</span><span class="mi">67</span><span class="o">-</span><span class="mi">7</span><span class="n">b78c0c03d8d</span><span class="o">&gt;</span> <span class="k">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;()</span>
+<span class="o">----&gt;</span> <span class="mi">1</span> <span class="n">model</span> <span class="o">=</span> <span class="n">sm</span><span class="o">.</span><span class="na">logit</span><span class="o">(</span><span class="s2">&quot;target ~ day_period + dozes + dozing_duration_minutes + napping + napping_duration_minutes + sleeping_nights + sleeping_nights_duration_minutes + awake_day + awake_day_duration_minutes + day_feeding + day_feeding_duration_minutes + night_feeding + night_feeding_duration_minutes + day_multi_feeding + night_multi_feeding + sleep_rate&quot;</span><span class="o">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df_model</span><span class="o">).</span><span class="n">fit</span><span class="o">()</span>
+      <span class="mi">2</span> <span class="n">model</span><span class="o">.</span><span class="na">summary</span><span class="o">()</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/statsmodels-0.8.0-py2.7-macosx-10.6-x86_64.egg/statsmodels/discrete/</span><span class="n">discrete_model</span><span class="o">.</span><span class="na">pyc</span> <span class="k">in</span> <span class="n">fit</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">start_params</span><span class="o">,</span> <span class="n">method</span><span class="o">,</span> <span class="n">maxiter</span><span class="o">,</span> <span class="n">full_output</span><span class="o">,</span> <span class="n">disp</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="o">)</span>
+   <span class="mi">1375</span>         <span class="n">bnryfit</span> <span class="o">=</span> <span class="kd">super</span><span class="o">(</span><span class="n">Logit</span><span class="o">,</span> <span class="n">self</span><span class="o">).</span><span class="n">fit</span><span class="o">(</span><span class="n">start_params</span><span class="o">=</span><span class="n">start_params</span><span class="o">,</span>
+   <span class="mi">1376</span>                 <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="o">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="o">,</span> <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="o">,</span>
+<span class="o">-&gt;</span> <span class="mi">1377</span>                 <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="o">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="o">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="o">)</span>
+   <span class="mi">1378</span>
+   <span class="mi">1379</span>         <span class="n">discretefit</span> <span class="o">=</span> <span class="n">LogitResults</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">bnryfit</span><span class="o">)</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/statsmodels-0.8.0-py2.7-macosx-10.6-x86_64.egg/statsmodels/discrete/</span><span class="n">discrete_model</span><span class="o">.</span><span class="na">pyc</span> <span class="k">in</span> <span class="n">fit</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">start_params</span><span class="o">,</span> <span class="n">method</span><span class="o">,</span> <span class="n">maxiter</span><span class="o">,</span> <span class="n">full_output</span><span class="o">,</span> <span class="n">disp</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="o">)</span>
+    <span class="mi">202</span>         <span class="n">mlefit</span> <span class="o">=</span> <span class="kd">super</span><span class="o">(</span><span class="n">DiscreteModel</span><span class="o">,</span> <span class="n">self</span><span class="o">).</span><span class="n">fit</span><span class="o">(</span><span class="n">start_params</span><span class="o">=</span><span class="n">start_params</span><span class="o">,</span>
+    <span class="mi">203</span>                 <span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="o">,</span> <span class="n">maxiter</span><span class="o">=</span><span class="n">maxiter</span><span class="o">,</span> <span class="n">full_output</span><span class="o">=</span><span class="n">full_output</span><span class="o">,</span>
+<span class="o">--&gt;</span> <span class="mi">204</span>                 <span class="n">disp</span><span class="o">=</span><span class="n">disp</span><span class="o">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="o">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="o">)</span>
+    <span class="mi">205</span>
+    <span class="mi">206</span>         <span class="k">return</span> <span class="n">mlefit</span> <span class="err">#</span> <span class="n">up</span> <span class="n">to</span> <span class="n">subclasses</span> <span class="n">to</span> <span class="n">wrap</span> <span class="n">results</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/statsmodels-0.8.0-py2.7-macosx-10.6-x86_64.egg/statsmodels/base/</span><span class="n">model</span><span class="o">.</span><span class="na">pyc</span> <span class="k">in</span> <span class="n">fit</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">start_params</span><span class="o">,</span> <span class="n">method</span><span class="o">,</span> <span class="n">maxiter</span><span class="o">,</span> <span class="n">full_output</span><span class="o">,</span> <span class="n">disp</span><span class="o">,</span> <span class="n">fargs</span><span class="o">,</span> <span class="n">callback</span><span class="o">,</span> <span class="n">retall</span><span class="o">,</span> <span class="n">skip_hessian</span><span class="o">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="o">)</span>
+    <span class="mi">456</span>             <span class="n">Hinv</span> <span class="o">=</span> <span class="n">cov_params_func</span><span class="o">(</span><span class="n">self</span><span class="o">,</span> <span class="n">xopt</span><span class="o">,</span> <span class="n">retvals</span><span class="o">)</span>
+    <span class="mi">457</span>         <span class="n">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;newton&#39;</span> <span class="n">and</span> <span class="n">full_output</span><span class="o">:</span>
+<span class="o">--&gt;</span> <span class="mi">458</span>             <span class="n">Hinv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="na">linalg</span><span class="o">.</span><span class="na">inv</span><span class="o">(-</span><span class="n">retvals</span><span class="o">[</span><span class="s1">&#39;Hessian&#39;</span><span class="o">])</span> <span class="o">/</span> <span class="n">nobs</span>
+    <span class="mi">459</span>         <span class="n">elif</span> <span class="n">not</span> <span class="n">skip_hessian</span><span class="o">:</span>
+    <span class="mi">460</span>             <span class="n">H</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">self</span><span class="o">.</span><span class="na">hessian</span><span class="o">(</span><span class="n">xopt</span><span class="o">)</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/numpy/linalg/</span><span class="n">linalg</span><span class="o">.</span><span class="na">pyc</span> <span class="k">in</span> <span class="n">inv</span><span class="o">(</span><span class="n">a</span><span class="o">)</span>
+    <span class="mi">524</span>     <span class="n">signature</span> <span class="o">=</span> <span class="s1">&#39;D-&gt;D&#39;</span> <span class="k">if</span> <span class="n">isComplexType</span><span class="o">(</span><span class="n">t</span><span class="o">)</span> <span class="k">else</span> <span class="s1">&#39;d-&gt;d&#39;</span>
+    <span class="mi">525</span>     <span class="n">extobj</span> <span class="o">=</span> <span class="n">get_linalg_error_extobj</span><span class="o">(</span><span class="n">_raise_linalgerror_singular</span><span class="o">)</span>
+<span class="o">--&gt;</span> <span class="mi">526</span>     <span class="n">ainv</span> <span class="o">=</span> <span class="n">_umath_linalg</span><span class="o">.</span><span class="na">inv</span><span class="o">(</span><span class="n">a</span><span class="o">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="o">,</span> <span class="n">extobj</span><span class="o">=</span><span class="n">extobj</span><span class="o">)</span>
+    <span class="mi">527</span>     <span class="k">return</span> <span class="n">wrap</span><span class="o">(</span><span class="n">ainv</span><span class="o">.</span><span class="na">astype</span><span class="o">(</span><span class="n">result_t</span><span class="o">,</span> <span class="n">copy</span><span class="o">=</span><span class="n">False</span><span class="o">))</span>
+    <span class="mi">528</span>
+
+
+<span class="sr">/Users/nathanhall/anaconda2/lib/python2.7/site-packages/numpy/linalg/</span><span class="n">linalg</span><span class="o">.</span><span class="na">pyc</span> <span class="k">in</span> <span class="n">_raise_linalgerror_singular</span><span class="o">(</span><span class="n">err</span><span class="o">,</span> <span class="n">flag</span><span class="o">)</span>
+     <span class="mi">88</span>
+     <span class="mi">89</span> <span class="n">def</span> <span class="n">_raise_linalgerror_singular</span><span class="o">(</span><span class="n">err</span><span class="o">,</span> <span class="n">flag</span><span class="o">):</span>
+<span class="o">---&gt;</span> <span class="mi">90</span>     <span class="n">raise</span> <span class="n">LinAlgError</span><span class="o">(</span><span class="s2">&quot;Singular matrix&quot;</span><span class="o">)</span>
+     <span class="mi">91</span>
+     <span class="mi">92</span> <span class="n">def</span> <span class="n">_raise_linalgerror_nonposdef</span><span class="o">(</span><span class="n">err</span><span class="o">,</span> <span class="n">flag</span><span class="o">):</span>
+
+
+<span class="n">LinAlgError</span><span class="o">:</span> <span class="n">Singular</span> <span class="n">matrix</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">mfx</span> <span class="o">=</span> <span class="n">heather_mod</span><span class="o">.</span><span class="n">get_margeff</span><span class="p">()</span>
+<span class="k">print</span><span class="p">(</span><span class="n">mfx</span><span class="o">.</span><span class="n">summary</span><span class="p">())</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>        Logit Marginal Effects       
+=====================================
+Dep. Variable:                 target
+Method:                          dydx
+<span class="gh">At:                           overall</span>
+<span class="gh">==================================================================================================</span>
+                                    dy/dx    std err          z      P&gt;|z|      [0.025      0.975]
+--------------------------------------------------------------------------------------------------
+napping                            2.6830   1474.957      0.002      0.999   -2888.180    2893.546
+napping_duration_minutes          -0.0002      0.001     -0.322      0.748      -0.001       0.001
+awake_day                         -2.7214   1474.957     -0.002      0.999   -2893.584    2888.141
+awake_day_duration_minutes        -0.0003      0.000     -2.049      0.040      -0.001   -1.42e-05
+day_feeding                       -0.0007      0.027     -0.026      0.979      -0.054       0.052
+night_feeding                     -0.1057      0.013     -7.838      0.000      -0.132      -0.079
+day_feeding_duration_minutes      -0.0017      0.003     -0.529      0.597      -0.008       0.005
+night_feeding_duration_minutes    -0.0011      0.002     -0.641      0.522      -0.005       0.002
+day_multi_feeding                  0.0224      0.029      0.779      0.436      -0.034       0.079
+<span class="gh">night_multi_feeding                0.0599      0.020      3.004      0.003       0.021       0.099</span>
+<span class="gh">==================================================================================================</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <!--<footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center>This project contains 22 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.
+                <br/>
+                Copyright &copy; Nate Hall
+                    <time datetime="2016">2016</time>.
+                </center>
+            </p>
+        </div>
+    </footer>-->
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
