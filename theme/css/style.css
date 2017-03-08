@@ -5,7 +5,7 @@ html {
   position: relative;
   min-height: 100%;
   /* Padding bottom by footer height */
-  padding-bottom: 175px;
+  padding-bottom: 155px;
 }
 body {
   font-size: 16px;
@@ -17,7 +17,7 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 145px;
+  height: 100px;
 }
 
 a {
