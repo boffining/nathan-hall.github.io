@@ -134,16 +134,16 @@ body > .container {
 }
 
 .navbar-nav > li > a:hover, .navbar-nav > li > a:active {
-  background-color: #FFCC00;
+  color: #01BAEF;
 }
 
 .navbar-nav > li > a:focus{
-  background-color: #FFCC00;
+  color: #01BAEF;
 }
 
 
 .nav .dropdown.open > a, .nav .dropdown.open > a:hover, .nav .dropdown.open > a:focus {
-    background-color: #FFCC00;
+    color: #01BAEF;
 }
 
 .dropdown-menu {
@@ -151,7 +151,7 @@ body > .container {
 }
 
 .navbar-toggle {
-  background: #FFCC00;
+  background: #01BAEF;
 }
 
 .footer {
