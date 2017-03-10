@@ -69,13 +69,13 @@ body > .container {
 }
 
 .navbar {
-      background-color: #00CC66;
-      border-bottom: 0px solid #00CC66;
+      background-color: #fff;
+      border-bottom: 0px solid #fff;
 }
 
 @media (max-width: 767px) {
   .navbar-header  {
-      background: #00CC66;
+      background: #fff;
   }
 }
 
@@ -84,8 +84,8 @@ body > .container {
 }
 
 .navbar, .navbar {
-  color: #fff;
-  background: #00CC66;
+  color: #17ad49;
+  background: #fff;
   letter-spacing: 1px;
   font-weight: 700;
   text-transform: uppercase;
@@ -93,8 +93,8 @@ body > .container {
 }
 
 .navbar-brand, .navbar-brand:hover {
-  color: #fff;
-  background: #00CC66;
+  color: #17ad49;
+  background: #fff;
   margin-top: : 5px;
   margin-right: 20px;
   letter-spacing: 1px;
@@ -104,7 +104,7 @@ body > .container {
 }
 
 .navbar .navbar-brand:hover {
-  background: #FFCC00;
+  color: #01BAEF;
 }
 
 
@@ -116,7 +116,7 @@ body > .container {
 }
 
 .navbar-nav > li > a {
-  color: #fff;
+  color: #17ad49;
   font-size: 13px;
   text-transform: uppercase;
   font-size: 12px;
@@ -320,7 +320,7 @@ h6,
     line-height: 1;
     color: #fff;
     text-align: center;
-    background-color: #FFCC00;
+    background-color: #17ad49;
     border: 0px solid #ccc;
     border-radius: 0px;
 }
