@@ -170,7 +170,9 @@ body > .container {
 }
 
 .article_content p, .article_content li, .homepage-blurb p{
-    font-family: 'PT Serif', serif;
+    font-family: 'EB Garamond', serif;
+    text-indent: 25px;
+    font-size: 19px;
     color: #333333;
     letter-spacing: -0.02px;
     font-size: 17px;
@@ -243,6 +245,12 @@ h3.panel-title {
 p {
   font-size: 16px;
   margin: 20px 0 20px 0;
+}
+
+p.reading{
+  font-family: 'EB Garamond', serif;
+  text-indent: 30px;
+  font-size: 18px;
 }
 
 header {
