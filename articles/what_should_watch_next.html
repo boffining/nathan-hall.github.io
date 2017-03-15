@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!--Design for website inspired by Chris Albon-->
+      <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Code, Tutorials, and References for Data Science">
+    <meta name="author" content="Code, Tutorials, and References for Data Science">
+    <link rel="icon" href="../images/favicon.ico">
+
+    <title>What should I watch next? - Articles</title>
+
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../theme/js/jquery.min.js"><\/script>')
+    </script>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="../theme/css/bootstrap.css" />
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/ie10-viewport-bug-workaround.css" />
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="../theme/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../theme/css/notebooks.css" />
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=EB+Garamond" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+        
+
+
+
+</head>
+
+<body>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href=".." style="margin-top: 5px;">INSTANTI-NATE</a>
+            </div>
+            <div class="navbar-collapse collapse" id="searchbar">
+
+              <ul class="nav navbar-nav navbar-right" style="margin-top: 15px;">
+                <!--<li class="dropdown">
+                    <a href="../visuals.html" role="button" aria-haspopup="true" aria-expanded="false">Visualizations</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="">Top Visuals</a></li>
+                        <li><a href="./visuals.html">Projects</a></li>
+                    </ul>
+                </li>-->
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Science<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../index.html">Data Wrangling</a></li>
+                          <li><a href="../index.html">Data Science</a></li>
+                          <li><a href="../index.html">Random</a></li>
+                      </ul>
+                  <!--</li>
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Articles<span class="caret"></span></a>
+                        <ul class="dropdown-menu">-->
+                  <!--<li><a href="../articles.html">Articles</a></li>-->
+                  <li><a href="../portfolio.html">Portfolio</a></li>
+                        <!--</ul>
+                    </li>-->
+                  <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          <li><a href="../pages/about_nate.html">About Nate</a></li>
+                          <li><a href="https://github.com/nathan-hall", target="_blank">GitHub</a></li>
+                          <li><a href="https://www.linkedin.com/in/nathan-hall-a3ba833a", target="_blank">LinkedIn</a></li>
+                      </ul>
+                  </li>
+              </ul>
+
+                <form class="navbar-form" action="../search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <div class="form-group" style="display:inline;">
+                        <div class="input-group" style="display:table;">
+                            <span class="input-group-addon" style="width:1%;"><span class="glyphicon glyphicon-search"></span></span>
+                            <input class="form-control search-query" name="q" id="tipue_search_input" placeholder="e.g. scikit KNN, pandas merge" required autocomplete="off" type="text">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+
+
+
+    <!-- end of header section -->
+    <div class="container">
+<!-- <div class="alert alert-warning" role="alert">
+    Did you find this page useful? Please do me a quick favor and <a href="#" class="alert-link">endorse me for data science on LinkedIn</a>.
+</div> -->
+<section id="content" class="body">
+  <div class="col-sm-12">
+    <header>
+    <h1>
+      What should I watch next?
+    </h1>
+<ol class="breadcrumb">
+    <li>
+        <time class="published" datetime="2017-03-11T12:00:00-05:00">
+            11 March 2017
+        </time>
+    </li>
+    <li>Articles</li>
+</ol>
+</header>
+<div class='article_content'>
+<blockquote>
+<p>We've all wondered this. If you were to solve this problem analytically you might track your movie history and rate which ones you liked. You may even compare what you liked to what other people said they liked.</p>
+<p>But that assumes tastes in movies can be similar. It also assumes that your view history is representative of what you like.</p>
+<p>That always seemed strange to me. How can I know what to watch if I haven't seen it yet?</p>
+<p>What other movies are out there that I would really like? I could just leave this up to the history tracking methods of online viewing tools. Or I could keep waiting to win the movie lottery and find that movie that I really love.</p>
+<p>But I don't like either of those prospects. So now I need to solve the problem using a different method.</p>
+</blockquote>
+<h5>Build a tool that can tell me what to watch next without knowing my viewing history.</h5>
+<blockquote>
+<p>This is by definition an "unsupervised" problem. Meaning, I have no data a specific person will like, nor will I know if when they use this tool they like the movie they chose.</p>
+<p>So this tool needs to at least make sense and be useful for my purposes, and hopefully it will be useful for others as well.</p>
+</blockquote>
+<h5>What if I analyzed how what folks are saying about movies is related?</h5>
+<blockquote>
+<p>I will use over 700,000 movie reviews from IMDB for this educational exercise.</p>
+<p>In these reviews critics use specific terms to analyze movies. They draw references between actors of old and the ones they are reviewing. They talk about the abstracts of a film. In other words, they give me lots of data to work from.</p>
+</blockquote>
+<h5>If there is enough relationships happening in the review wording, I might be able to then find what things are most related to what I want to see in a movie.</h5>
+<blockquote>
+<p>This could then be used in a way where I can find movies most related to the types of things I like in a film.</p>
+</blockquote>
+<h4>Let's dive in.</h4>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">codecs</span>
+<span class="kn">import</span> <span class="nn">itertools</span> <span class="kn">as</span> <span class="nn">it</span>
+<span class="kn">from</span> <span class="nn">gensim.models.word2vec</span> <span class="kn">import</span> <span class="n">LineSentence</span>
+</pre></div>
+
+
+<h1>At a high level, the first step is to make...</h1>
+<p><img src="images/taging_reviews.png" align="left"></p>
+<h1>By:</h1>
+<blockquote>
+<h3>1. Extracting the movie ID from scraping url.</h3>
+<h3>2. Adding the ID to the beginning of the review string.</h3>
+<h3>3. Writing the review to a txt file.</h3>
+</blockquote>
+<p>Also, do this as a function so it is more memory efficient.</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">read_csv_get_id</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+    <span class="c1"># Read data from files</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="n">train</span> <span class="o">=</span> <span class="n">train</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">([</span><span class="s1">&#39;review&#39;</span><span class="p">])</span>
+    <span class="c1">#decode into utf-8 for spaCy later.</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">train</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">holder</span>
+    <span class="c1">#split out the movie_id and add as column.</span>
+    <span class="n">movie_id</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">train</span><span class="p">[</span><span class="s1">&#39;source&#39;</span><span class="p">]:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">26</span><span class="p">:</span><span class="mi">35</span><span class="p">]</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="s1">u&#39;=&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;ID&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">])</span>
+        <span class="n">movie_id</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">train</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movie_id</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/tagged_reviews.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;review&#39;</span><span class="p">]):</span>
+            <span class="c1"># Join the movie_ID for the review at the beginning of each string and write to a txt file.</span>
+            <span class="n">tagged_review</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">train</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">sentence</span><span class="p">])</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tagged_review</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">100000</span><span class="p">:</span>
+                <span class="n">batch</span> <span class="o">+=</span> <span class="n">status</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">print</span> <span class="n">batch</span><span class="p">,</span> <span class="s2">&quot;reviews completed&quot;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1">#Run the above function on the csv.</span>
+    <span class="n">read_csv_get_id</span><span class="p">(</span><span class="s1">&#39;data/final_set.csv&#39;</span><span class="p">)</span>
+<span class="n">reviews_raw</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;intermediate/tagged_reviews.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 7 µs, sys: 4 µs, total: 11 µs
+Wall time: 11.2 µs
+</pre></div>
+
+
+<h1>Next step is to prepare the words for vectorizing, starting with names.</h1>
+<h1>So we want to make...</h1>
+<p><img src="images/joining_names.png" align="left"></p>
+<h1>By:</h1>
+<blockquote>
+<h3>4. Manual word joining with regex and multi-processing.</h3>
+<p>Much thanks to the tutorial done by Sebastian Raschka. <a href="http://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/multiprocessing_intro.ipynb" target="_blank">multiprocessing_tutorial</a></p>
+<p>And information on stackoverflow. <a href="http://stackoverflow.com/questions/9286240/python-how-to-find-n-gram-patterns-in-the-text" target="_blank">stack_post</a></p>
+</blockquote>
+<h3>A quick explanation of phrase modeling.</h3>
+<blockquote>
+<p>Word vectorizers look at each word distinctly by splitting them on spaces. So if we just had "Michael Caine" the model would look at "Michael" as different than "Caine".</p>
+<p>We get around this by doing phrase modeling. Meaning, we see if certain words are often side by side, and if so, we get rid of the space and put in an underscore so that the word vectorizer can't split up the word. This is called "joining" and it allows us to see relationships between entities in language no matter how many words go into the name of that entity.</p>
+</blockquote>
+<h3>However, this presents a problem for this corpus.</h3>
+<blockquote>
+<p>If we just relied on phrase modeling to catch entities it will catch them based on frequency. Meaning entities like movie titles and lesser known actors won't be "joined" for us to analyze the relationship.</p>
+<p>So to get around this we are going to join the words ourselves.</p>
+<p>Now, all we have to do is find the solution that can do a lot of string comparisons very quickly.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="c1"># To make the model interactivity as good as possible for the end-user we&#39;ll search for names and phrases manually.</span>
+<span class="c1"># Doing this on one CPU core with no speed-up took over 14hours on this corpus when first attempting it.</span>
+<span class="c1"># That is the benchmark we are trying to beat.</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Below is our search list. We&#39;ll be making a list that contains names of actors, directors, and characters.</span>
+<span class="n">actors</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/actors_final.txt&#39;</span><span class="p">)</span>
+<span class="n">directors</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/directors_final.txt&#39;</span><span class="p">)</span>
+<span class="n">characters</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/characters_final.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">names</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">actors</span><span class="p">:</span>
+    <span class="n">names</span> <span class="o">+=</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">directors</span><span class="p">:</span>
+    <span class="n">names</span> <span class="o">+=</span><span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">characters</span><span class="p">:</span>
+    <span class="n">names</span> <span class="o">+=</span><span class="n">i</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>15427
+</pre></div>
+
+
+<h2>Let's try normal Python string matching first.</h2>
+<div class="highlight"><pre><span></span><span class="n">benchmark_file</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;intermediate/benchmark_file_37500.txt&#39;</span><span class="p">)</span>
+<span class="n">first_500</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">benchmark_file</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">500</span><span class="p">)]</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">unicode_string</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Example of using a &quot;string in&quot; technique to find a match on the first 500 lines.</span>
+<span class="k">def</span> <span class="nf">tag_names_python</span><span class="p">(</span><span class="n">names_to_tag</span><span class="p">,</span> <span class="n">search_list</span><span class="p">):</span>    
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">names_to_tag</span><span class="p">:</span>
+        <span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">next_word</span> <span class="o">=</span> <span class="n">i</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">next_word</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">search_list</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">holder</span>
+</pre></div>
+
+
+<h5>At this rate it will take about 8.75 hours to join the movies... lets try something else.</h5>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">python_string</span> <span class="o">=</span> <span class="n">tag_names_python</span><span class="p">(</span><span class="n">first_500</span><span class="p">,</span> <span class="n">unicode_string</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 28.2 s, sys: 155 ms, total: 28.3 s
+Wall time: 28.2 s
+</pre></div>
+
+
+<h2>Lets trying using Regex instead.</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Compile the search list.</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">names</span><span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Example of using regex to find a match on the first 500 lines.</span>
+<span class="k">def</span> <span class="nf">tag_names_re</span><span class="p">(</span><span class="n">names_to_tag</span><span class="p">):</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">names_to_tag</span><span class="p">:</span>
+        <span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+            <span class="n">next_word</span> <span class="o">=</span> <span class="n">i</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">x</span><span class="p">,</span><span class="n">next_word</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sentence</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">holder</span>
+</pre></div>
+
+
+<h5>That'll take about 2.35 hours to join the movies. That's still a bit long... lets try something else.</h5>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">re_string</span> <span class="o">=</span> <span class="n">tag_names_re</span><span class="p">(</span><span class="n">first_500</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 11.8 s, sys: 157 ms, total: 12 s
+Wall time: 11.8 s
+</pre></div>
+
+
+<h2>Lets try speeing up Regex with multiprocessing.</h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="kn">as</span> <span class="nn">mp</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tag_names_re_mp</span><span class="p">(</span><span class="n">names_to_tag</span><span class="p">):</span>
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">names_to_tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">next_word</span> <span class="o">=</span> <span class="n">names_to_tag</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">names_to_tag</span><span class="p">)]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="n">next_word</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">sentence</span>
+</pre></div>
+
+
+<h5>Sweet! That'll get the job done in just under an hour. We'll go with this one.</h5>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="n">pool</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">tag_names_re_mp</span><span class="p">,</span> <span class="n">first_500</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 139 ms, sys: 30.1 ms, total: 169 ms
+Wall time: 3.97 s
+</pre></div>
+
+
+<h1>4. Manual word joining for all names. (actors, directors, characters)</h1>
+<p>Just to be clear, we are stepping through each review. Joining each word with the next one and then comparing that joined word to a list of 15,427 names. We're going to do that for 191,344,648 words. That is 2,951,873,884,696 comparisons in 72 minutes... or 683,304,139 comparisons a second.</p>
+<p>Not bad.</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_names.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">50000</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">status</span><span class="p">,</span> <span class="s2">&quot; reviews done.&quot;</span>
+            <span class="n">reviews_to_tag</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">reviews_raw</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">tagged_reviews</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">tag_names_re_mp</span><span class="p">,</span> <span class="n">reviews_to_tag</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="k">for</span> <span class="n">z</span> <span class="ow">in</span> <span class="n">tagged_reviews</span><span class="p">:</span>
+                <span class="n">tagged_review</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">z</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tagged_review</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 2 µs, sys: 5 µs, total: 7 µs
+Wall time: 5.96 µs
+</pre></div>
+
+
+<h1>Now that the names are joined, we need to join movie titles.</h1>
+<p>However, titles are not as unique as names, so to join them together we'll need to create a very logical function. Where take each review and put them through the process below.</p>
+<p><img src="images/movie_title_phrase_modeling.png", align="left"></p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">import</span> <span class="nn">unicodedata</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Function to removing punctuation from unicode titles.</span>
+<span class="n">tbl</span> <span class="o">=</span> <span class="nb">dict</span><span class="o">.</span><span class="n">fromkeys</span><span class="p">(</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">maxunicode</span><span class="p">)</span> <span class="k">if</span> <span class="n">unicodedata</span><span class="o">.</span><span class="n">category</span><span class="p">(</span><span class="nb">unichr</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;P&#39;</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">remove_punct</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">tbl</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Bring in the list of movies to search for. NOTE: This does not include movies that have one word titles.</span>
+<span class="n">movies_search</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;data/movies_search.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Check the frequency of different movie title lengths.</span>
+<span class="n">movies_check</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">movies_search</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+    <span class="n">movies_check</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">print</span> <span class="n">Counter</span><span class="p">(</span><span class="n">movies_check</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Counter({2: 1616, 3: 1125, 4: 570, 5: 322, 6: 182, 7: 90, 8: 41, 9: 15, 10: 12, 11: 2, 12: 2, 13: 2, 14: 1, 15: 1})
+</pre></div>
+
+
+<h2>That's a lot of variation... so to make this search function faster i'll do it in two phases. One for short titles, and one for long titles.</h2>
+<div class="highlight"><pre><span></span><span class="c1"># Based on the above information we&#39;re going to run our search in two phases.</span>
+<span class="c1"># One for movie titles whose length is above or equal to 4 and ones below the length of 4.</span>
+<span class="c1"># We&#39;ll split our search list accordingly.</span>
+
+<span class="n">titles_above3</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">quick_filter</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">titles_below4</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">movies_search</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">titles_above3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">remove_punct</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]))</span>
+        <span class="n">quick_filter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">remove_punct</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">titles_below4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="k">print</span> <span class="s2">&quot;Movie titles equal or above 3 = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles_above3</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;Movie titles equal or below 4 = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles_below4</span><span class="p">)</span>
+
+<span class="n">quick_filter_test</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">quick_filter</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Movie titles equal or above 3 =  1240
+Movie titles equal or below 4 =  2741
+</pre></div>
+
+
+<h1>Long movie title joining.</h1>
+<div class="highlight"><pre><span></span><span class="c1"># If we just did fuzzy matching on everything this function would take days and our movie references</span>
+<span class="c1"># Would be worthless because it would flag a lot of statements as references that are not.</span>
+<span class="c1"># So I am working in checks that speed up the process and only send phrases to the fuzzy matching search</span>
+<span class="c1"># If it meets very specific criteria.</span>
+
+<span class="kn">from</span> <span class="nn">fuzzywuzzy</span> <span class="kn">import</span> <span class="n">process</span>
+<span class="kn">from</span> <span class="nn">fuzzywuzzy</span> <span class="kn">import</span> <span class="n">fuzz</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Get stopwords.</span>
+<span class="kn">import</span> <span class="nn">nltk.corpus</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="c1"># Get default English stopwords and extend with punctuation</span>
+<span class="n">stopwords</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">corpus</span><span class="o">.</span><span class="n">stopwords</span><span class="o">.</span><span class="n">words</span><span class="p">(</span><span class="s1">&#39;english&#39;</span><span class="p">)</span>
+<span class="n">stopwords</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span>
+<span class="n">stopwords</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">long_title_search_mp</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+<span class="c1"># Pass the function a movie review.</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">holder</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">review</span><span class="p">):</span>
+
+        <span class="n">elem1</span> <span class="o">=</span> <span class="n">remove_punct</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">elem2</span> <span class="o">=</span> <span class="n">review</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)]</span>
+        <span class="n">elem2</span> <span class="o">=</span> <span class="n">remove_punct</span><span class="p">(</span><span class="n">elem2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">elem3</span> <span class="o">=</span> <span class="n">review</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)]</span>
+        <span class="n">elem3</span> <span class="o">=</span> <span class="n">remove_punct</span><span class="p">(</span><span class="n">elem3</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="n">slice_current_check</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">elem1</span><span class="p">,</span> <span class="n">elem2</span><span class="p">,</span> <span class="n">elem3</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">slice_current_check</span><span class="p">),</span> <span class="n">quick_filter_test</span><span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">title</span> <span class="ow">in</span> <span class="n">titles_above3</span><span class="p">:</span>
+
+                <span class="n">slice_attempt</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">elem1</span><span class="p">,</span> <span class="n">elem2</span><span class="p">,</span> <span class="n">elem3</span><span class="p">])</span>
+                <span class="n">slice_current</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">elem1</span><span class="p">,</span> <span class="n">elem2</span><span class="p">,</span> <span class="n">elem3</span><span class="p">])</span>
+                <span class="n">title_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="o">.</span><span class="n">split</span><span class="p">())</span>
+                <span class="n">element_counter</span> <span class="o">=</span> <span class="mi">3</span>
+                <span class="n">match_number</span> <span class="o">=</span> <span class="mi">3</span>
+                <span class="n">next_element</span> <span class="o">=</span> <span class="n">review</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="n">element_counter</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)]</span>
+                <span class="n">next_element_lower</span> <span class="o">=</span> <span class="n">remove_punct</span><span class="p">(</span><span class="n">next_element</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+                <span class="k">while</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">slice_attempt</span> <span class="o">==</span> <span class="n">title</span><span class="p">:</span>
+                        <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slice_attempt</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+                        <span class="n">match</span> <span class="o">+=</span> <span class="n">match_number</span> <span class="s2">&quot;</span>
+                        <span class="k">break</span>
+
+                    <span class="k">elif</span> <span class="n">slice_attempt</span> <span class="ow">in</span> <span class="n">title</span><span class="p">:</span>
+                        <span class="n">slice_current</span> <span class="o">=</span> <span class="n">slice_attempt</span>
+                        <span class="n">slice_attempt</span> <span class="o">=</span> <span class="n">slice_current</span><span class="o">+</span><span class="s1">&#39; &#39;</span><span class="o">+</span><span class="n">next_element_lower</span>
+                        <span class="n">element_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">match_number</span> <span class="o">+=</span> <span class="mi">1</span>
+                        <span class="n">next_element</span> <span class="o">=</span> <span class="n">review</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="n">element_counter</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">review</span><span class="p">)]</span>
+                        <span class="n">next_element_lower</span> <span class="o">=</span> <span class="n">remove_punct</span><span class="p">(</span><span class="n">next_element</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+                        <span class="k">continue</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">break</span>
+
+                <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Check that the difference in length between the word and the title is not large.</span>
+                    <span class="k">if</span>  <span class="p">(</span><span class="n">title_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">slice_current</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                        <span class="c1"># Check that there is no more than 1 stopword in the title at this stage.</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">slice_current</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="p">]))</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="c1"># Final check is that the ratio score of the strings are at least above 80.</span>
+                            <span class="k">if</span> <span class="n">fuzz</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">slice_current</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">80</span><span class="p">:</span>
+                                <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slice_current</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+                                <span class="n">match</span> <span class="o">+=</span> <span class="n">match_number</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="n">title_length</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">slice_current</span><span class="o">.</span><span class="n">split</span><span class="p">()))</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                            <span class="c1"># Check that there is no more than 2 stopwords in the title at this stage.</span>
+                            <span class="k">if</span> <span class="p">(</span><span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">slice_current</span><span class="o">.</span><span class="n">split</span><span class="p">()</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">stopwords</span><span class="p">]))</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+                                <span class="c1"># Final check is that the ratio score of the strings are at least above 80.</span>
+                                <span class="k">if</span> <span class="n">fuzz</span><span class="o">.</span><span class="n">ratio</span><span class="p">(</span><span class="n">slice_current</span><span class="p">,</span> <span class="n">title</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">70</span><span class="p">:</span>
+                                    <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">slice_current</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">))</span>
+                                    <span class="n">match</span> <span class="o">+=</span> <span class="n">match_number</span>
+
+
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">holder</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">-=</span> <span class="mi">1</span>
+
+    <span class="k">return</span> <span class="n">holder</span>
+</pre></div>
+
+
+<h5>I won't sugar coat it. This function did a lot. So it took 5hrs to run.</h5>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_long_titles.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">50000</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">status</span><span class="p">,</span> <span class="s2">&quot; reviews done.&quot;</span>
+            <span class="n">reviews_to_tag2</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">named_reviews</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">pool2</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+            <span class="n">tagged_reviews2</span> <span class="o">=</span> <span class="n">pool2</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">long_title_search_mp</span><span class="p">,</span> <span class="n">reviews_to_tag2</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">tagged_reviews2</span><span class="p">:</span>
+                <span class="n">tagged_review2</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tagged_review2</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>CPU times: user 2 µs, sys: 1 µs, total: 3 µs
+Wall time: 10 µs
+</pre></div>
+
+
+<h1>Short movie title joining.</h1>
+<blockquote>
+<h4>IMPORTANT NOTE:</h4>
+<p>I am still working with the corpus in a title-cased format so that I can use regular expressios for the rest of the movie titles. We already joined the names and long titles, so the liklihood that two title-cased in a review is not referring to a matching title-cased movie title will be low.</p>
+</blockquote>
+<h2>We'll run two searches here, one for titles with 2 words and one for titles with 3 words.</h2>
+<div class="highlight"><pre><span></span><span class="c1"># Split our search list accordingly for the regex searches below.</span>
+
+<span class="n">titles_2words</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">titles_3words</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">titles_below4</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">titles_3words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">titles_2words</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># There is some duplication in the data so turn them into a first.</span>
+<span class="n">titles_2words</span> <span class="o">=</span>  <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">titles_2words</span><span class="p">))</span>
+<span class="n">titles_3words</span> <span class="o">=</span>  <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">titles_3words</span><span class="p">))</span>
+
+<span class="k">print</span> <span class="s2">&quot;2 word movie titles = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles_2words</span><span class="p">)</span>
+<span class="k">print</span> <span class="s2">&quot;3 word movie titles = &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">titles_3words</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>2 word movie titles =  1576
+3 word movie titles =  1107
+</pre></div>
+
+
+<h3>2 word search.</h3>
+<div class="highlight"><pre><span></span><span class="n">long_title_reviews</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_long_titles.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Compile the search list.</span>
+<span class="n">sh</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">titles_2words</span><span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">two_word_titles</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">):</span>
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">next_word</span> <span class="o">=</span> <span class="n">title_to_tag</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">)]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">i</span><span class="p">,</span><span class="n">next_word</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">sh</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\b</span><span class="si">%s</span><span class="s1">\b&#39;</span> <span class="o">%</span> <span class="n">string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">sentence</span>
+</pre></div>
+
+
+<h5>This one took only 15 mins.</h5>
+<p>TAKEAWAY: Use regex when you can.</p>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">pool3</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_2word_titles.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">50000</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">status</span><span class="p">,</span> <span class="s2">&quot; reviews done.&quot;</span>
+            <span class="n">reviews_to_tag3</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">long_title_reviews</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">tagged_reviews3</span> <span class="o">=</span> <span class="n">pool3</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">two_word_titles</span><span class="p">,</span> <span class="n">reviews_to_tag3</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="k">for</span> <span class="n">line2</span> <span class="ow">in</span> <span class="n">tagged_reviews3</span><span class="p">:</span>
+                <span class="n">tagged_review3</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line2</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tagged_review3</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>0  reviews done.
+50000  reviews done.
+100000  reviews done.
+150000  reviews done.
+200000  reviews done.
+250000  reviews done.
+300000  reviews done.
+350000  reviews done.
+400000  reviews done.
+450000  reviews done.
+500000  reviews done.
+550000  reviews done.
+600000  reviews done.
+650000  reviews done.
+700000  reviews done.
+CPU times: user 8min 17s, sys: 28.1 s, total: 8min 45s
+Wall time: 14min 7s
+</pre></div>
+
+
+<h3>3 word search.</h3>
+<div class="highlight"><pre><span></span><span class="n">short_title_reviews</span> <span class="o">=</span> <span class="n">LineSentence</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_2word_titles.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">#Compile the search list.</span>
+<span class="n">three</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">,</span> <span class="n">titles_3words</span><span class="p">)))</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">three_word_titles</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">):</span>
+    <span class="n">sentence</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">match</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">elem1</span> <span class="o">=</span> <span class="n">title_to_tag</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">)]</span>
+            <span class="n">elem2</span> <span class="o">=</span> <span class="n">title_to_tag</span><span class="p">[(</span><span class="n">idx</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">title_to_tag</span><span class="p">)]</span>
+            <span class="n">string</span> <span class="o">=</span> <span class="s1">u&#39;_&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">elem1</span><span class="p">,</span> <span class="n">elem2</span><span class="p">])</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">three</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">r&#39;\b</span><span class="si">%s</span><span class="s1">\b&#39;</span> <span class="o">%</span> <span class="n">string</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sentence</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">match</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">sentence</span>
+</pre></div>
+
+
+<h5>This took 12 mins.</h5>
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">pool4</span> <span class="o">=</span> <span class="n">mp</span><span class="o">.</span><span class="n">Pool</span><span class="p">(</span><span class="n">processes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_3word_titles.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="mi">50000</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">15</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">status</span><span class="p">,</span> <span class="s2">&quot; reviews done.&quot;</span>
+            <span class="n">reviews_to_tag4</span> <span class="o">=</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">short_title_reviews</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">tagged_reviews4</span> <span class="o">=</span> <span class="n">pool4</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">three_word_titles</span><span class="p">,</span> <span class="n">reviews_to_tag4</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">y</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">50000</span>
+            <span class="k">for</span> <span class="n">line3</span> <span class="ow">in</span> <span class="n">tagged_reviews4</span><span class="p">:</span>
+                <span class="n">tagged_review4</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line3</span><span class="p">)</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">tagged_review4</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>0  reviews done.
+50000  reviews done.
+100000  reviews done.
+150000  reviews done.
+200000  reviews done.
+250000  reviews done.
+300000  reviews done.
+350000  reviews done.
+400000  reviews done.
+450000  reviews done.
+500000  reviews done.
+550000  reviews done.
+600000  reviews done.
+650000  reviews done.
+700000  reviews done.
+CPU times: user 6min 28s, sys: 28.1 s, total: 6min 56s
+Wall time: 12min 21s
+</pre></div>
+
+
+<h1>Finally! We're done with all the movie title joining.</h1>
+<h1>Now we get to do the actual phrase modeling.</h1>
+<h1>By:</h1>
+<blockquote>
+<h3>5. Parsing the reviews with spaCy</h3>
+<h3>6. Phrase modeling everything else with gensim</h3>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="n">reviews_joined</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_3word_titles.txt&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">punct_space</span><span class="p">(</span><span class="n">token</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">token</span><span class="o">.</span><span class="n">is_punct</span> <span class="ow">or</span> <span class="n">token</span><span class="o">.</span><span class="n">is_space</span>
+
+<span class="k">def</span> <span class="nf">line_review</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">review</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">review</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">n&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">final_reviews_filepath</span> <span class="o">=</span> <span class="s1">&#39;intermediate/final_transformed_reviews_all.txt&#39;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="c1">#This is memory heavy so if you want to train a datset yourself set this to true.</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+    <span class="kn">import</span> <span class="nn">spacy</span>
+    <span class="n">nlp</span> <span class="o">=</span> <span class="n">spacy</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">spacy</span> <span class="kn">import</span> <span class="n">en</span>
+    <span class="kn">from</span> <span class="nn">gensim.models.phrases</span> <span class="kn">import</span> <span class="n">Phraser</span>
+
+    <span class="c1">#Load in pretrained models on this corpus.</span>
+    <span class="n">bigram_model</span> <span class="o">=</span> <span class="n">Phraser</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;model/bigram_trained&#39;</span><span class="p">)</span>
+    <span class="n">trigram_model</span> <span class="o">=</span> <span class="n">Phraser</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;model/trigram_trained&#39;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">final_reviews_filepath</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">batch</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">parsed_review</span> <span class="ow">in</span> <span class="n">nlp</span><span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">line_review</span><span class="p">(</span><span class="n">reviews_joined</span><span class="p">),</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">10000</span><span class="p">,</span> <span class="n">n_threads</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+
+            <span class="c1"># lemmatize the text, removing punctuation and whitespace</span>
+            <span class="n">unigram_review</span> <span class="o">=</span> <span class="p">[</span><span class="n">token</span><span class="o">.</span><span class="n">lemma_</span> <span class="k">for</span> <span class="n">token</span> <span class="ow">in</span> <span class="n">parsed_review</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">punct_space</span><span class="p">(</span><span class="n">token</span><span class="p">)]</span>
+
+            <span class="c1"># apply the first-order, second-order, third-order phrase models</span>
+            <span class="n">bigram_review</span> <span class="o">=</span> <span class="n">bigram_model</span><span class="p">[</span><span class="n">unigram_review</span><span class="p">]</span>
+            <span class="n">trigram_review</span> <span class="o">=</span> <span class="n">trigram_model</span><span class="p">[</span><span class="n">bigram_review</span><span class="p">]</span>
+
+            <span class="c1"># remove any remaining stopwords</span>
+            <span class="n">trigram_review</span> <span class="o">=</span> <span class="p">[</span><span class="n">term</span> <span class="k">for</span> <span class="n">term</span> <span class="ow">in</span> <span class="n">trigram_review</span> <span class="k">if</span> <span class="n">term</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">en</span><span class="o">.</span><span class="n">STOPWORDS</span><span class="p">]</span>
+
+            <span class="c1"># write the transformed review as a line in the new file</span>
+            <span class="n">trigram_review</span> <span class="o">=</span> <span class="s1">u&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">trigram_review</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">trigram_review</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">status</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="o">==</span> <span class="mi">100000</span><span class="p">:</span>
+                <span class="n">batch</span> <span class="o">+=</span> <span class="n">status</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">print</span> <span class="n">batch</span><span class="p">,</span> <span class="s2">&quot;reviews done&quot;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>/Users/nathanhall/anaconda2/lib/python2.7/site-packages/gensim-1.0.0rc2-py2.7-macosx-10.6-x86_64.egg/gensim/models/phrases.py:273: UserWarning: For a faster implementation, use the gensim.models.phrases.Phraser class
+  warnings.warn(&quot;For a faster implementation, use the gensim.models.phrases.Phraser class&quot;)
+
+
+100000 reviews done
+200000 reviews done
+300000 reviews done
+400000 reviews done
+500000 reviews done
+600000 reviews done
+700000 reviews done
+CPU times: user 4h 28min 49s, sys: 29.8 s, total: 4h 29min 19s
+Wall time: 4h 29min 32s
+</pre></div>
+
+
+<h1>Next, we'll use a model to find relationships between words and measure how strong the relationship is.</h1>
+<h1>By:</h1>
+<blockquote>
+<h3>7. Running all the movie reviews through a word vectorizing model called doc2vec.</h3>
+</blockquote>
+<h3>A quick explanation of doc2vec.</h3>
+<blockquote>
+<p>For this exercise I am using a variation of the popular word2vec tool called doc2vec.</p>
+<p>The reason for this is because doc2vec allows you to pass in labels for each "sentence" that will also get analyzed for a relationship with the words in the corpus.</p>
+<p>This means that we can label each review with the corresponding movie ID and see how they relate to all of the words in our corpus.</p>
+<p>The model also allows for interacting with just the labels. If we only used word2vec and asked what words are most siilar to "the_sound_of_music" it would give us a huge list of words. Not all of the words would be helpful necessarily. But with the extra abstraction of "labeled sentences" we can immediately get a list of "movie ID's" that are most similar to "the_sound_of_music".</p>
+</blockquote>
+<h1>7. doc2vec modeling</h1>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gensim.models.doc2vec</span> <span class="kn">import</span> <span class="n">Doc2Vec</span>
+<span class="kn">from</span> <span class="nn">gensim.models.doc2vec</span> <span class="kn">import</span> <span class="n">LabeledSentence</span>
+</pre></div>
+
+
+<h5>Label the sentences.</h5>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">LabeledLineSentence</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filename</span> <span class="o">=</span> <span class="n">filename</span>
+    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">final_reviews_filepath</span><span class="p">):</span>
+            <span class="c1"># The bigram and trigram models sometimes will join the Movie ID with another word.</span>
+            <span class="c1"># So I account for that here by breaking up each label before using it.</span>
+            <span class="n">sentence_hold</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">label</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">label_id</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">non_label</span> <span class="o">=</span> <span class="n">label</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">sentence</span> <span class="o">=</span> <span class="n">non_label</span> <span class="o">+</span> <span class="n">sentence_hold</span>
+            <span class="k">yield</span> <span class="n">LabeledSentence</span><span class="p">(</span><span class="n">words</span><span class="o">=</span><span class="n">sentence</span><span class="p">,</span> <span class="n">tags</span><span class="o">=</span><span class="p">[</span><span class="n">label_id</span><span class="p">])</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Create the labeled line sentences for the doc2vec model.</span>
+<span class="n">doc_sentences</span> <span class="o">=</span> <span class="n">LabeledLineSentence</span><span class="p">(</span><span class="n">final_reviews_filepath</span><span class="p">)</span>
+</pre></div>
+
+
+<h5>Note how the label is stored as separate element in its own list at the end of the review.</h5>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">it</span><span class="o">.</span><span class="n">islice</span><span class="p">(</span><span class="n">doc_sentences</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>LabeledSentence([&#39;saw&#39;, &#39;avatar&#39;, &#39;morning&#39;, &#39;press&#39;, &#39;premiere&#39;, &#39;run&#39;, &#39;day&#39;, &#39;my_opinion&#39;, &#39;story&#39;, &#39;time&#39;, &#39;like&#39;, &#39;finally&#39;, &#39;3d&#39;, &quot;&#39;&quot;, &#39;suppose&#39;, &#39;instrument&#39;, &#39;service&#39;, &#39;movie&#39;, &#39;enjoy&#39;, &#39;visual&#39;, &#39;experience&#39;, &#39;no_doubt&#39;, &#39;story&#39;, &#39;inspiration&#39;, &#39;huge&#39;, &#39;obvious&#39;, &#39;mention&#39;, &#39;ruin&#39;, &#39;movie&#39;, &#39;willing&#39;, &#39;lot&#39;, &#39;mysticism&#39;, &#39;ecology&#39;, &#39;like&#39;, &#39;stuff&#39;, &quot;&#39;re&quot;, &#39;15&#39;, &#39;great&#39;, &#39;time&#39;, &#39;think&#39;, &quot;&#39;&quot;, &#39;time&#39;, &#39;somebody&#39;, &#39;like&#39;, &quot;&#39;re&quot;, &#39;experienced&#39;, &#39;movie&#39;, &#39;watcher&#39;, &#39;better&#39;, &#39;leave&#39;, &#39;skepticism&#39;, &#39;door&#39;, &#39;bring&#39;, &#39;lot&#39;, &#39;pop_corn&#39;, &#39;enjoy&#39;, &#39;usual&#39;, &#39;action_flick&#39;, &#39;moral&#39;, &#39;load&#39;, &#39;clich\xc3\xa9s&#39;, &#39;like&#39;, &#39;movie&#39;, &#39;re_invent&#39;, &#39;movie&#39;, &#39;way&#39;], [&#39;id=tt0499549&#39;])
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">doc2vec_filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;model/doc2vec_model&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
+<span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">logging</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> : </span><span class="si">%(levelname)s</span><span class="s1"> : </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Doc2Vec</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">min_alpha</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span> <span class="n">min_count</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">workers</span><span class="o">=</span><span class="n">multiprocessing</span><span class="o">.</span><span class="n">cpu_count</span><span class="p">())</span>  <span class="c1"># use fixed learning rate</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">build_vocab</span><span class="p">(</span><span class="n">doc_sentences</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">doc_sentences</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">alpha</span> <span class="o">-=</span> <span class="mf">0.002</span>  <span class="c1"># decrease the learning rate</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">min_alpha</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alpha</span>  <span class="c1"># fix the learning rate, no decay</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">doc2vec_filepath</span><span class="p">)</span>
+<span class="c1"># load the finished model from disk</span>
+<span class="n">review2vec</span> <span class="o">=</span> <span class="n">Doc2Vec</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">doc2vec_filepath</span><span class="p">)</span>
+<span class="c1"># show the number of times the model has been trained.</span>
+<span class="k">print</span> <span class="s2">&quot;Times the loaded model has been trained =&quot;</span><span class="p">,</span> <span class="n">review2vec</span><span class="o">.</span><span class="n">train_count</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>Times the loaded model has been trained = 15
+CPU times: user 426 ms, sys: 135 ms, total: 561 ms
+Wall time: 563 ms
+</pre></div>
+
+
+<h1>Now we can search through the model for similar words.</h1>
+<h5>Which movie ID's are most similar to 'the_sound_of_music'?</h5>
+<div class="highlight"><pre><span></span><span class="n">review2vec</span><span class="o">.</span><span class="n">docvecs</span><span class="o">.</span><span class="n">most_similar</span><span class="p">([</span><span class="n">review2vec</span><span class="p">[</span><span class="s1">&#39;the_sound_of_music&#39;</span><span class="p">]],</span> <span class="n">topn</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>[(&#39;id=tt0059742&#39;, 0.6085203886032104),
+ (&#39;id=tt0067093&#39;, 0.4697991609573364),
+ (&#39;id=tt0058331&#39;, 0.45799821615219116),
+ (&#39;id=tt0203009&#39;, 0.4472610354423523),
+ (&#39;id=tt0055614&#39;, 0.4316498041152954),
+ (&#39;id=tt1710396&#39;, 0.4293311834335327),
+ (&#39;id=tt0032138&#39;, 0.4219302535057068),
+ (&#39;id=tt0058182&#39;, 0.4166192412376404),
+ (&#39;id=tt0368933&#39;, 0.4156864285469055),
+ (&#39;id=tt0060438&#39;, 0.40643084049224854)]
+</pre></div>
+
+
+<h6>That's a cool list, but we don't want to have to look up the movie ID each time. so...</h6>
+<h1>Finally, we'll make this model interactive.</h1>
+<h1>By:</h1>
+<blockquote>
+<h3>8. Adding a search function with an ipython widget.</h3>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipywidgets</span> <span class="kn">import</span> <span class="n">widgets</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">import</span> <span class="nn">qgrid</span>
+<span class="n">qgrid</span><span class="o">.</span><span class="n">nbinstall</span><span class="p">(</span><span class="n">overwrite</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">make_dataframe</span><span class="p">(</span><span class="n">search_term</span><span class="p">):</span>
+    <span class="n">column_name_score</span> <span class="o">=</span> <span class="n">search_term</span><span class="o">+</span><span class="s1">&#39;_similarity&#39;</span>
+    <span class="n">search_holder</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">,</span><span class="n">column_name_score</span><span class="p">])</span>
+    <span class="n">movie_id</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">column_score</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">results</span> <span class="o">=</span> <span class="n">review2vec</span><span class="o">.</span><span class="n">docvecs</span><span class="o">.</span><span class="n">most_similar</span><span class="p">([</span><span class="n">review2vec</span><span class="p">[</span><span class="n">search_term</span><span class="p">]],</span> <span class="n">topn</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+        <span class="n">mov_id</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;=&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">movie_id</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mov_id</span><span class="p">)</span>
+        <span class="n">column_score</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">search_holder</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movie_id</span>
+    <span class="n">search_holder</span><span class="p">[</span><span class="n">column_name_score</span><span class="p">]</span> <span class="o">=</span> <span class="n">column_score</span>
+    <span class="k">return</span> <span class="n">search_holder</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">handle_submit</span><span class="p">(</span><span class="n">sender</span><span class="p">):</span>
+    <span class="n">x_submit</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="o">.</span><span class="n">value</span><span class="p">]</span>
+    <span class="c1"># convert to strings</span>
+    <span class="n">x_similar</span> <span class="o">=</span> <span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">x_submit</span><span class="p">)</span>
+    <span class="c1"># replace any commas</span>
+    <span class="n">x_commas</span> <span class="o">=</span> <span class="n">x_similar</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;, &#39;</span><span class="p">,</span> <span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="c1"># join the words</span>
+    <span class="n">x_spaces</span> <span class="o">=</span> <span class="n">x_commas</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">)</span>
+    <span class="c1"># split the words on the commas</span>
+    <span class="n">x_split</span> <span class="o">=</span> <span class="n">x_spaces</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+    <span class="c1"># lowercase the words</span>
+    <span class="n">x_lower</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_split</span><span class="p">]</span>
+
+    <span class="c1"># Load in the movie_metadata from csv.</span>
+    <span class="n">df_mov</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/movie_metadata.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf8&#39;</span><span class="p">)</span>
+
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">])</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;movie_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x_lower</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">df_term</span> <span class="o">=</span> <span class="n">make_dataframe</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot; Is not in the data set.&quot;</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_term</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;movie_id&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;outer&#39;</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="c1"># Combine it with the search results.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">df_mov</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;movie_id&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Make a reference list for the user input.</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;similarity&#39;</span> <span class="ow">in</span> <span class="n">c</span><span class="p">]</span>
+    <span class="c1">#Make a total score column.</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Drop rows that don&#39;t have an intersection between the search parameters.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">cols</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="mf">0.0</span><span class="p">]</span>
+
+    <span class="c1"># Drop duplicated titles.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="s1">&#39;movie_title&#39;</span><span class="p">)</span>
+
+    <span class="c1">#sort the dataframe by total_score</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;total_score&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+    <span class="c1"># Then return only the top 20 results.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">20</span><span class="p">]</span>
+
+    <span class="c1"># Concat everything together.</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;movie_title&#39;</span><span class="p">,</span> <span class="s1">&#39;director_name&#39;</span><span class="p">,</span> <span class="s1">&#39;content_rating&#39;</span><span class="p">,</span> <span class="s1">&#39;title_year&#39;</span><span class="p">,</span> <span class="s1">&#39;imdb_score&#39;</span><span class="p">]],</span> <span class="n">df</span><span class="p">[</span><span class="n">cols</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;total_score&#39;</span><span class="p">]],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;movie_title&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;movie_title&#39;</span><span class="p">]</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;movie_title&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="c1"># Check that there is an intersection.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">qgrid</span><span class="o">.</span><span class="n">show_grid</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s2">&quot;There are not movies that are related to all of your inputs.&quot;</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span><span class="o">.</span><span class="n">on_submit</span><span class="p">(</span><span class="n">handle_submit</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>None
+</pre></div>
+
+
+<h1>Conclusion...</h1>
+<blockquote>
+<p>We now have a very cool tool by which to look at movie relationships.</p>
+<p>Big, big conclusion? This is addicting.</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span><span class="o">.</span><span class="n">on_submit</span><span class="p">(</span><span class="n">handle_submit</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>None
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span><span class="o">.</span><span class="n">on_submit</span><span class="p">(</span><span class="n">handle_submit</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>None
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="n">widgets</span><span class="o">.</span><span class="n">Text</span><span class="p">()</span>
+<span class="n">display</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">text</span><span class="o">.</span><span class="n">on_submit</span><span class="p">(</span><span class="n">handle_submit</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>None
+</pre></div>
+</div>
+    <aside>
+    <div class="bug-reporting__panel">
+        <h3>Find a typo or bug? Have a suggestion?</h3></br>
+        <p><a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">Tweet to @halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p></br>
+        <p>Or... you can see the code here and <a href="https://github.com/nathan-hall/nathan-hall.github.io", target="_blank">submit an issue.</a></p>
+    </div>
+    </aside>
+  </div>
+</section>
+
+    </div>
+    <!-- start of footer section -->
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">
+                <center><!--This project contains 23 pages and is available on <a href="https://github.com/nathan-hall/nathan-hall.github.io">Github</a>.</br>-->
+                To learn more about Nate, <a href="../pages/about_nate.html">click here</a></br> <!--Or, send him a tweet <a href="https://twitter.com/intent/tweet?screen_name=halluvagoodtime" class="twitter-mention-button" data-show-count="false", target="_blank">@halluvagoodtime.</a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></br></br>-->
+                Copyright &copy; Nate Hall
+                    <time datetime="2017">2017</time>.
+                </center>
+            </p>
+        </div>
+    </footer>
+
+    <!-- This jQuery line finds any span that contains code highlighting classes and then selects the parent <pre> tag and adds a border. This is done as a workaround to visually distinguish the code inputs and outputs -->
+    <script>
+        $( ".hll, .n, .c, .err, .k, .o, .cm, .cp, .c1, .cs, .gd, .ge, .gr, .gh, .gi, .go, .gp, .gs, .gu, .gt, .kc, .kd, .kn, .kp, .kr, .kt, .m, .s, .na, .nb, .nc, .no, .nd, .ni, .ne, .nf, .nl, .nn, .nt, .nv, .ow, .w, .mf, .mh, .mi, .mo, .sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss, .bp, .vc, .vg, .vi, .il" ).parent( "pre" ).css( "border", "1px solid #DEDEDE" );
+    </script>
+
+    <!-- Load Google Analytics -->
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-87671349-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <!-- End of Google Analytics -->
+
+    <!-- Bootstrap core JavaScript
+      ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../theme/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../theme/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+
+</html>
