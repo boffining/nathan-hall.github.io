@@ -117,34 +117,43 @@
     </h1>
 <ol class="breadcrumb">
     <li>
-        <time class="published" datetime="2017-03-11T12:00:00-05:00">
-            11 March 2017
+        <time class="published" datetime="2017-03-14T12:00:00-04:00">
+            14 March 2017
         </time>
     </li>
     <li>Articles</li>
 </ol>
 </header>
 <div class='article_content'>
-<blockquote>
-<p>We've all wondered this. If you were to solve this problem analytically you might track your movie history and rate which ones you liked. You may even compare what you liked to what other people said they liked.</p>
-<p>But that assumes tastes in movies can be similar. It also assumes that your view history is representative of what you like.</p>
-<p>That always seemed strange to me. How can I know what to watch if I haven't seen it yet?</p>
-<p>What other movies are out there that I would really like? I could just leave this up to the history tracking methods of online viewing tools. Or I could keep waiting to win the movie lottery and find that movie that I really love.</p>
-<p>But I don't like either of those prospects. So now I need to solve the problem using a different method.</p>
-</blockquote>
+<p><img alt="png" src="../images/what_should_i_watch/netflix_screen_banner.png"></p>
+<p>We've all wondered this. If you were to solve this problem analytically you might track your movie history and rate which ones you liked. You may even compare what you liked to what other people said they liked. But that assumes tastes in movies can be similar. It also assumes that your view history is representative of what you like. That always seemed strange to me. <b>How can I know what to watch if I haven't seen it yet?</b> What other movies are out there that I would really like? I could just leave this up to the history tracking methods of online viewing tools. Or I could keep waiting to win the movie lottery and find that movie that I really love. But I don't like either of those prospects. So now I need to solve the problem using a different method.</p>
 <h5>Build a tool that can tell me what to watch next without knowing my viewing history.</h5>
 <blockquote>
+<ul>
+<li>
 <p>This is by definition an "unsupervised" problem. Meaning, I have no data a specific person will like, nor will I know if when they use this tool they like the movie they chose.</p>
+</li>
+<li>
 <p>So this tool needs to at least make sense and be useful for my purposes, and hopefully it will be useful for others as well.</p>
+</li>
+</ul>
 </blockquote>
 <h5>What if I analyzed how what folks are saying about movies is related?</h5>
 <blockquote>
+<ul>
+<li>
 <p>I will use over 700,000 movie reviews from IMDB for this educational exercise.</p>
+</li>
+<li>
 <p>In these reviews critics use specific terms to analyze movies. They draw references between actors of old and the ones they are reviewing. They talk about the abstracts of a film. In other words, they give me lots of data to work from.</p>
+</li>
+</ul>
 </blockquote>
 <h5>If there is enough relationships happening in the review wording, I might be able to then find what things are most related to what I want to see in a movie.</h5>
 <blockquote>
-<p>This could then be used in a way where I can find movies most related to the types of things I like in a film.</p>
+<ul>
+<li>This could then be used in a way where I can find movies most related to the types of things I like in a film.</li>
+</ul>
 </blockquote>
 <h4>Let's dive in.</h4>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
@@ -223,14 +232,28 @@ Wall time: 11.2 µs
 </blockquote>
 <h3>A quick explanation of phrase modeling.</h3>
 <blockquote>
+<ul>
+<li>
 <p>Word vectorizers look at each word distinctly by splitting them on spaces. So if we just had "Michael Caine" the model would look at "Michael" as different than "Caine".</p>
+</li>
+<li>
 <p>We get around this by doing phrase modeling. Meaning, we see if certain words are often side by side, and if so, we get rid of the space and put in an underscore so that the word vectorizer can't split up the word. This is called "joining" and it allows us to see relationships between entities in language no matter how many words go into the name of that entity.</p>
+</li>
+</ul>
 </blockquote>
 <h3>However, this presents a problem for this corpus.</h3>
 <blockquote>
+<ul>
+<li>
 <p>If we just relied on phrase modeling to catch entities it will catch them based on frequency. Meaning entities like movie titles and lesser known actors won't be "joined" for us to analyze the relationship.</p>
+</li>
+<li>
 <p>So to get around this we are going to join the words ourselves.</p>
+</li>
+<li>
 <p>Now, all we have to do is find the solution that can do a lot of string comparisons very quickly.</p>
+</li>
+</ul>
 </blockquote>
 <div class="highlight"><pre><span></span><span class="c1"># To make the model interactivity as good as possible for the end-user we&#39;ll search for names and phrases manually.</span>
 <span class="c1"># Doing this on one CPU core with no speed-up took over 14hours on this corpus when first attempting it.</span>
@@ -337,7 +360,7 @@ Wall time: 11.8 s
 </pre></div>
 
 
-<h2>Lets try speeing up Regex with multiprocessing.</h2>
+<h2>Lets try speeding up Regex with multiprocessing.</h2>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing</span> <span class="kn">as</span> <span class="nn">mp</span>
 </pre></div>
 
@@ -374,8 +397,10 @@ Wall time: 3.97 s
 
 
 <h1>4. Manual word joining for all names. (actors, directors, characters)</h1>
+<blockquote>
 <p>Just to be clear, we are stepping through each review. Joining each word with the next one and then comparing that joined word to a list of 15,427 names. We're going to do that for 191,344,648 words. That is 2,951,873,884,696 comparisons in 72 minutes... or 683,304,139 comparisons a second.</p>
 <p>Not bad.</p>
+</blockquote>
 <div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">time</span>
 <span class="k">if</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
     <span class="k">with</span> <span class="n">codecs</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;intermediate/reviews_tagged_names.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf_8&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -401,7 +426,9 @@ Wall time: 5.96 µs
 
 
 <h1>Now that the names are joined, we need to join movie titles.</h1>
-<p>However, titles are not as unique as names, so to join them together we'll need to create a very logical function. Where take each review and put them through the process below.</p>
+<blockquote>
+<p>However, titles are not as unique as names, so to join them together we'll need to create a very logical function where we take each review and put it through the process below.</p>
+</blockquote>
 <p><img alt="png" src="../images/what_should_i_watch/movie_title_phrase_modeling.png"></p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">Counter</span>
 <span class="kn">import</span> <span class="nn">unicodedata</span>
@@ -585,7 +612,8 @@ Wall time: 10 µs
 <h1>Short movie title joining.</h1>
 <blockquote>
 <h4>IMPORTANT NOTE:</h4>
-<p>I am still working with the corpus in a title-cased format so that I can use regular expressios for the rest of the movie titles. We already joined the names and long titles, so the liklihood that two title-cased in a review is not referring to a matching title-cased movie title will be low.</p>
+<p>I am still working with the corpus in a titlecased format. When I ran the long title function you may have noticed I lowercased the words when I compared them. That is because when a phrase starts having more words in common it becomes less likely it is not related. However with short titles we don't have the luxury of a lot of words. So we need to find a way to make it more probable that the person is referring to our movie title even with just two words. One way to do that is to do an exact match including if first letters are capitalized in the title.
+- So instead of searching for, "toy story", we'll search for "Toy Story" and only accept it as a movie title if it is also titlecased.</p>
 </blockquote>
 <h2>We'll run two searches here, one for titles with 2 words and one for titles with 3 words.</h2>
 <div class="highlight"><pre><span></span><span class="c1"># Split our search list accordingly for the regex searches below.</span>
@@ -842,10 +870,20 @@ Wall time: 4h 29min 32s
 </blockquote>
 <h3>A quick explanation of doc2vec.</h3>
 <blockquote>
+<ul>
+<li>
 <p>For this exercise I am using a variation of the popular word2vec tool called doc2vec.</p>
+</li>
+<li>
 <p>The reason for this is because doc2vec allows you to pass in labels for each "sentence" that will also get analyzed for a relationship with the words in the corpus.</p>
+</li>
+<li>
 <p>This means that we can label each review with the corresponding movie ID and see how they relate to all of the words in our corpus.</p>
-<p>The model also allows for interacting with just the labels. If we only used word2vec and asked what words are most siilar to "the_sound_of_music" it would give us a huge list of words. Not all of the words would be helpful necessarily. But with the extra abstraction of "labeled sentences" we can immediately get a list of "movie ID's" that are most similar to "the_sound_of_music".</p>
+</li>
+<li>
+<p>The model also allows for interacting with just the labels. If we only used word2vec and asked what words are most similar to "the_sound_of_music" it would give us a huge list of words. Not all of the words would be helpful necessarily. But with the extra abstraction of "labeled sentences" we can immediately get a list of "movie ID's" that are most similar to "the_sound_of_music".</p>
+</li>
+</ul>
 </blockquote>
 <h1>7. doc2vec modeling</h1>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">gensim.models.doc2vec</span> <span class="kn">import</span> <span class="n">Doc2Vec</span>
