@@ -3,22 +3,34 @@
 -------------------------------------------------- */
 html {
   position: relative;
-  min-height: 100%;
-  /* Padding bottom by footer height */
-  padding-bottom: 155px;
+  /*height: 100%;*/
+  margin: 0;
 }
+
+/*html, body {
+  height: 100%;
+  margin: 0;
+}*/
+
+  /* Equal to height of footer */
+  /* But also accounting for potential margin-bottom of last child */
+.footer,
+.push {
+  height: 110px;
+}
+
 body {
   font-size: 16px;
   background-color: #fff;
   }
 
-.footer {
+/*.footer {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: 100%;*/
   /* Set the fixed height of the footer here */
-  height: 100px;
-}
+  /*height: 100px;
+}*/
 
 a {
     color: #0046B7;
@@ -34,11 +46,15 @@ a:hover {
 /* Not required for template or sticky footer method. */
 
 body > .container {
-  padding: 115px 15px 0;
+  /*padding: 115px 15px 0;*/
+  padding: 20px;
+  padding-bottom: 50px;
+  padding-top: 115px;
   color: #424242;
   width: 100%;
-  height: 60px;
   font-family: Montserrat;
+  min-height: 100%;
+  margin-bottom: -110px;
 }
 
 .container {
@@ -49,10 +65,10 @@ body > .container {
   margin: 20px 0;
 }
 
-.footer > .container {
+/*.footer > .container {
   padding-right: 15px;
   padding-left: 15px;
-}
+}*/
 
 .panel-body {
   -webkit-columns: 384px 1;
