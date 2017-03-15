@@ -11,7 +11,7 @@
     <meta name="author" content="Code, Tutorials, and References for Data Science">
     <link rel="icon" href="../images/favicon.ico">
 
-    <title>Visual Classifier Evaluation Report - data_science</title>
+    <title>Visual Feature Importance for Classifiers - data_science</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -113,7 +113,7 @@
   <div class="col-sm-12">
     <header>
     <h1>
-      Visual Classifier Evaluation Report
+      Visual Feature Importance for Classifiers
     </h1>
 <ol class="breadcrumb">
     <li>
@@ -129,34 +129,28 @@
 <h6>Required packages</h6>
 <ul>
 <li>seaborn</li>
-<li>tabulate</li>
 </ul>
 </blockquote>
 <h2>Run a classifier</h2>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
 <span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 
 
 <div class="highlight"><pre><span></span><span class="c1"># Import the data.</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sleeping_model.csv&#39;</span><span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="c1"># Set the target variable.</span>
+<span class="c1"># Set the target variable.</span>
 <span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;day_period&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights&#39;</span><span class="p">,</span><span class="s1">&#39;day_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;night_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;Unnamed: 0&#39;</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;day_period&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights&#39;</span><span class="p">,</span><span class="s1">&#39;day_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;night_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">df</span>
-</pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="c1"># Do a train test split.</span>
+<span class="c1"># Do a train test split.</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
-</pre></div>
 
-
-<div class="highlight"><pre><span></span><span class="c1"># Run the model.</span>
+<span class="c1"># Run the model.</span>
 <span class="n">gb_clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.13</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">gb_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
 <span class="n">y_pred</span> <span class="o">=</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
@@ -165,43 +159,50 @@
 
 
 <h2>Import the classifier plot module</h2>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">classifier_plot</span> <span class="kn">import</span> <span class="n">evaluate_classifier</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">classifier_plot</span> <span class="kn">import</span> <span class="n">evaluate_features</span>
 </pre></div>
 
 
 <div class="highlight"><pre><span></span><span class="c1"># Pass the criteria accordingly and save time.</span>
-<span class="n">evaluate_classifier</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="s2">&quot;GRADIENT BOOSTING CLASSIFIER&quot;</span><span class="p">)</span>
+<span class="n">evaluate_features</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="s1">&#39; GRADIENT BOOSTING CLASSIFIER&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>GRADIENT BOOSTING CLASSIFIER
+<p><img alt="png" src="../images/visual_feature_importance/output_7_0.png"></p>
+<h2>Also works with Logistic Regression</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">linear_model</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/a_visual_classifier_report/output_10_1.png"></p>
-<div class="highlight"><pre><span></span>CONFUSTION MATRIX
-(n = 97)
-===========  ===========
-positives    negatives
-===========  ===========
-TP = 38      FN = 11
-FP = 8       TN = 40
-===========  ===========
+<div class="highlight"><pre><span></span><span class="c1"># Import the data.</span>
+<span class="n">df_logit</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sleeping_logistic.csv&#39;</span><span class="p">)</span>
 
+<span class="c1"># Set the target variable.</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">df_logit</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df_logit</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X1</span> <span class="o">=</span> <span class="n">df_logit</span>
 
-CLASSIFICATION REPORT
-n = (0 = 49) (1 = 48)
-=========  ====  ====  =====
-              0     1    avg
-=========  ====  ====  =====
-precision  0.83  0.78   0.81
-recall     0.78  0.83   0.8
-f1-score   0.8   0.81   0.8
-total_avg  0.8   0.81   0.8
-=========  ====  ====  =====
+<span class="c1"># Do a train test split.</span>
+<span class="n">X1_train</span><span class="p">,</span> <span class="n">X1_test</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">,</span> <span class="n">y1_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="c1"># Run the model.</span>
+<span class="n">logistic</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegressionCV</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">99</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="s1">&#39;lbfgs&#39;</span><span class="p">,</span>\
+                                             <span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">Cs</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">logistic</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X1_train</span><span class="p">,</span> <span class="n">y1_train</span><span class="p">)</span>
+<span class="n">y1_pred</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X1_test</span><span class="p">)</span>
+<span class="n">y1_proba</span> <span class="o">=</span> <span class="n">logistic</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X1_test</span><span class="p">)</span>
+
+<span class="c1"># Extract the feature coefficients</span>
+<span class="n">logistic_coef</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">logistic</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">tolist</span><span class="p">()[</span><span class="mi">0</span><span class="p">]]</span>
 </pre></div>
 
 
+<div class="highlight"><pre><span></span><span class="c1"># Input the data and adjust the chart size.</span>
+<span class="n">evaluate_features</span><span class="p">(</span><span class="n">X1_train</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">logistic_coef</span><span class="p">,</span> <span class="s1">&#39; LOGISTIC REGRESSION CLASSIFIER&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span><span class="mf">8.5</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="png" src="../images/visual_feature_importance/output_11_0.png"></p>
 <blockquote>
 <h6>Download module</h6>
 <ul>
