@@ -5,8 +5,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2017-03-15T11:05:18-00:00</lastmod>
+<lastmod>2017-03-15T12:39:53-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/data_science/visual_classifier_evaluation_report.html</loc>
+<lastmod>2017-03-15T12:00:00-04:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -67,21 +74,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://www.instantinate.com/wrangling_data/editing_column_names.html</loc>
-<lastmod>2016-11-27T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>http://www.instantinate.com/how_to/filter_columns.html</loc>
-<lastmod>2016-11-27T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/wrangling_data/filter_out_columns.html</loc>
 <lastmod>2016-11-27T12:00:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
@@ -95,21 +88,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </url>
 
 <url>
-<loc>http://www.instantinate.com/wrangling_data/removing_columns.html</loc>
-<lastmod>2016-11-27T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
 <loc>http://www.instantinate.com/how_to/unpivot_columns.html</loc>
-<lastmod>2016-11-27T12:00:00-05:00</lastmod>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>http://www.instantinate.com/wrangling_data/unpivoting_columns.html</loc>
 <lastmod>2016-11-27T12:00:00-05:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>

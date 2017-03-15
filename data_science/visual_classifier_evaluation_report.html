@@ -11,7 +11,7 @@
     <meta name="author" content="Code, Tutorials, and References for Data Science">
     <link rel="icon" href="../images/favicon.ico">
 
-    <title>How To: Remove Columns - how_to</title>
+    <title>Visual Classifier Evaluation Report - data_science</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -113,226 +113,97 @@
   <div class="col-sm-12">
     <header>
     <h1>
-      How To: Remove Columns
+      Visual Classifier Evaluation Report
     </h1>
 <ol class="breadcrumb">
     <li>
-        <time class="published" datetime="2016-11-27T12:00:00-05:00">
-            27 November 2016
+        <time class="published" datetime="2017-03-15T12:00:00-04:00">
+            15 March 2017
         </time>
     </li>
-    <li>how_to</li>
+    <li>data_science</li>
 </ol>
 </header>
 <div class='article_content'>
-<p><a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns.ipynb" target="_blank">Link to the full jupyter notebook.</a><br/>
-<a href="https://nbviewer.jupyter.org/github/nathan-hall/nathan-hall.github.io/blob/pelican/content/wrangling_data/removing_columns_code.ipynb" target="_blank">Link to the code only jupyter notebook.</a></p>
-<p>This is a quick introduction to some basic methods for removing columns from a dataset. We will use the billboard hot 100 dataset as an example.</p>
+<blockquote>
+<h6>Required packages</h6>
+<ul>
+<li>seaborn</li>
+<li>tabulate</li>
+</ul>
+<h6>Download module</h6>
+<ul>
+<li><a href="classifier_plot.py" download>click_to_download</a></li>
+</ul>
+</blockquote>
+<h2>Run a classifier</h2>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.cross_validation</span> <span class="kn">import</span> <span class="n">train_test_split</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/billboard_weeks_edited.csv&#39;</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="c1"># Import the data.</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sleeping_model.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>artist</th>
-      <th>track</th>
-      <th>time</th>
-      <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2000</td>
-      <td>Destiny's Child</td>
-      <td>Independent Women Part I</td>
-      <td>3:38</td>
-      <td>Rock</td>
-      <td>2000-09-23</td>
-      <td>2000-11-18</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>1 rows × 83 columns</p>
-</div>
-
-<h2>Drop a column</h2>
-<p>The simplest way to remove a column is with the "df.drop" method from pandas. <a href="http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.drop.html" target="_blank">See more info at the documentation here.</a></p>
-<p>We specify what dataframe to apply the .drop method. Then we tell it if we're dropping a column or row with the "axis" argument. And finally we use the "inplace" argument to either create the results in an alternate universe or apply it back to our current dataframe.</p>
-<div class="highlight"><pre><span></span><span class="c1">#Can you guess why I am dropping this column? Its not just for an example. See if you can figure it out.</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="c1"># Set the target variable.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span>
+<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="s1">&#39;day_period&#39;</span><span class="p">,</span> <span class="s1">&#39;sleep_rate&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights&#39;</span><span class="p">,</span><span class="s1">&#39;day_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;night_multi_feeding&#39;</span><span class="p">,</span> <span class="s1">&#39;sleeping_nights_duration_minutes&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span>
 </pre></div>
 
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>artist</th>
-      <th>track</th>
-      <th>time</th>
-      <th>genre</th>
-      <th>entered</th>
-      <th>peaked</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Destiny's Child</td>
-      <td>Independent Women Part I</td>
-      <td>3:38</td>
-      <td>Rock</td>
-      <td>2000-09-23</td>
-      <td>2000-11-18</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>33.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>1 rows × 82 columns</p>
-</div>
-
-<h2>Drop multiple columns</h2>
-<p>Notice that for the "labels" argument in the documentation it says that the elements to drop can be "list-like". Which means that if we want to drop multiple columns we can give it a list of column names since that is how all the column headers are stored in pandas anyways. So the function would be...</p>
-<div class="highlight"><pre><span></span><span class="c1">#This time we are doing it for example purposes only so note that inplace is set to False to make this abundantly clear.</span>
-<span class="c1">#It defaults to False automatically but this makes it clear we are not applying it to the original dataframe.</span>
-
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;entered&#39;</span><span class="p">,</span> <span class="s1">&#39;peaked&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">False</span><span class="p">)[:</span><span class="mi">1</span><span class="p">]</span>
-
-<span class="c1">#note we aren&#39;t using df.head to see how it works. Because df.head shows the original dataframe values.</span>
-<span class="c1">#since we are not applying this to the original dataframe we can slice the results to show the first row</span>
-<span class="c1">#only and that acts the same as using df.head(1)</span>
+<div class="highlight"><pre><span></span><span class="c1"># Do a train test split.</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
 </pre></div>
 
 
-<div>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>artist</th>
-      <th>track</th>
-      <th>time</th>
-      <th>genre</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>...</th>
-      <th>67</th>
-      <th>68</th>
-      <th>69</th>
-      <th>70</th>
-      <th>71</th>
-      <th>72</th>
-      <th>73</th>
-      <th>74</th>
-      <th>75</th>
-      <th>76</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>Destiny's Child</td>
-      <td>Independent Women Part I</td>
-      <td>3:38</td>
-      <td>Rock</td>
-      <td>78</td>
-      <td>63.0</td>
-      <td>49.0</td>
-      <td>33.0</td>
-      <td>23.0</td>
-      <td>15.0</td>
-      <td>...</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
-    </tr>
-  </tbody>
-</table>
-<p>1 rows × 80 columns</p>
-</div>
+<div class="highlight"><pre><span></span><span class="c1"># Run the model.</span>
+<span class="n">gb_clf</span> <span class="o">=</span> <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">max_features</span><span class="o">=</span><span class="s1">&#39;log2&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="s1">&#39;exponential&#39;</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.13</span><span class="p">,</span> <span class="n">n_estimators</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">gb_clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_proba</span> <span class="o">=</span> <span class="n">gb_clf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Import the classifier plot module</h2>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">classifier_plot</span> <span class="kn">import</span> <span class="n">evaluate_classifier</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1"># Pass the criteria accordingly and save time.</span>
+<span class="n">evaluate_classifier</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">y_proba</span><span class="p">,</span> <span class="s2">&quot;GRADIENT BOOSTING CLASSIFIER&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span>GRADIENT BOOSTING CLASSIFIER
+</pre></div>
+
+
+<p><img alt="png" src="../images/a_visual_classifier_report/output_10_1.png"></p>
+<div class="highlight"><pre><span></span>CONFUSTION MATRIX
+(n = 97)
+===========  ===========
+positives    negatives
+===========  ===========
+TP = 38      FN = 11
+FP = 8       TN = 40
+===========  ===========
+
+
+CLASSIFICATION REPORT
+n = (0 = 49) (1 = 48)
+=========  ====  ====  =====
+              0     1    avg
+=========  ====  ====  =====
+precision  0.83  0.78   0.81
+recall     0.78  0.83   0.8
+f1-score   0.8   0.81   0.8
+total_avg  0.8   0.81   0.8
+=========  ====  ====  =====
+</pre></div>
 </div>
     <aside>
     <div class="bug-reporting__panel">
