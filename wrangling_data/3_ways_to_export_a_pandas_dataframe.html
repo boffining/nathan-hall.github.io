@@ -11,7 +11,7 @@
     <meta name="author" content="Code, Tutorials, and References for Data Science">
     <link rel="icon" href="../images/favicon.ico">
 
-    <title>Clustering Geographic Data with HDBSCAN - data_science</title>
+    <title>3 Ways to Export a Pandas Dataframe - wrangling_data</title>
 
     <!-- JQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -113,103 +113,66 @@
   <div class="col-sm-12">
     <header>
     <h1>
-      Clustering Geographic Data with HDBSCAN
+      3 Ways to Export a Pandas Dataframe
     </h1>
 <ol class="breadcrumb">
     <li>
-        <time class="published" datetime="2017-03-15T12:00:00-04:00">
-            15 March 2017
+        <time class="published" datetime="2017-04-02T12:00:00-04:00">
+            02 April 2017
         </time>
     </li>
-    <li>data_science</li>
+    <li>wrangling_data</li>
 </ol>
 </header>
 <div class='article_content'>
-<p>Geographic data has a high explanatory value. Many can look at a map and know what each area represents. However, as data scientists we know all too well the difficulties with applying clustering techniques to data in a map layout.</p>
-<h2>At a high level, we want to.</h2>
-<blockquote>
-<ul>
-<li>Cluster data points on a map into regions even if the density of the clusters vary, (i.e. rural vs. urban).</li>
-<li>Create clusters that are not required to follow a specific shape, (i.e. diameter of kmeans, or epsilon of DBSCAN).</li>
-</ul>
-</blockquote>
-<h2>By.</h2>
-<blockquote>
-<ul>
-<li>Using HDBSCAN to account for these issues.</li>
-<li>HDBSCAN has a great <a href= "http://hdbscan.readthedocs.io/en/latest/basic_hdbscan.html" target="_blank">tutorial here.</a></li>
-<li>They also have a tremendous overview of how their algorithm compares to other major ones <a href="http://hdbscan.readthedocs.io/en/latest/comparing_clustering_algorithms.html" target="_blank">here.</a></li>
-</ul>
-</blockquote>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="kn">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">hdbscan</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s1">&#39;fivethirtyeight&#39;</span><span class="p">)</span>
-<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
 </pre></div>
 
 
-<h3>Import the data.</h3>
-<div class="highlight"><pre><span></span><span class="c1"># Load in the dataset.</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/global_terrorism_sub_sahara.csv&#39;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="c1"># load in the data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Run the algorithm.</h3>
-<p>It is tremendously straight forward.</p>
-<div class="highlight"><pre><span></span><span class="c1"># Separate out the geographic data.</span>
-<span class="n">df_attacks</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-<span class="c1">#Instantiate the model and declare the min_sample size.</span>
-<span class="n">clusterer</span> <span class="o">=</span> <span class="n">hdbscan</span><span class="o">.</span><span class="n">HDBSCAN</span><span class="p">(</span><span class="n">min_samples</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
-
-<span class="c1">#Fit to the target dataframe.</span>
-<span class="n">clusterer</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">df_attacks</span><span class="p">)</span>
+<h3>Export to csv</h3>
+<p>Good for small to medium file sizes.</p>
+<div class="highlight"><pre><span></span><span class="c1"># use the .to_csv method and specify where to save.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores_saved.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>HDBSCAN(algorithm=&#39;best&#39;, allow_single_cluster=False, alpha=1.0,
-    approx_min_span_tree=True, core_dist_n_jobs=4, gen_min_span_tree=False,
-    leaf_size=40, match_reference_implementation=False,
-    memory=Memory(cachedir=None), metric=&#39;euclidean&#39;, min_cluster_size=5,
-    min_samples=50, p=None)
+<h3>Pickle the dataframe</h3>
+<p>Good for medium to large files, and when you need to read and write the dataframe multiple times.</p>
+<div class="highlight"><pre><span></span><span class="c1"># pandas has built-in pickling functionality that is as easy to use as the .to_csv method.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">to_pickle</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores_saved.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Create cluster labels.</h3>
-<div class="highlight"><pre><span></span><span class="c1">#Add a new column to the original dataframe that assigns each row to a cluster.</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;zone&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">clusterer</span><span class="o">.</span><span class="n">labels_</span>
-
-<span class="c1"># Sometimes there are clusters that get caught with low data points.</span>
-<span class="c1"># I am cleaning those here, but that is a small price to pay for what happens next.</span>
-<span class="n">df</span><span class="o">.</span><span class="n">zone</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="c1"># Renaming the cluster labels to something more meaningful</span>
-<span class="n">rename_dict</span> <span class="o">=</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="s1">&#39;-1&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">:</span><span class="s1">&#39;2&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span><span class="s1">&#39;3&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="s1">&#39;4&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">:</span><span class="s1">&#39;5&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span><span class="s1">&#39;6&#39;</span><span class="p">}</span>
-
-<span class="c1"># Add a new column that will also serve as a title for the chart.</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">&#39;Clusters of Attacks 50+&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">zone</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">rename_dict</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="c1"># NOTE: To read in a pickle file later use...</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_pickle</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores_saved.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<h3>Plot it.</h3>
-<div class="highlight"><pre><span></span><span class="c1"># boom.</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">lmplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;Clusters of Attacks 50+&#39;</span><span class="p">,</span> <span class="n">fit_reg</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<h3>Export to HDF5(pytable)</h3>
+<p>Best for reading in large files later.</p>
+<div class="highlight"><pre><span></span><span class="c1"># first, create the file.</span>
+<span class="n">store</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">HDFStore</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores_saved.h5&#39;</span><span class="p">)</span>
+
+<span class="c1"># then store the dataframe in the new file.</span>
+<span class="n">store</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
 </pre></div>
 
 
-<div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x111ed7c50&gt;
+<div class="highlight"><pre><span></span><span class="c1"># NOTE: To read in a HDF5 file later use...</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_hdf</span><span class="p">(</span><span class="s1">&#39;../data/sat_scores_saved.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<p><img alt="png" src="../images/clustering_geographic_data/output_10_1.png"></p>
-<h2>NOTE:</h2>
 <blockquote>
+<h6>Further reading</h6>
 <ul>
-<li>How the clusters don't follow a particular shape. Perfect for geographic data.</li>
-<li>That there is a cluster group called "-1" these are outliers and don't fall into a cluster which is a very handy feature for geographic data.</li>
-<li>Some clusters are really small and close together. Because densely packed data points, will cause the epsilon to become smaller which is perfect for splitting cities from suburban or rural regions.</li>
+<li>See this <a href="http://stackoverflow.com/questions/17098654/how-to-store-data-frame-using-pandas-python" target="_blank">Stack Overflow article</a> for more information on exporting.</li>
+<li>See this <a href="http://stackoverflow.com/questions/14591855/pandas-hdfstore-how-to-reopen" target="_blank">Stack Overflow article</a> for more information on importing HDF5.</li>
 </ul>
 </blockquote>
 </div>
