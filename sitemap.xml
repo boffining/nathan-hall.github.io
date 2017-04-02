@@ -5,8 +5,15 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>http://www.instantinate.com/</loc>
-<lastmod>2017-04-02T10:00:16-00:00</lastmod>
+<lastmod>2017-04-02T11:18:16-00:00</lastmod>
 <changefreq>daily</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>http://www.instantinate.com/data_science/tfidf_of_words_as_a_feature_with_textblob.html</loc>
+<lastmod>2017-04-02T12:00:00-04:00</lastmod>
+<changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
 
